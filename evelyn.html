@@ -1401,16 +1401,41 @@
 
     const IRONPAY_PLANS = {
       BR: {
-        weekly:  { amount: 2499,   currency: 'BRL', description: 'VIP Semanal - 7 Dias + Chat Privado' },
-        monthly: { amount: 6499,   currency: 'BRL', description: 'VIP Mensal + Chamadas de Vídeo' },
-        annual:  { amount: 19799,  currency: 'BRL', description: 'VIP Anual + Vídeo Chamadas + Saída VIP' }
+        weekly:  { amount: 2499,   currency: 'BRL', description: 'VIP Semanal - 7 Dias + Chat Privado', label: 'R$ 24,99' },
+        monthly: { amount: 6499,   currency: 'BRL', description: 'VIP Mensal + Chamadas de Vídeo', label: 'R$ 64,99' },
+        annual:  { amount: 19799,  currency: 'BRL', description: 'VIP Anual + Vídeo Chamadas + Saída VIP', label: 'R$ 197,99' }
       },
       MX: {
-        weekly:  { amount: 7900,   currency: 'MXN', description: 'VIP Semanal - 7 Dias + Chat Privado' },
-        monthly: { amount: 19900,  currency: 'MXN', description: 'VIP Mensal + Chamadas de Vídeo' },
-        annual:  { amount: 59900,  currency: 'MXN', description: 'VIP Anual + Vídeo Chamadas + Saída VIP' }
+        weekly:  { amount: 7900,   currency: 'MXN', description: 'VIP Semanal - 7 Dias + Chat Privado', label: 'MX$ 79.00' },
+        monthly: { amount: 19900,  currency: 'MXN', description: 'VIP Mensal + Chamadas de Vídeo', label: 'MX$ 199.00' },
+        annual:  { amount: 59900,  currency: 'MXN', description: 'VIP Anual + Vídeo Chamadas + Saída VIP', label: 'MX$ 599.00' }
+      },
+      USD: {
+        weekly:  { amount: 1499,   currency: 'USD', description: 'VIP Access - 7 Days', label: '$ 14.99' },
+        monthly: { amount: 4499,   currency: 'USD', description: 'VIP Content + Video Calls', label: '$ 44.99' },
+        annual:  { amount: 12499,  currency: 'USD', description: 'Everything + Exclusive Encounters', label: '$ 124.99' }
+      },
+      EUR: {
+        weekly:  { amount: 1499,   currency: 'EUR', description: 'VIP Access - 7 Days', label: '€ 14.99' },
+        monthly: { amount: 4499,   currency: 'EUR', description: 'VIP Content + Video Calls', label: '€ 44.99' },
+        annual:  { amount: 12499,  currency: 'EUR', description: 'Everything + Exclusive Encounters', label: '€ 124.99' }
+      },
+      GBP: {
+        weekly:  { amount: 1499,   currency: 'GBP', description: 'VIP Access - 7 Days', label: '£ 14.99' },
+        monthly: { amount: 4499,   currency: 'GBP', description: 'VIP Content + Video Calls', label: '£ 44.99' },
+        annual:  { amount: 12499,  currency: 'GBP', description: 'Everything + Exclusive Encounters', label: '£ 124.99' }
       }
     };
+
+    function getPlanForCountry(country) {
+      if (country === 'BR') return IRONPAY_PLANS.BR;
+      if (country === 'MX') return IRONPAY_PLANS.MX;
+      const eurCountries = ['PT', 'ES', 'FR', 'IT', 'DE', 'NL', 'BE', 'AT', 'GR', 'IE', 'FI'];
+      if (eurCountries.includes(country)) return IRONPAY_PLANS.EUR;
+      if (country === 'GB') return IRONPAY_PLANS.GBP;
+      return IRONPAY_PLANS.USD; // Default to USD
+    }
+
 
     // ---- Payment Modal HTML (injected once) ----
     function injectPaymentModal() {
@@ -1483,7 +1508,7 @@
 
     async function createIronPayCharge(plan) {
       const country  = localStorage.getItem('my_last_country') || 'BR';
-      const planData = IRONPAY_PLANS[country] && IRONPAY_PLANS[country][plan];
+      const planData = getPlanForCountry(country) && getPlanForCountry(country)[plan];
       if (!planData) { window.open(TELEGRAM_URL, '_blank'); return; }
 
       injectPaymentModal();
@@ -1595,7 +1620,7 @@
       const country = localStorage.getItem('my_last_country') || 'BR';
       trackClick('profile', 'subscribe_' + plan);
 
-      if (IRONPAY_PLANS[country]) {
+      if (getPlanForCountry(country)) {
         createIronPayCharge(plan);
       } else {
         window.location.href = TELEGRAM_URL;
@@ -1655,9 +1680,9 @@
         detectedLang = countryMap[detectedCountry] || 'en';
       }
 
-      // Update prices based on country for Xpag countries
-      if (XPAG_PLANS[detectedCountry]) {
-        const plans = XPAG_PLANS[detectedCountry];
+      // Update prices based on country
+      const plans = getPlanForCountry(detectedCountry);
+      if (plans) {
         document.querySelectorAll('.price-weekly').forEach(el => el.innerText = plans.weekly.label);
         document.querySelectorAll('.price-monthly').forEach(el => el.innerText = plans.monthly.label);
         document.querySelectorAll('.price-annual').forEach(el => el.innerText = plans.annual.label);
