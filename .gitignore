@@ -1,0 +1,17 @@
+# Large media files
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.svg
+assets/media/
+_backup_extras/
+target.txt
+fix.js
+fix.py
+.netlify/

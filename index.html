@@ -1,0 +1,610 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evelyn Oliver | Official Links</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --primary: #00bfff;
+      --text: #ffffff;
+      --text-dim: #94a3b8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(0, 191, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 191, 255, 0.05) 0%, transparent 40%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      padding: 3px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .verified {
+      color: var(--primary);
+      width: 18px;
+      height: 18px;
+    }
+
+    .username {
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      opacity: 0.9;
+    }
+
+    .bio {
+      color: var(--text-dim);
+      font-size: 14px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .links-area {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .link-btn {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 16px 20px;
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(30, 41, 59, 1);
+      border-color: var(--primary);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .link-btn.featured {
+      background: var(--primary);
+      color: #000;
+      box-shadow: 0 4px 15px rgba(0, 191, 255, 0.4);
+      border: none;
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0% {
+        box-shadow: 0 0 5px rgba(0, 191, 255, 0.4);
+        transform: scale(1);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(0, 191, 255, 0.8), 0 0 30px rgba(0, 191, 255, 0.4);
+        transform: scale(1.02);
+      }
+
+      100% {
+        box-shadow: 0 0 5px rgba(0, 191, 255, 0.4);
+        transform: scale(1);
+      }
+    }
+
+    .link-btn.featured:hover {
+      background: #009ecc;
+      box-shadow: 0 8px 25px rgba(0, 191, 255, 0.6);
+      animation: none;
+    }
+
+    .link-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .link-text {
+      flex-grow: 1;
+      text-align: center;
+      margin-right: 24px;
+      /* Offset for icon balance */
+    }
+
+    .social-footer {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icon {
+      color: var(--text-dim);
+      transition: color 0.3s;
+      width: 24px;
+      height: 24px;
+    }
+
+    .social-icon:hover {
+      color: var(--primary);
+    }
+
+    .footer-note {
+      margin-top: 50px;
+      font-size: 11px;
+      color: var(--text-dim);
+      opacity: 0.5;
+      padding-bottom: 20px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+        min-height: 100vh;
+      }
+
+      .container {
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .profile-img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: 22px;
+        margin-bottom: 8px;
+      }
+
+      .username {
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+
+      .bio {
+        font-size: 14px;
+        margin-bottom: 25px;
+        padding: 0 5px;
+      }
+
+      .links-area {
+        gap: 14px;
+      }
+
+      .link-btn {
+        padding: 16px 20px;
+        font-size: 16px;
+        border-radius: 14px;
+      }
+
+      .link-icon {
+        width: 26px;
+        height: 26px;
+      }
+
+      .social-footer {
+        margin-top: 35px;
+        gap: 25px;
+      }
+
+      .social-icon {
+        width: 28px;
+        height: 28px;
+      }
+
+      .footer-note {
+        margin-top: 35px;
+        font-size: 10px;
+        padding-bottom: 15px;
+      }
+    }
+  </style>
+    <!-- Security Protections -->
+    <script>
+      // 1. Disable Right Click
+      document.addEventListener('contextmenu', event => event.preventDefault());
+
+      // 2. Disable Keyboard Shortcuts (F12, Ctrl+Shift+I, Ctrl+U, etc)
+      document.onkeydown = function(e) {
+        if (e.keyCode == 123) { return false; } // F12
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; }
+      };
+
+      // 3. Prevent Dragging Images
+      document.addEventListener('dragstart', event => event.preventDefault());
+
+      // 4. Basic Anti-Iframe (Clickjacking protection)
+      if (window.top !== window.self) {
+          window.top.location = window.self.location;
+      }
+    </script>
+    <style>
+      /* Disable Text Selection */
+      body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      /* Prevent Image Saving on Mobile */
+      img, video {
+        pointer-events: none;
+        -webkit-touch-callout: none;
+      }
+      /* Allow clicks on buttons/links */
+      a, button, .link-card {
+        pointer-events: auto;
+      }
+    </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" alt="Evelyn Oliver" class="profile-img">
+
+    <h1>Evelyn Oliver 💎
+      <svg class="verified" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z" />
+      </svg>
+    </h1>
+
+    <!-- Username handle removed -->
+
+    <div class="bio" id="p-bio">Hello, babe 🍒 <br> Welcome to my official links area.</div>
+
+    <div class="links-area">
+      <!-- Main Destination -->
+      <a href="evelyn.html" class="link-btn featured"
+        onclick="return handleClick(event, 'bridge', 'main_cta', 'evelyn.html')">
+        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <span class="link-text" id="btn-only">ONLY EVELYN 🔞</span>
+      </a>
+
+      <a href="https://t.me/Premiumvipglobalbot" class="link-btn"
+        onclick="return handleClick(event, 'bridge', 'telegram', 'https://t.me/Premiumvipglobalbot')">
+        <svg class="link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2.033 16.01c.566.559 1.56 1.466 1.516 1.56-.051.107-.565-.116-2.126-.64-.265-.088-.506-.17-.741-.253l-2.074.722c-.628.219-1.125.044-1.125-.634 0-.171.028-.351.084-.537l.635-2.09c.075-.247.168-.495.204-.741l-.64-2.127c-.104-.627.072-1.125.75-1.125h.411c.245 0 .491.071.737.214l2.127.64c.247.074.496.167.741.205l2.092-.636c.626-.104 1.123.073 1.123.75v.412c0 .245-.072.491-.215.736l-.64 2.127c-.074.246-.168.495-.205.741l.636 2.09c.105.626-.073 1.123-.75 1.123h-.412c-.244 0-.49-.071-.735-.213l-2.127-.64c-.246-.073-.495-.166-.74-.204l-2.092.635c-.626.104-1.123-.073-1.123-.75v-.412c0-.244.072-.49.215-.735l.64-2.127c.073-.246.166-.495.204-.74l-.635-2.093c-.104-.626.073-1.123.75-1.123h.412c.244 0 .49.071.735.213l2.127.64c.246.073.495.167.741.205l2.092-.635c.626-.104 1.123.073 1.123.75v.412c0 .244-.072.49-.215.735l-.64 2.127c-.073.246-.167.494-.205.74z" />
+        </svg>
+        <span class="link-text" id="btn-tg">Telegram Group</span>
+      </a>
+
+      <div class="social-footer">
+        <a href="https://t.me/Premiumvipglobalbot"><svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M11.944 0C5.373 0 0 5.373 0 12c0 6.627 5.373 12 12 12s12-5.373 12-12c0-6.627-5.373-12-12-12zm-2.033 16.01c.566.559 1.56 1.466 1.516 1.56-.051.107-.565-.116-2.126-.64-.265-.088-.506-.17-.741-.253l-2.074.722c-.628.219-1.125.044-1.125-.634 0-.171.028-.351.084-.537l.635-2.09c.075-.247.168-.495.204-.741l-.64-2.127c-.104-.627.072-1.125.75-1.125h.411c.245 0 .491.071.737.214l2.127.64c.247.074.496.167.741.205l2.092-.636c.626-.104 1.123.073 1.123.75v.412c0 .245-.072.491-.215.736l-.64 2.127c-.074.246-.168.495-.205.741l.636 2.09c.105.626-.073 1.123-.75 1.123h-.412c-.244 0-.49-.071-.735-.213l-2.127-.64c-.246-.073-.495-.166-.74-.204l-2.092.635c-.626.104-1.123-.073-1.123-.75v-.412c0-.244.072-.49.215-.735l.64-2.127c.073-.246.166-.495.204-.74l-.635-2.093c-.104-.626.073-1.123.75-1.123h.412c.244 0 .49.071.735.213l2.127.64c.246.073.495.167.741.205l2.092-.635c.626-.104 1.123.073 1.123.75v.412c0 .244-.072.49-.215.735l-.64 2.127c-.073.246-.167.494-.205.74z" />
+          </svg></a>
+      </div>
+
+      <div class="footer-note">
+        © 2026 Evelyn Oliver. All rights reserved.
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const supabaseUrl = 'https://zdoezqsurnyldcghnjji.supabase.co';
+      const supabaseKey = 'sb_publishable_jgD0rsS6p1Rsw9UwsGA8oA_l8aS3kci';
+      const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+      // Função handleClick DEVE vir primeiro
+      // Função handleClick DEVE vir primeiro
+      function handleClick(event, page, button, url) {
+        event.preventDefault();
+
+        // Visual feedback
+        const target = event.currentTarget || event.target.closest('a');
+        if (target) {
+          const span = target.querySelector('.link-text');
+          if (span) span.innerText = 'Aguarde...';
+          target.style.opacity = '0.8';
+          target.style.pointerEvents = 'none';
+        }
+
+        // Use an IIFE to handle the async operation
+        (async () => {
+          try {
+            const timeout = new Promise(resolve => setTimeout(resolve, 1200)); // Wait up to 1.2s
+            const tracking = trackClick(page, button);
+            await Promise.race([tracking, timeout]);
+          } catch (e) {
+            console.error("Tracking flow error:", e);
+          }
+          window.location.href = url;
+        })();
+
+        return false;
+      }
+
+      function getMetrics() {
+        try {
+          const m = JSON.parse(localStorage.getItem('crm_metrics') || '{}');
+          // Ensure structure
+          if (!m.visits) m.visits = { bridge: 0, profile: 0 };
+          if (!m.clicks) m.clicks = { bridge: {}, profile: {} };
+          if (!m.details) m.details = [];
+          if (!m.clickDetails) m.clickDetails = [];
+          if (typeof m.nextUserId !== 'number') m.nextUserId = 0;
+          return m;
+        } catch (e) {
+          return { visits: { bridge: 0, profile: 0 }, clicks: { bridge: {}, profile: {} }, details: [], clickDetails: [], nextUserId: 0 };
+        }
+      }
+
+      function saveMetrics(m) {
+        localStorage.setItem('crm_metrics', JSON.stringify(m));
+      }
+
+      async function getUserId(currentCountry) {
+        let storedId = localStorage.getItem('my_supabase_user_id');
+
+        if (!storedId) {
+          try {
+            // Criar novo usuário no Supabase para ganhar o próximo ID da fila
+            const { data, error } = await supabaseClient
+              .from('analytics_users')
+              .insert([{}])
+              .select('id')
+              .single();
+
+            if (error) throw error;
+            storedId = data.id;
+            localStorage.setItem('my_supabase_user_id', storedId);
+            console.log("🆕 Novo ID Sequencial gerado no Supabase:", storedId);
+          } catch (e) {
+            console.error("Erro ao gerar ID no Supabase:", e);
+            // Fallback local se o banco falhar
+            storedId = Date.now();
+          }
+        }
+        return storedId;
+      }
+
+      async function trackClick(page, button) {
+        try {
+          // Ensure we have a user ID (from cache if possible to speed up)
+          let userId = localStorage.getItem('my_supabase_user_id');
+          if (!userId) {
+            userId = await getUserId(); // Fallback to async creation if absolutely needed
+          }
+
+          const userLang = localStorage.getItem('preferredLang') || 'en';
+          const userCountry = localStorage.getItem('my_last_country') || 'XX';
+
+          // Use native fetch with keepalive: true to ensure request survives navigation
+          // This is critical for the "Only Evelyn" button which triggers immediate navigation
+          const url = `${supabaseUrl}/rest/v1/analytics_events`;
+          const headers = {
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          };
+
+          const body = JSON.stringify({
+            user_id: userId,
+            event_type: 'click',
+            page: page,
+            item: button,
+            country: userCountry,
+            lang: userLang
+          });
+
+          // We return the fetch promise so handleClick can optionally wait, 
+          // but keepalive ensures it finishes even if we don't wait fully.
+          return fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: body,
+            keepalive: true
+          }).then(res => {
+            if (!res.ok) throw new Error('Tracking failed: ' + res.statusText);
+            console.log(`✅ Click tracked (keepalive): User ${userId} - ${page} → ${button}`);
+          });
+
+        } catch (e) {
+          console.error("Tracking error:", e);
+        }
+      }
+
+      function getUserCountry() {
+        // Helper no longer critical but kept for compatibility if needed elsewhere
+        try {
+          const metrics = JSON.parse(localStorage.getItem('crm_metrics') || '{}');
+          if (metrics.details && metrics.details.length > 0) {
+            return metrics.details[metrics.details.length - 1].country || 'XX';
+          }
+        } catch (e) { }
+        return 'XX';
+      }
+
+      async function trackVisit(page, details = {}) {
+        try {
+          if (details.country) {
+            localStorage.setItem('my_last_country', details.country);
+          }
+
+          const userId = await getUserId(details.country);
+
+          await supabaseClient.from('analytics_events').insert([{
+            user_id: userId,
+            event_type: 'visit',
+            page: page,
+            country: details.country || 'XX',
+            lang: details.lang || 'en'
+          }]);
+
+          console.log(`✅ Visit tracked to Supabase: User ${userId} - ${page}`);
+        } catch (e) {
+          console.error("Supabase visit error:", e);
+        }
+      }
+
+      const translations = {
+        pt: {
+          bio: 'Olá, babe 🍒 <br> Bem-vindo à minha área de links oficial.',
+          btnOnly: 'ONLY EVELYN 🔞',
+          btnTg: 'Grupo no Telegram',
+          btnTw: 'Twitter / X'
+        },
+        en: {
+          bio: 'Hello, babe 🍒 <br> Welcome to my official links area.',
+          btnOnly: 'ONLY EVELYN 🔞',
+          btnTg: 'Telegram Group',
+          btnTw: 'Twitter / X'
+        },
+        es: {
+          bio: 'Hola, babe 🍒 <br> Bienvenido a mi área de enlaces oficiales.',
+          btnOnly: 'SÓLO EVELYN 🔞',
+          btnTg: 'Grupo de Telegram',
+          btnTw: 'Twitter / X'
+        },
+        fr: {
+          bio: 'Salut, babe 🍒 <br> Bienvenue sur ma page de liens officiels.',
+          btnOnly: 'ONLY EVELYN 🔞',
+          btnTg: 'Groupe Telegram',
+          btnTw: 'Twitter / X'
+        },
+        it: {
+          bio: 'Ciao, babe 🍒 <br> Benvenuti nella mia area link ufficiale.',
+          btnOnly: 'SOLO EVELYN 🔞',
+          btnTg: 'Gruppo Telegram',
+          btnTw: 'Twitter / X'
+        }
+      };
+
+      function changeLanguage(lang) {
+        const t = translations[lang] || translations['en'];
+        document.getElementById('p-bio').innerHTML = t.bio;
+        document.getElementById('btn-only').innerText = t.btnOnly;
+        document.getElementById('btn-tg').innerText = t.btnTg;
+        document.getElementById('btn-tw').innerText = t.btnTw;
+        localStorage.setItem('preferredLang', lang);
+      }
+
+      async function detectAndSet() {
+        const browserLang = (navigator.language || '').split('-')[0];
+        const initialLang = translations[browserLang] ? browserLang : 'en';
+        changeLanguage(initialLang);
+
+        const geoApis = ['https://ipapi.co/json/', 'https://ipinfo.io/json', 'https://freeipapi.com/api/json'];
+        const timeout = new Promise(resolve => setTimeout(() => resolve('TIMEOUT'), 3000)); // 3s Timeout
+
+        const ipCheck = (async () => {
+          for (const api of geoApis) {
+            try {
+              const res = await fetch(api);
+              const data = await res.json();
+              const country = data.country_code || data.countryCode || data.country;
+              if (country) return country;
+            } catch (e) {
+              console.warn(`API ${api} failed`);
+            }
+          }
+          return 'XX';
+        })();
+
+        const finalCountry = await Promise.race([ipCheck, timeout]);
+        const countryMap = {
+          'BR': 'pt', 'PT': 'pt', 'AO': 'pt', 'MZ': 'pt',
+          'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'CL': 'es', 'PE': 'es',
+          'FR': 'fr', 'BE': 'fr', 'CH': 'fr', 'CA': 'fr',
+          'GB': 'gb', 'IE': 'gb', 'AU': 'en', 'NZ': 'en', 'US': 'en',
+          'IT': 'it'
+        };
+
+        if (finalCountry === 'TIMEOUT' || finalCountry === 'XX') {
+          detectedCountry = 'XX';
+          detectedLang = initialLang; // Better fallback
+        } else {
+          detectedCountry = finalCountry;
+          if (countryMap[detectedCountry]) {
+            detectedLang = countryMap[detectedCountry];
+          } else {
+            detectedLang = 'en';
+          }
+        }
+
+        changeLanguage(detectedLang);
+        trackVisit('bridge', { country: detectedCountry, lang: detectedLang });
+      }
+
+      document.addEventListener('DOMContentLoaded', detectAndSet);
+    </script>
+
+</body>
+
+</html>

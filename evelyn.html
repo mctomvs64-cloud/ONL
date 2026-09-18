@@ -1,0 +1,2010 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evelyn Oliver - Exclusive Content</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00bfff;
+      --secondary: #8a96a3;
+      --text-dark: #242529;
+      --bg-gray: #f0f2f5;
+      --border: #efefef;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: white;
+      color: var(--text-dark);
+      max-width: 600px;
+      margin: 0 auto;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+
+    /* ===== SPLASH SCREEN ===== */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #splash-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .splash-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: splashPulse 1.2s ease-in-out infinite;
+    }
+    .splash-of-icon {
+      width: 56px;
+      height: 56px;
+    }
+    .splash-text {
+      font-size: 36px;
+      font-weight: 700;
+      color: #00aff0;
+      letter-spacing: -0.5px;
+    }
+    @keyframes splashPulse {
+      0%   { transform: scale(1);    opacity: 1; }
+      50%  { transform: scale(1.07); opacity: 0.85; }
+      100% { transform: scale(1);    opacity: 1; }
+    }
+
+    /* Header Over Banner Look */
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 15px;
+      height: auto;
+      border-bottom: none;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-title {
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-stats-text {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 2px;
+    }
+
+    .header-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .header-stat-icon {
+      font-size: 14px;
+      margin-right: 2px;
+    }
+
+    /* Banner */
+    .banner-container {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      opacity: 0.9;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+    }
+
+    .banner-stats-overlay {
+      position: absolute;
+      bottom: 50px;
+      left: 15px;
+      display: flex;
+      gap: 15px;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .banner-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .banner-like-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Profile */
+    .profile-area {
+      position: relative;
+      padding: 0 15px 15px;
+    }
+
+    .profile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: -50px;
+    }
+
+    .profile-img-wrap {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #ff0000;
+      /* Red border from image */
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .profile-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 60px;
+    }
+
+    .action-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .profile-info {
+      margin-top: 15px;
+    }
+
+    .profile-name {
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .profile-username {
+      color: var(--secondary);
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .profile-bio {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .more-info-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Highlights */
+    .highlights-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 20px 15px;
+      scrollbar-width: none;
+    }
+
+    .highlights-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .highlight-card {
+      flex: 0 0 90px;
+      text-align: center;
+    }
+
+    .highlight-thumb {
+      width: 85px;
+      height: 85px;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      background: #eee;
+      margin-bottom: 5px;
+    }
+
+    .highlight-thumb img,
+    .highlight-thumb video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(15px);
+      transform: scale(1.3);
+    }
+
+    .highlight-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .highlight-label {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+      z-index: 2;
+      text-align: center;
+      padding: 0 5px;
+    }
+
+    /* Subscriptions */
+    .section-header {
+      padding: 15px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--secondary);
+      text-transform: uppercase;
+    }
+
+    .subscription-card {
+      margin: 0 15px 15px;
+      background: var(--primary);
+      border-radius: 30px;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0% {
+        box-shadow: 0 0 5px rgba(0, 191, 255, 0.4);
+        transform: scale(1);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(0, 191, 255, 0.8), 0 0 30px rgba(0, 191, 255, 0.4);
+        transform: scale(1.02);
+      }
+
+      100% {
+        box-shadow: 0 0 5px rgba(0, 191, 255, 0.4);
+        transform: scale(1);
+      }
+    }
+
+    .subscription-card:hover {
+      opacity: 0.95;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 191, 255, 0.5);
+      animation: none;
+    }
+
+    .btn-subscribe-locked {
+      width: 100%;
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      animation: pulse-glow 2s infinite;
+      transition: all 0.3s;
+    }
+
+    .btn-subscribe-locked:hover {
+      background-color: #009ecc;
+      transform: scale(1.02);
+      animation: none;
+    }
+
+    /* Tabs */
+    .main-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-top: 10px;
+    }
+
+    .tab-item {
+      flex: 1;
+      padding: 15px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--secondary);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tab-item.active {
+      color: var(--text-dark);
+    }
+
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #000;
+    }
+
+    /* Locked Section */
+    .locked-container {
+      background-color: #f8f9fb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 15px;
+      min-height: 400px;
+    }
+
+    .big-lock-icon {
+      color: #d1d9e6;
+      margin-bottom: 30px;
+    }
+
+    .sub-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sub-label {
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    .sub-btn-text {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .sub-right {
+      text-align: right;
+    }
+
+    .sub-price {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .locked-card {
+      width: 100%;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .locked-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      color: #8a96a3;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .locked-stats {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .locked-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Modal Profile Photo */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 50%;
+      border: 4px solid white;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    /* Feed */
+    .recent-header {
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--secondary);
+      font-size: 13px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .recent-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .post-card {
+      padding: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .post-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .post-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .post-info {
+      flex: 1;
+    }
+
+    .post-author {
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .post-date {
+      font-size: 13px;
+      color: var(--secondary);
+    }
+
+    .post-text {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .post-media {
+      width: 100%;
+      border-radius: 12px;
+      background: #000;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .post-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    .media-blur {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(15px);
+      opacity: 0.85;
+    }
+
+    .lock-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Media Carousel */
+    .media-carousel-container {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 15px 0;
+      padding: 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .media-carousel-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .media-carousel {
+      display: flex;
+      gap: 10px;
+      padding: 0 15px;
+      width: max-content;
+    }
+
+    .carousel-item {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #000;
+    }
+
+    .carousel-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(4px);
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .media-carousel-container.blurred .carousel-video {
+      filter: blur(25px);
+      transform: scale(1.3);
+    }
+
+    .carousel-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* SVG Components */
+    .svg-verified {
+      color: var(--primary);
+      width: 16px;
+      height: 16px;
+    }
+  </style>
+    <!-- Security Protections -->
+    <script>
+      // 1. Disable Right Click
+      document.addEventListener('contextmenu', event => event.preventDefault());
+
+      // 2. Disable Keyboard Shortcuts (F12, Ctrl+Shift+I, Ctrl+U, etc)
+      document.onkeydown = function(e) {
+        if (e.keyCode == 123) { return false; } // F12
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; }
+      };
+
+      // 3. Prevent Dragging Images
+      document.addEventListener('dragstart', event => event.preventDefault());
+
+      // 4. Basic Anti-Iframe (Clickjacking protection)
+      if (window.top !== window.self) {
+          window.top.location = window.self.location;
+      }
+    </script>
+    <style>
+      /* Disable Text Selection */
+      body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      /* Prevent Image Saving on Mobile */
+      img, video {
+        pointer-events: none;
+        -webkit-touch-callout: none;
+      }
+      /* Allow clicks on buttons/links */
+      a, button {
+        pointer-events: auto;
+      }
+    </style>
+</head>
+
+<body>
+
+  <!-- SPLASH SCREEN ONLYFANS -->
+  <div id="splash-screen">
+    <div class="splash-logo">
+      <!-- OnlyFans SVG icon -->
+      <svg class="splash-of-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="50" fill="#00aff0"/>
+        <path d="M50 20C33.43 20 20 33.43 20 50s13.43 30 30 30 30-13.43 30-30S66.57 20 50 20zm0 46c-8.84 0-16-7.16-16-16s7.16-16 16-16 16 7.16 16 16-7.16 16-16 16z" fill="white"/>
+        <path d="M72 28l-8 8a20 20 0 0 0-28.28 28.28L28 72A34 34 0 0 1 72 28z" fill="white" opacity="0.6"/>
+      </svg>
+      <span class="splash-text">OnlyFans</span>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="header-left">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <div>
+        <div class="header-title" id="h-name">Evelyn Oliver
+          <!-- Checkmark estilo OnlyFans original -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px;flex-shrink:0;vertical-align:middle">
+            <polygon points="12 2 15.09 3 18 1.5 19 4.59 22 5.5 21 8.5 22.5 11.41 20 13.5 20.5 16.5 17.5 17 16 19.5 13.1 18.5 10 20.5 8.5 18 5.59 18.5 4.5 15.5 2 14 3.5 11.09 2.5 8.5 5 7 5.5 4.09 8.5 4.5 10 2 12 2"></polygon>
+            <polyline points="9 12 11 14 15 10"></polyline>
+          </svg>
+        </div>
+        <div class="header-stats-text" id="h-stats">
+          <span class="header-stat-item">
+            <!-- Ícone foto/imagem -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span id="h-posts-cnt">503</span>
+          </span>
+          <span class="header-stat-item">·</span>
+          <span class="header-stat-item">
+            <!-- Ícone balão de comentário/chat -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span id="h-vids-cnt">227</span>
+          </span>
+          <span class="header-stat-item">·</span>
+          <span class="header-stat-item">
+            <!-- Ícone live/broadcast -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48 0a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+            <span style="text-decoration: underline;" id="h-live-cnt">30</span>
+          </span>
+          <span class="header-stat-item">·</span>
+          <span class="header-stat-item">
+            <!-- Ícone coração -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span id="h-likes-cnt">14.9K</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="banner-container">
+    <img src="assets/media/whatsapp image 2026-01-10 at 13.15.26.jpeg" class="banner-img" alt="Banner">
+    <div class="banner-overlay"></div>
+  </div>
+
+  <section class="profile-area">
+    <div class="profile-top">
+      <div class="profile-img-wrap">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" alt="Profile">
+      </div>
+      <div class="profile-actions" style="margin-top: 15px;">
+        <!-- Buttons removed here to match Mia Brandt image better, they are usually in header or info -->
+      </div>
+    </div>
+    <div class="profile-info-row" style="display: flex; justify-content: space-between; align-items: center;">
+      <div class="profile-info">
+        <div class="profile-name" id="p-name">Evelyn Oliver
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px;flex-shrink:0;vertical-align:middle">
+            <polygon points="12 2 15.09 3 18 1.5 19 4.59 22 5.5 21 8.5 22.5 11.41 20 13.5 20.5 16.5 17.5 17 16 19.5 13.1 18.5 10 20.5 8.5 18 5.59 18.5 4.5 15.5 2 14 3.5 11.09 2.5 8.5 5 7 5.5 4.09 8.5 4.5 10 2 12 2"></polygon>
+            <polyline points="9 12 11 14 15 10"></polyline>
+          </svg>
+        </div>
+        <div class="profile-username" id="p-user">@3velynoliver19 • <span style="color: #22c55e; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #22c55e;"></span><span id="p-seen">Online agora</span></span></div>
+      </div>
+      <div class="action-btn"
+        style="background: white; border: 1px solid #efefef; width: 45px; height: 45px; cursor: pointer;"
+        onclick="trackClick('profile', 'share')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+          <polyline points="16 6 12 2 8 6"></polyline>
+          <line x1="12" y1="2" x2="12" y2="15"></line>
+        </svg>
+      </div>
+    </div>
+    <div class="profile-bio" id="p-bio">
+      Hello ❤️<br>
+      <span id="bio-short">🚨🚨VOCÊ ACABOU DE ENTRAR NA PRIVACIDADE OFICIAL DA EVELYN OLIVER! Aqui você encontrará mais de 800 vídeos e fotos EXCLUSIVOS sem censura... <br></span>
+      <span id="bio-full" style="display:none;">🚨🚨VOCÊ ACABOU DE ENTRAR NA PRIVACIDADE OFICIAL DA EVELYN OLIVER! Aqui você encontrará mais de 800 vídeos e fotos EXCLUSIVOS sem censura. Todo o conteúdo é protegido por direitos autorais e monitorado (DMCA).<br>DM me, I promise I won't ghost u.. 👻</span>
+      <a href="#" class="more-info-link" id="p-more" onclick="event.preventDefault(); document.getElementById('bio-short').style.display='none'; document.getElementById('bio-full').style.display='inline'; this.style.display='none'; trackClick('profile', 'more_info');">Mais informações</a>
+    </div>
+  </section>
+
+  <!-- Blurred Rotating Media removed from top -->
+
+  <!-- Blurred Rotating Media (Replaces Highlights) -->
+
+
+
+
+  <div class="section-header" id="label-sub">ASSINATURA</div>
+
+  <!-- Plano semanal -->
+  <button onclick="handleSubscribe(event,'weekly')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 10px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
+    <div>
+      <div class="lbl-week-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">7 DIAS + CHAT PRIVADO</div>
+      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
+    </div>
+    <div class="price-weekly" style="font-size:18px;font-weight:800;">R$ 24,99</div>
+  </button>
+
+  <!-- Plano mensal -->
+  <button onclick="handleSubscribe(event,'monthly')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 10px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
+    <div>
+      <div class="lbl-sub-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">MENSAL + CHAMADAS DE VÍDEO</div>
+      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
+    </div>
+    <div class="price-monthly" style="font-size:18px;font-weight:800;">R$ 64,99</div>
+  </button>
+
+  <!-- Plano anual -->
+  <button onclick="handleSubscribe(event,'annual')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 20px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
+    <div>
+      <div class="lbl-pack-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">ANUAL + VÍDEO CHAMADAS + SAÍDA VIP</div>
+      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
+    </div>
+    <div class="price-annual" style="font-size:18px;font-weight:800;">R$ 197,99</div>
+  </button>
+
+  <div class="main-tabs">
+    <div class="tab-item active tab-posts-txt" onclick="trackClick('profile', 'tab_posts')">953 POSTAGENS</div>
+    <div class="tab-item tab-midia-txt" onclick="trackClick('profile', 'tab_media')">1027 MÍDIA</div>
+  </div>
+
+  <!-- Grid de posts bloqueados -->
+  <div style="background:#f8f9fb; padding: 0 0 20px;">
+
+    <!-- Helper macro substituted by individual post cards -->
+    <!-- Videos: 01, 02, 03, 0i0au959..., 1i1u8ra, ffff, img_4443, video 01, video_2025-08-31, video_2025-12-25_00, video_2025-12-25_01, videomelmaia03, xvideo -->
+
+    <!-- Post 1: 01.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">17 out, 2023</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-1">Conteúdo exclusivo para assinantes 🔥</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/01.mp4" autoplay loop muted playsinline></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 2.4K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 138</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 87</span>
+      </div>
+    </div>
+
+    <!-- Post 2: 02.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">10 nov, 2023</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-2">Novo vídeo exclusivo 😈 Só para assinantes!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/02.mp4" autoplay loop muted playsinline></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 3.1K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 209</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 112</span>
+      </div>
+    </div>
+
+    <!-- Post 4: ffff.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">20 jan, 2024</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-3">Conteúdo fresquinho! 😈👀 Não perca!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/ffff.mp4" autoplay loop muted playsinline></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 4.2K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 312</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 150</span>
+      </div>
+    </div>
+
+    <!-- Post 5: 1i1u8ra.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">14 fev, 2024</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-4">Mais um presentinho 🔥 Só para você!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/1i1u8ra.mp4" autoplay loop muted playsinline></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 5.5K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 420</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 211</span>
+      </div>
+    </div>
+
+    <!-- Post 7: video 01.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">18 abr, 2024</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-5">Aqui você vai ver de tudo 🔥🔥 Assine!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/video 01.mp4" autoplay loop muted playsinline></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 7.8K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 623</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 341</span>
+      </div>
+    </div>
+
+    <!-- Post 8: video_2025-08-31_22-56-38.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">31 ago, 2025</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-6">Recém saído 🔥 Só para quem é assinante!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/video_2025-08-31_22-56-38.mp4" autoplay loop muted playsinline></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 9.1K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 788</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 412</span>
+      </div>
+    </div>
+
+    <!-- Post 10: video_2025-12-25_01-39-49.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">25 dez, 2025</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-7">Última do dia ✨ Você não pode perder!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/video_2025-12-25_01-39-49.mp4" autoplay loop muted playsinline></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 8.7K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 714</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 389</span>
+      </div>
+    </div>
+
+    <!-- Post 12: 0i0au959gnoe5x7w8vjpo_source.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">20 jan, 2026</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-8">Novo conteúdo imperdível 😈🔥</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/0i0au959gnoe5x7w8vjpo_source.mp4" autoplay loop muted playsinline></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 14.9K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 1.5K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 742</span>
+      </div>
+    </div>
+
+    <!-- Post 2 -->
+
+    <!-- Post 4 -->
+
+    <!-- Post 5 -->
+
+    <!-- Botão central de assinatura -->
+    <div style="padding: 20px 15px 10px; text-align:center;">
+      <div style="color:#8a96a3;font-size:13px;margin-bottom:15px;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1d9e6" stroke-width="1.5" style="display:block;margin:0 auto 10px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span id="bs-main">Assine para desbloquear 953 publicações</span>
+      </div>
+      <button onclick="handleSubscribe(event,'monthly')" class="btn-subscribe-locked" id="btn-sub-lock2" style="display:block;width:100%;text-align:center;cursor:pointer;">ASSINE PARA VER AS PUBLICAÇÕES</button>
+    </div>
+  </div>
+
+  <!-- Espaço para a barra de navegação não cobrir conteúdo -->
+  <div style="height:60px;"></div>
+
+  <!-- Barra de navegação inferior estilo OnlyFans -->
+  <nav style="
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    border-top: 1px solid #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  ">
+    <!-- Ícone Home -->
+    <button onclick="trackClick('profile','nav_home')" style="background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#242529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </button>
+
+    <!-- Ícone três pontos (mais opções) -->
+    <button onclick="trackClick('profile','nav_more')" style="background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#242529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Profile Photo Modal -->
+  <div id="profileModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="modal-content">
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://zdoezqsurnyldcghnjji.supabase.co';
+    const supabaseKey = 'sb_publishable_jgD0rsS6p1Rsw9UwsGA8oA_l8aS3kci';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // Funções de tracking DEVEM vir primeiro
+    // Funções de tracking DEVEM vir primeiro
+    function handleClick(event, page, button, url) {
+      event.preventDefault();
+
+      // Visual feedback
+      const target = event.currentTarget || event.target.closest('a');
+      if (target) {
+        target.style.opacity = '0.7';
+        target.style.pointerEvents = 'none';
+        // Optional: Change text if strictly needed, but opacity is safer for various button layouts
+      }
+
+      (async () => {
+        try {
+          const timeout = new Promise(resolve => setTimeout(resolve, 1200)); // Wait up to 1.2s
+          const tracking = trackClick(page, button);
+          await Promise.race([tracking, timeout]);
+        } catch (e) {
+          console.error("Tracking flow error:", e);
+        }
+        window.location.href = url;
+      })();
+
+      return false;
+    }
+
+    // Obsolete local tracking functions removed in favor of Supabase integration below
+
+
+    const translations = {
+      pt: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Curtir',
+        seen: 'Online agora',
+        moreInfo: 'Mais informações',
+        bio: 'Evelyn Oliver 💎<br>Vem ver o que eu não posto no Instagram 😈<br>Conteúdo exclusivo todos os dias 🔥<br>👇 Assine agora e tenha acesso total!',
+        hl1: 'Destaques', hl2: 'Itália', hl3: 'Gostosa', hl4: 'Gata 🤣', hl5: 'Sol',
+        labelSub: 'ASSINATURA',
+        lblWeekBtn: '7 DIAS + CHAT PRIVADO',
+        priceWeekly: 'R$ 24,99',
+        lblSubBtn: 'MENSAL + CHAMADAS DE VÍDEO',
+        priceMonthly: 'R$ 64,99',
+        priceAnnual: 'R$ 197,99',
+        btnSubTxt: 'ASSINAR AGORA',
+        labelPacks: 'PACOTES DE ASSINATURA',
+        lblPackBtn: 'ANUAL + VÍDEO CHAMADAS + SAÍDA VIP',
+        btnSubLock: 'INSCREVE-TE PARA VER AS PUBLICAÇÕES DO UTILIZADOR',
+        tabPosts: '953 POSTAGENS',
+        tabMidia: '1027 MÍDIA',
+        labelRecente: 'RECENTE',
+        postDate: '17 out, 2023',
+        postContent: 'Confira os novos conteúdos exclusivos 😈',
+
+        post1: 'Conteúdo exclusivo para assinantes 🔥',
+        post2: 'Novo vídeo exclusivo 😈 Só para assinantes!',
+        post3: 'Conteúdo fresquinho! 😈👀 Não perca!',
+        post4: 'Mais um presentinho 🔥 Só para você!',
+        post5: 'Aqui você vai ver de tudo 🔥🔥 Assine!',
+        post6: 'Recém saído 🔥 Só para quem é assinante!',
+        post7: 'Última do dia ✨ Você não pode perder!',
+        post8: 'Novo conteúdo imperdível 😈🔥',
+
+      },
+      en: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Like',
+        seen: 'Online now',
+        moreInfo: 'More information',
+        bio: 'Evelyn Oliver 💎<br>See what I don\'t post on Instagram 😈<br>Exclusive content every day 🔥<br>👇 Subscribe now for full access!',
+        hl1: 'Highlights', hl2: 'Italy', hl3: 'Tasty', hl4: 'Hot 🤣', hl5: 'Sun',
+        labelSub: 'SUBSCRIPTION',
+        lblWeekBtn: '7 DAYS + PRIVATE CHAT',
+        priceWeekly: '$ 14.99',
+        lblSubBtn: 'MONTHLY + VIDEO CALLS',
+        priceMonthly: '$ 44.99',
+        priceAnnual: '$ 124.99',
+        btnSubTxt: 'SUBSCRIBE NOW',
+        labelPacks: 'SUBSCRIPTION PACKAGES',
+        lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
+        btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
+        tabPosts: '953 POSTS',
+        tabMidia: '1027 MEDIA',
+        labelRecente: 'RECENT',
+        postDate: 'Oct 17, 2023',
+        postContent: 'Check out the new exclusive content 😈',
+
+        post1: 'Exclusive content for subscribers 🔥',
+        post2: 'New exclusive video 😈 For subscribers only!',
+        post3: 'Fresh content! 😈👀 Don\'t miss out!',
+        post4: 'Another little gift 🔥 Just for you!',
+        post5: 'Here you will see everything 🔥🔥 Subscribe!',
+        post6: 'Fresh out 🔥 Only for subscribers!',
+        post7: 'Last one of the day ✨ You can\'t miss this!',
+        post8: 'New unmissable content 😈🔥',
+
+      },
+      es: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Me gusta',
+        seen: 'En línea ahora',
+        moreInfo: 'Más información',
+        bio: 'Evelyn Oliver 💎<br>Mira lo que no publico en Instagram 😈<br>Contenido exclusivo todos los días 🔥<br>👇 ¡Suscríbete ahora para acceso total!',
+        hl1: 'Destacados', hl2: 'Italia', hl3: 'Sabrosa', hl4: 'Gata 🤣', hl5: 'Sol',
+        labelSub: 'SUSCRIPCIÓN',
+        lblWeekBtn: '7 DÍAS + CHAT PRIVADO',
+        priceWeekly: '€ 14.99',
+        lblSubBtn: 'MENSUAL + VIDEOLLAMADAS',
+        priceMonthly: '€ 44.99',
+        priceAnnual: '€ 124.99',
+        btnSubTxt: 'SUSCRIBIRSE AHORA',
+        labelPacks: 'PAQUETES DE SUSCRIPCIÓN',
+        lblPackBtn: 'ANUAL + VIDEOLLAMADAS + SALIDA VIP',
+        btnSubLock: 'SUSCRÍBETE PARA VER LAS PUBLICACIONES DEL USUARIO',
+        tabPosts: '953 PUBLICACIONES',
+        tabMidia: '1027 MEDIA',
+        labelRecente: 'RECIENTE',
+        postDate: '17 oct, 2023',
+        postContent: 'Mira los nuevos contenidos exclusivos 😈',
+
+        post1: 'Contenido exclusivo para suscriptores 🔥',
+        post2: '¡Nuevo video exclusivo 😈 Solo para suscriptores!',
+        post3: '¡Contenido fresquito! 😈👀 ¡No te lo pierdas!',
+        post4: 'Un regalito más 🔥 ¡Solo para ti!',
+        post5: 'Aquí verás de todo 🔥🔥 ¡Suscríbete!',
+        post6: '¡Recién salido 🔥 Solo para suscriptores!',
+        post7: '¡El último del día ✨ No te lo puedes perder!',
+        post8: 'Nuevo contenido imperdible 😈🔥',
+
+      },
+      fr: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'J’aime',
+        seen: 'En ligne maintenant',
+        moreInfo: 'Plus d\'informations',
+        bio: 'Evelyn Oliver 💎<br>Découvrez ce que je ne poste pas sur Instagram 😈<br>Contenu exclusif chaque jour 🔥<br>👇 Abonnez-vous maintenant pour un accès total!',
+        hl1: 'Points forts', hl2: 'Italie', hl3: 'Savoureuse', hl4: 'Belle 🤣', hl5: 'Soleil',
+        labelSub: 'ABONNEMENT',
+        lblWeekBtn: '7 JOURS + CHAT PRIVÉ',
+        priceWeekly: '14.99€',
+        lblSubBtn: 'MENSUEL + APPELS VIDÉO',
+        priceMonthly: '44.99€',
+        priceAnnual: '124.99€',
+        btnSubTxt: 'S\'ABONNER MAINTENANT',
+        labelPacks: 'FORFAITS D\'ABONNEMENT',
+        lblPackBtn: 'ANNUEL + APPELS VIDÉO + SORTIE VIP',
+        btnSubLock: 'ABONNEZ-VOUS POUR VOIR LES PUBLICATIONS DE L\'UTILISATEUR',
+        tabPosts: '953 POSTS',
+        tabMidia: '1027 MÉDIAS',
+        labelRecente: 'RÉCENT',
+        postDate: '17 oct. 2023',
+        postContent: 'Découvrez les nouveaux contenus exclusifs 😈',
+
+        post1: 'Contenu exclusif pour les abonnés 🔥',
+        post2: 'Nouvelle vidéo exclusive 😈 Uniquement pour les abonnés !',
+        post3: 'Contenu tout frais ! 😈👀 À ne pas manquer !',
+        post4: 'Un petit cadeau de plus 🔥 Rien que pour toi !',
+        post5: 'Ici tu verras de tout 🔥🔥 Abonne-toi !',
+        post6: 'Tout juste sorti 🔥 Uniquement pour ceux qui sont abonnés !',
+        post7: 'Le dernier de la journée ✨ Tu ne peux pas rater ça !',
+        post8: 'Nouveau contenu incontournable 😈🔥',
+
+      },
+      gb: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Like',
+        seen: 'Online now',
+        moreInfo: 'More information',
+        bio: 'Evelyn Oliver 💎<br>See what I don\'t post on Instagram 😈<br>Exclusive content every day 🔥<br>👇 Subscribe now for full access!',
+        hl1: 'Highlights', hl2: 'Italy', hl3: 'Tasty', hl4: 'Hot 🤣', hl5: 'Sun',
+        labelSub: 'SUBSCRIPTION',
+        lblWeekBtn: '7 DAYS + PRIVATE CHAT',
+        priceWeekly: '£14.99',
+        lblSubBtn: 'MONTHLY + VIDEO CALLS',
+        priceMonthly: '£44.99',
+        priceAnnual: '£124.99',
+        btnSubTxt: 'SUBSCRIBE NOW',
+        labelPacks: 'SUBSCRIPTION PACKAGES',
+        lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
+        btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
+        tabPosts: '953 POSTS',
+        tabMidia: '1027 MEDIA',
+        labelRecente: 'RECENT',
+        postDate: 'Oct 17, 2023',
+        postContent: 'Check out the new exclusive content 😈'
+      },
+      it: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Mi piace',
+        seen: 'Online ora',
+        moreInfo: 'Più informazioni',
+        bio: 'Evelyn Oliver 💎<br>Guarda cosa non pubblico su Instagram 😈<br>Contenuti esclusivi ogni giorno 🔥<br>👇 Abbonati ora per l\'accesso totale!',
+        hl1: 'In evidenza', hl2: 'Italia', hl3: 'Sexy', hl4: 'Bella 🤣', hl5: 'Sole',
+        labelSub: 'ABBONAMENTO',
+        lblWeekBtn: '7 GIORNI + CHAT PRIVATA',
+        priceWeekly: '€ 14.99',
+        lblSubBtn: 'MENSILE + VIDEOCHIAMATE',
+        priceMonthly: '€ 44.99',
+        priceAnnual: '€ 124.99',
+        btnSubTxt: 'ABBONATI ORA',
+        labelPacks: 'PACCHETTI ABBONAMENTO',
+        lblPackBtn: 'ANNUALE + VIDEOCHIAMATE + USCITA VIP',
+        btnSubLock: 'ABBONATI PER VEDERE I POST DELL\'UTENTE',
+        tabPosts: '953 POST',
+        tabMidia: '1027 MEDIA',
+        labelRecente: 'RECENTE',
+        postDate: '17 ott, 2023',
+        postContent: 'Scopri i nuovi contenuti esclusivi 😈',
+
+        post1: 'Contenuto esclusivo per gli abbonati 🔥',
+        post2: 'Nuovo video esclusivo 😈 Solo per gli abbonati!',
+        post3: 'Contenuto freschissimo! 😈👀 Non perderlo!',
+        post4: 'Un altro regalino 🔥 Solo per te!',
+        post5: 'Qui vedrai di tutto 🔥🔥 Abbonati!',
+        post6: 'Appena uscito 🔥 Solo per chi è abbonato!',
+        post7: 'L\'ultimo della giornata ✨ Non puoi perderlo!',
+        post8: 'Nuovo contenuto imperdibile 😈🔥',
+
+      }
+    };
+
+    function changeLanguage(lang) {
+      const t = translations[lang] || translations['en'];
+      try {
+        document.getElementById('h-name').innerHTML = t.hName + ' <svg class="svg-verified" style="color: #00bfff" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg>';
+        document.getElementById('h-posts-cnt').innerText = '812';
+        document.getElementById('h-vids-cnt').innerText = '134';
+        document.getElementById('h-likes-cnt').innerText = '354K';
+        if (document.getElementById('btn-like')) document.getElementById('btn-like').innerText = t.btnLike;
+        document.getElementById('p-bio').innerHTML = t.bio;
+        document.getElementById('p-seen').innerText = t.seen;
+        document.getElementById('label-sub').innerText = t.labelSub;
+        document.querySelectorAll('.lbl-week-btn').forEach(el => el.innerText = t.lblWeekBtn);
+        document.querySelectorAll('.btn-sub-txt').forEach(el => el.innerText = t.btnSubTxt);
+        document.querySelectorAll('.price-weekly').forEach(el => el.innerText = t.priceWeekly);
+        document.querySelectorAll('.lbl-sub-btn').forEach(el => el.innerText = t.lblSubBtn);
+        document.querySelectorAll('.price-monthly').forEach(el => el.innerText = t.priceMonthly);
+        if (document.getElementById('label-packs')) document.getElementById('label-packs').innerText = t.labelPacks;
+        document.querySelectorAll('.lbl-pack-btn').forEach(el => el.innerText = t.lblPackBtn);
+        document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceAnnual);
+        document.querySelectorAll('.tab-posts-txt').forEach(el => el.innerText = t.tabPosts);
+        document.querySelectorAll('.tab-midia-txt').forEach(el => el.innerText = t.tabMidia);
+        document.querySelectorAll('#btn-sub-lock, #btn-sub-lock2').forEach(el => el.innerText = t.btnSubLock);
+
+        for(let i=1; i<=8; i++) {
+            if(document.getElementById('post-text-' + i) && t['post'+i]) {
+                document.getElementById('post-text-' + i).innerText = t['post'+i];
+            }
+        }
+
+      } catch(e) { console.warn('Translation error:', e); }
+      localStorage.setItem('preferredLang', lang);
+    }
+
+    // ============================================================
+    // IRONPAY PAYMENT INTEGRATION
+    // Auth: api_token in request body
+    // PIX checkout for all countries (BRL)
+    // Fallback → Telegram
+    // ============================================================
+        const IRONPAY_API_TOKEN = '2ox8phHYN9DUVMLdRl06uRr6FgprkMA9fMKI6FhX9CbK9EINvo09Uv49p4bp';
+    const IRONPAY_BASE_URL  = '/api/ironpay';
+    const TELEGRAM_URL      = 'https://t.me/Premiumvipglobalbot';
+
+    const IRONPAY_PLANS = {
+      BR: {
+        weekly:  { amount: 2499,   currency: 'BRL', description: 'VIP Semanal - 7 Dias + Chat Privado' },
+        monthly: { amount: 6499,   currency: 'BRL', description: 'VIP Mensal + Chamadas de Vídeo' },
+        annual:  { amount: 19799,  currency: 'BRL', description: 'VIP Anual + Vídeo Chamadas + Saída VIP' }
+      },
+      MX: {
+        weekly:  { amount: 7900,   currency: 'MXN', description: 'VIP Semanal - 7 Dias + Chat Privado' },
+        monthly: { amount: 19900,  currency: 'MXN', description: 'VIP Mensal + Chamadas de Vídeo' },
+        annual:  { amount: 59900,  currency: 'MXN', description: 'VIP Anual + Vídeo Chamadas + Saída VIP' }
+      }
+    };
+
+    // ---- Payment Modal HTML (injected once) ----
+    function injectPaymentModal() {
+      if (document.getElementById('ironpay-modal')) return;
+      document.body.insertAdjacentHTML('beforeend', `
+        <div id="ironpay-modal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;padding:20px;">
+          <div style="background:#fff;border-radius:20px;padding:28px 22px;max-width:380px;width:100%;text-align:center;position:relative;">
+            <button onclick="document.getElementById('ironpay-modal').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#999;">&times;</button>
+            <div id="ironpay-modal-title" style="font-size:16px;font-weight:800;margin-bottom:6px;color:#242529;">Gerando pagamento...</div>
+            <div id="ironpay-modal-subtitle" style="font-size:13px;color:#8a96a3;margin-bottom:18px;"></div>
+            <div id="ironpay-modal-body" style="min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
+              <div id="ironpay-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+            </div>
+            <div id="ironpay-copy-area" style="display:none;margin-top:14px;">
+              <div id="ironpay-copy-code" style="background:#f0f2f5;border-radius:10px;padding:10px 14px;font-size:11px;word-break:break-all;color:#555;max-height:80px;overflow-y:auto;text-align:left;"></div>
+              <button onclick="copyIronPayCode()" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Copiar Código PIX</button>
+            </div>
+            <div id="ironpay-clabe-area" style="display:none;margin-top:10px;text-align:left;">
+              <div id="ironpay-clabe-info" style="background:#f0f2f5;border-radius:10px;padding:14px;font-size:13px;color:#333;line-height:1.8;"></div>
+              <button onclick="copyIronPayClabe()" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Copiar CLABE</button>
+            </div>
+            <div id="ironpay-checkout-link" style="display:none;margin-top:14px;">
+              <a id="ironpay-checkout-url" href="#" target="_blank" style="display:block;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;text-decoration:none;text-align:center;">Pagar Agora</a>
+            </div>
+            <p style="font-size:11px;color:#aaa;margin-top:14px;">Após o pagamento, você receberá o acesso via Telegram</p>
+          </div>
+        </div>
+        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+      `);
+    }
+
+    function showPaymentModal() {
+      const m = document.getElementById('ironpay-modal');
+      m.style.display = 'flex';
+    }
+
+    function setModalLoading() {
+      document.getElementById('ironpay-modal-title').textContent = 'Gerando pagamento...';
+      document.getElementById('ironpay-modal-subtitle').textContent = '';
+      document.getElementById('ironpay-copy-area').style.display = 'none';
+      document.getElementById('ironpay-clabe-area').style.display = 'none';
+      document.getElementById('ironpay-checkout-link').style.display = 'none';
+      document.getElementById('ironpay-modal-body').innerHTML = '<div id="ironpay-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:spin 0.8s linear infinite;"></div>';
+    }
+
+    function setModalError(msg) {
+      document.getElementById('ironpay-modal-title').textContent = 'Erro ao gerar pagamento';
+      document.getElementById('ironpay-modal-subtitle').textContent = msg || 'Tente novamente ou use o Telegram.';
+      document.getElementById('ironpay-modal-body').innerHTML = '<button onclick="window.open(\'' + TELEGRAM_URL + '\', \'_blank\')" style="background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;">Acessar via Telegram</button>';
+    }
+
+    let _pixCopyCode = '';
+    let _clabeValue  = '';
+
+    function copyIronPayCode() {
+      navigator.clipboard.writeText(_pixCopyCode).then(() => alert('Código PIX copiado!')).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = _pixCopyCode;
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta); alert('Código PIX copiado!');
+      });
+    }
+
+    function copyIronPayClabe() {
+      navigator.clipboard.writeText(_clabeValue).then(() => alert('CLABE copiada!')).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = _clabeValue;
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta); alert('CLABE copiada!');
+      });
+    }
+
+    async function createIronPayCharge(plan) {
+      const country  = localStorage.getItem('my_last_country') || 'BR';
+      const planData = IRONPAY_PLANS[country] && IRONPAY_PLANS[country][plan];
+      if (!planData) { window.open(TELEGRAM_URL, '_blank'); return; }
+
+      injectPaymentModal();
+      showPaymentModal();
+      setModalLoading();
+
+      try {
+        const res = await fetch(IRONPAY_BASE_URL + '/transactions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            api_token:      IRONPAY_API_TOKEN,
+            amount:         planData.amount,
+            currency:       planData.currency, // Send currency dynamically
+            payment_method: country === 'MX' ? 'transfer' : 'pix', // Assuming IronPay uses transfer/spei for MXN
+            description:    planData.description,
+            postback_url:   TELEGRAM_URL,
+            customer: {
+              name:  'Assinante VIP',
+              email: 'assinante@vip.com'
+            }
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || data.error || 'Erro na API IronPay');
+        }
+
+        const txData = data.data || data.transaction || data;
+
+        const qrImg = txData.qr_code_url || txData.qr_code_image || txData.qr_img || txData.pix_qr_code_url || null;
+        const copyPaste = txData.qr_code || txData.copy_paste || txData.pix_code || txData.pix_copy_paste || txData.emv || txData.brcode || '';
+        const checkoutUrl = txData.checkout_url || txData.payment_url || txData.url || null;
+
+        if (country === 'BR' || txData.payment_method === 'pix') {
+            document.getElementById('ironpay-modal-title').textContent = 'Pague via PIX';
+            document.getElementById('ironpay-modal-subtitle').textContent = 'Escaneie o QR Code ou copie o código';
+
+            if (qrImg) {
+              document.getElementById('ironpay-modal-body').innerHTML =
+                '<img src="' + qrImg + '" style="width:200px;height:200px;border-radius:12px;" alt="QR Code PIX">';
+            } else if (checkoutUrl) {
+              document.getElementById('ironpay-modal-body').innerHTML =
+                '<p style="color:#555;font-size:13px;">Clique no botão abaixo para concluir o pagamento</p>';
+              document.getElementById('ironpay-checkout-link').style.display = 'block';
+              document.getElementById('ironpay-checkout-url').href = checkoutUrl;
+            } else {
+              document.getElementById('ironpay-modal-body').innerHTML =
+                '<p style="color:#aaa;font-size:13px;">QR Code não disponível — use o código abaixo</p>';
+            }
+
+            _pixCopyCode = copyPaste;
+            if (_pixCopyCode) {
+              document.getElementById('ironpay-copy-area').style.display = 'block';
+              document.getElementById('ironpay-copy-code').textContent = _pixCopyCode;
+            }
+        } else if (country === 'MX' || txData.payment_method === 'spei') {
+            _clabeValue = txData.clabe || txData.account_number || '';
+            const bank  = txData.bank_name || 'STP';
+            const benef = txData.beneficiary || 'Zypher';
+            const ref   = txData.reference || '';
+  
+            document.getElementById('ironpay-modal-title').textContent = 'Transferência SPEI';
+            document.getElementById('ironpay-modal-subtitle').textContent = 'Realice la transferencia a los siguientes datos';
+            document.getElementById('ironpay-modal-body').innerHTML = '';
+            document.getElementById('ironpay-clabe-area').style.display = 'block';
+            document.getElementById('ironpay-clabe-info').innerHTML =
+              `<b>Banco:</b> ${bank}<br>` +
+              `<b>Beneficiario:</b> ${benef}<br>` +
+              `<b>CLABE:</b> <span style="font-family:monospace;font-weight:700;">${_clabeValue}</span><br>` +
+              (ref ? `<b>Referencia:</b> ${ref}<br>` : '') +
+              `<b>Monto:</b> ${planData.currency} ${(planData.amount/100).toFixed(2)}`;
+        }
+
+        if (!qrImg && !copyPaste && !checkoutUrl && !_clabeValue) {
+          const hash = txData.hash || txData.transaction_hash || txData.id || '';
+          if (hash) {
+            document.getElementById('ironpay-modal-title').textContent = 'Pagamento Criado';
+            document.getElementById('ironpay-modal-subtitle').textContent = 'ID: ' + hash;
+            document.getElementById('ironpay-modal-body').innerHTML =
+              '<p style="color:#555;font-size:13px;">Pagamento registrado. Acesse o Telegram para concluir.</p>' +
+              '<button onclick="window.open(\'' + TELEGRAM_URL + '\', \'_blank\')" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;">Acessar Telegram</button>';
+          } else {
+            setModalError('Resposta inesperada. Tente via Telegram.');
+          }
+        }
+
+      } catch (e) {
+        console.error('IronPay error:', e);
+        const isCors = e.message === 'Failed to fetch';
+        if (isCors) {
+          setModalError('Erro de conexão. Publique no Netlify para ativar os pagamentos ou acesse via Telegram.');
+        } else {
+          setModalError(e.message);
+        }
+      }
+    }
+
+    function handleSubscribe(event, plan) {
+      event.preventDefault();
+      const btn = event.currentTarget;
+      if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
+      setTimeout(() => { if(btn){ btn.style.opacity='1'; btn.style.pointerEvents='auto'; } }, 3000);
+
+      const country = localStorage.getItem('my_last_country') || 'BR';
+      trackClick('profile', 'subscribe_' + plan);
+
+      if (IRONPAY_PLANS[country]) {
+        createIronPayCharge(plan);
+      } else {
+        window.location.href = TELEGRAM_URL;
+      }
+    }
+    // ============================================================
+      document.body.insertAdjacentHTML('beforeend', `
+        <div id="xpag-modal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;padding:20px;">
+          <div style="background:#fff;border-radius:20px;padding:28px 22px;max-width:380px;width:100%;text-align:center;position:relative;">
+            <button onclick="document.getElementById('xpag-modal').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#999;">&times;</button>
+            <div id="xpag-modal-title" style="font-size:16px;font-weight:800;margin-bottom:6px;color:#242529;">Gerando pagamento...</div>
+            <div id="xpag-modal-subtitle" style="font-size:13px;color:#8a96a3;margin-bottom:18px;"></div>
+            <div id="xpag-modal-body" style="min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
+              <div id="xpag-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+            </div>
+            <div id="xpag-copy-area" style="display:none;margin-top:14px;">
+              <div id="xpag-copy-code" style="background:#f0f2f5;border-radius:10px;padding:10px 14px;font-size:11px;word-break:break-all;color:#555;max-height:80px;overflow-y:auto;text-align:left;"></div>
+              <button onclick="copyXpagCode()" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Copiar Código</button>
+            </div>
+            <div id="xpag-clabe-area" style="display:none;margin-top:10px;text-align:left;">
+              <div id="xpag-clabe-info" style="background:#f0f2f5;border-radius:10px;padding:14px;font-size:13px;color:#333;line-height:1.8;"></div>
+              <button onclick="copyXpagClabe()" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Copiar CLABE</button>
+            </div>
+            <p style="font-size:11px;color:#aaa;margin-top:14px;">Após o pagamento, você receberá o acesso via Telegram</p>
+          </div>
+        </div>
+        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+      `);
+    }
+
+    function showPaymentModal() {
+      const m = document.getElementById('xpag-modal');
+      m.style.display = 'flex';
+    }
+
+    function setModalLoading() {
+      document.getElementById('xpag-modal-title').textContent = 'Gerando pagamento...';
+      document.getElementById('xpag-modal-subtitle').textContent = '';
+      document.getElementById('xpag-spinner').style.display = 'block';
+      document.getElementById('xpag-copy-area').style.display = 'none';
+      document.getElementById('xpag-clabe-area').style.display = 'none';
+      document.getElementById('xpag-modal-body').innerHTML = '<div id="xpag-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:spin 0.8s linear infinite;"></div>';
+    }
+
+    function setModalError(msg) {
+      document.getElementById('xpag-modal-title').textContent = 'Erro ao gerar pagamento';
+      document.getElementById('xpag-modal-subtitle').textContent = msg || 'Tente novamente ou use o Telegram.';
+      document.getElementById('xpag-modal-body').innerHTML = '<button onclick="window.location.href=TELEGRAM_URL" style="background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;">Acessar via Telegram</button>';
+    }
+
+    let _pixCopyCode = '';
+    let _clabeValue  = '';
+
+    function copyXpagCode() {
+      navigator.clipboard.writeText(_pixCopyCode).then(() => alert('Código PIX copiado!')).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = _pixCopyCode;
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta); alert('Código PIX copiado!');
+      });
+    }
+
+    function copyXpagClabe() {
+      navigator.clipboard.writeText(_clabeValue).then(() => alert('CLABE copiada!')).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = _clabeValue;
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta); alert('CLABE copiada!');
+      });
+    }
+
+    async function createXpagCharge(plan) {
+      const country  = localStorage.getItem('my_last_country') || 'BR';
+      const planData = XPAG_PLANS[country] && XPAG_PLANS[country][plan];
+      if (!planData) { window.location.href = TELEGRAM_URL; return; }
+
+      injectPaymentModal();
+      showPaymentModal();
+      setModalLoading();
+
+      const external_id = 'VIP-' + Date.now();
+      const description = 'VIP Evelyn Oliver — ' + plan;
+
+      try {
+        const res = await fetch(XPAG_BASE_URL + '/cashin', {
+          method: 'POST',
+          headers: {
+            'X-Client-Id': XPAG_CLIENT_ID,
+            'X-Client-Secret': XPAG_CLIENT_SECRET,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            currency:    planData.currency,
+            amount:      planData.amount,
+            description: description,
+            external_id: external_id,
+            webhook_url: 'https://t.me/Premiumvipglobalbot'
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || 'Erro na API');
+        }
+
+        if (planData.currency === 'BRL') {
+          // PIX QR Code
+          const qrHtml = data.qr_img
+            ? `<img src="${data.qr_img}" style="width:200px;height:200px;border-radius:12px;" alt="QR PIX">`
+            : '<p style="color:#aaa;font-size:13px;">QR não disponível — use o código abaixo</p>';
+
+          document.getElementById('xpag-modal-title').textContent = 'Pague via PIX';
+          document.getElementById('xpag-modal-subtitle').textContent = 'Escaneie o QR ou copie o código';
+          document.getElementById('xpag-modal-body').innerHTML = qrHtml;
+
+          _pixCopyCode = data.copyPaste || data.copy_paste || data.code || '';
+          if (_pixCopyCode) {
+            document.getElementById('xpag-copy-area').style.display = 'block';
+            document.getElementById('xpag-copy-code').textContent = _pixCopyCode;
+          }
+
+        } else if (planData.currency === 'MXN') {
+          // SPEI CLABE
+          _clabeValue = data.clabe || '';
+          const bank  = data.bank_name || 'STP';
+          const benef = data.beneficiary || 'Zypher';
+          const ref   = data.reference || '';
+
+          document.getElementById('xpag-modal-title').textContent = 'Transferência SPEI';
+          document.getElementById('xpag-modal-subtitle').textContent = 'Realice la transferencia a los siguientes datos';
+          document.getElementById('xpag-modal-body').innerHTML = '';
+          document.getElementById('xpag-clabe-area').style.display = 'block';
+          document.getElementById('xpag-clabe-info').innerHTML =
+            `<b>Banco:</b> ${bank}<br>` +
+            `<b>Beneficiario:</b> ${benef}<br>` +
+            `<b>CLABE:</b> <span style="font-family:monospace;font-weight:700;">${_clabeValue}</span><br>` +
+            (ref ? `<b>Referencia:</b> ${ref}<br>` : '') +
+            `<b>Monto:</b> MX$ ${planData.amount.toFixed(2)}`;
+        }
+
+      } catch (e) {
+        console.error('Xpag error:', e);
+        const isCors = e.message === 'Failed to fetch';
+        if (isCors) {
+          setModalError('Configure seu CORS ou publique no Netlify para ativar os pagamentos. Clique abaixo para acessar via Telegram.');
+        } else {
+          setModalError(e.message);
+        }
+      }
+    }
+
+    function handleSubscribe(event, plan) {
+      event.preventDefault();
+      const btn = event.currentTarget;
+      if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
+      setTimeout(() => { if(btn){ btn.style.opacity='1'; btn.style.pointerEvents='auto'; } }, 3000);
+
+      const country = localStorage.getItem('my_last_country') || 'BR';
+      trackClick('profile', 'subscribe_' + plan);
+
+      if (XPAG_COUNTRIES.includes(country)) {
+        createXpagCharge(plan);
+      } else {
+        window.location.href = TELEGRAM_URL;
+      }
+    }
+    // ============================================================
+
+    async function detectAndSet() {
+      const browserLang = (navigator.language || '').split('-')[0];
+      const initialLang = translations[browserLang] ? browserLang : 'en';
+      changeLanguage(initialLang);
+
+      const geoApis = ['https://ipapi.co/json/', 'https://ipinfo.io/json', 'https://freeipapi.com/api/json'];
+      let detectedCountry = 'BR';
+      let detectedLang = initialLang;
+
+      const timeout = new Promise(resolve => setTimeout(() => resolve('TIMEOUT'), 2500));
+
+      const ipCheck = (async () => {
+        for (const api of geoApis) {
+          try {
+            const res = await fetch(api);
+            const data = await res.json();
+            const country = data.country_code || data.countryCode || data.country;
+            if (country) return country;
+          } catch (e) {
+            console.warn('Geo API failed:', api);
+          }
+        }
+        return 'XX';
+      })();
+
+      const finalCountry = await Promise.race([ipCheck, timeout]);
+
+      const countryMap = {
+        // Portuguese
+        'BR': 'pt', 'PT': 'pt', 'AO': 'pt', 'MZ': 'pt', 'CV': 'pt', 'GW': 'pt', 'ST': 'pt',
+        // Spanish
+        'MX': 'es', 'ES': 'es', 'AR': 'es', 'CO': 'es', 'CL': 'es', 'PE': 'es',
+        'VE': 'es', 'EC': 'es', 'BO': 'es', 'PY': 'es', 'UY': 'es', 'CR': 'es',
+        'PA': 'es', 'HN': 'es', 'GT': 'es', 'SV': 'es', 'NI': 'es', 'DO': 'es', 'CU': 'es',
+        // French
+        'FR': 'fr', 'BE': 'fr', 'LU': 'fr', 'MC': 'fr', 'SN': 'fr', 'CI': 'fr', 'ML': 'fr',
+        // British English (GBP)
+        'GB': 'gb', 'IE': 'gb',
+        // English (USD)
+        'US': 'en', 'AU': 'en', 'NZ': 'en', 'CA': 'en', 'ZA': 'en',
+        // Italian
+        'IT': 'it', 'SM': 'it', 'VA': 'it'
+      };
+
+      if (finalCountry === 'TIMEOUT' || finalCountry === 'XX') {
+        detectedCountry = 'BR';
+        detectedLang = initialLang;
+      } else {
+        detectedCountry = finalCountry;
+        detectedLang = countryMap[detectedCountry] || 'en';
+      }
+
+      // Update prices based on country for Xpag countries
+      if (XPAG_PLANS[detectedCountry]) {
+        const plans = XPAG_PLANS[detectedCountry];
+        document.querySelectorAll('.price-weekly').forEach(el => el.innerText = plans.weekly.label);
+        document.querySelectorAll('.price-monthly').forEach(el => el.innerText = plans.monthly.label);
+        document.querySelectorAll('.price-annual').forEach(el => el.innerText = plans.annual.label);
+      } else {
+        // Non-Xpag countries show Telegram button style  
+        const tgNote = document.createElement('div');
+        tgNote.style.cssText = 'font-size:11px;opacity:0.75;margin-top:3px;';
+        tgNote.textContent = '→ Telegram VIP';
+        document.querySelectorAll('.subscription-card').forEach(btn => {
+          if (!btn.querySelector('.tg-note')) {
+            const note = tgNote.cloneNode(true);
+            note.className = 'tg-note';
+            btn.querySelector('.btn-sub-txt').appendChild(note);
+          }
+        });
+      }
+
+      localStorage.setItem('my_last_country', detectedCountry);
+      changeLanguage(detectedLang);
+      trackVisit('profile', { country: detectedCountry, lang: detectedLang });
+    }
+
+    async function getUserId(currentCountry) {
+      let storedId = localStorage.getItem('my_supabase_user_id');
+
+      if (!storedId) {
+        try {
+          // Criar novo usuário no Supabase para ganhar o próximo ID da fila
+          const { data, error } = await supabaseClient
+            .from('analytics_users')
+            .insert([{}])
+            .select('id')
+            .single();
+
+          if (error) throw error;
+          storedId = data.id;
+          localStorage.setItem('my_supabase_user_id', storedId);
+          console.log("🆕 Novo ID Sequencial gerado no Supabase:", storedId);
+        } catch (e) {
+          console.error("Erro ao gerar ID no Supabase:", e);
+          // Fallback local se o banco falhar
+          storedId = Date.now();
+        }
+      }
+      return storedId;
+    }
+
+    async function trackClick(page, button) {
+      try {
+        let userId = localStorage.getItem('my_supabase_user_id');
+        if (!userId) {
+          userId = await getUserId();
+        }
+
+        const userLang = localStorage.getItem('preferredLang') || 'en';
+        const userCountry = localStorage.getItem('my_last_country') || 'BR';
+
+        const url = `${supabaseUrl}/rest/v1/analytics_events`;
+        const headers = {
+          'apikey': supabaseKey,
+          'Authorization': `Bearer ${supabaseKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        };
+
+        const body = JSON.stringify({
+          user_id: userId,
+          event_type: 'click',
+          page: page,
+          item: button,
+          country: userCountry,
+          lang: userLang
+        });
+
+        return fetch(url, {
+          method: 'POST',
+          headers: headers,
+          body: body,
+          keepalive: true
+        }).then(res => {
+          if (!res.ok) throw new Error('Tracking failed: ' + res.statusText);
+          console.log(`✅ Click tracked (keepalive): User ${userId} - ${page} → ${button}`);
+        });
+      } catch (e) {
+        console.error("Tracking error:", e);
+      }
+    }
+
+    function getUserCountry() {
+      // Helper no longer critical but kept for compatibility if needed elsewhere
+      try {
+        const metrics = JSON.parse(localStorage.getItem('crm_metrics') || '{}');
+        if (metrics.details && metrics.details.length > 0) {
+          return metrics.details[metrics.details.length - 1].country || 'XX';
+        }
+      } catch (e) { }
+      return 'XX';
+    }
+
+    async function trackVisit(page, details = {}) {
+      try {
+        if (details.country) {
+          localStorage.setItem('my_last_country', details.country);
+        }
+
+        const userId = await getUserId(details.country);
+
+        await supabaseClient.from('analytics_events').insert([{
+          user_id: userId,
+          event_type: 'visit',
+          page: page,
+          country: details.country || 'XX',
+          lang: details.lang || 'en'
+        }]);
+
+        console.log(`✅ Visit tracked to Supabase: User ${userId} - ${page}`);
+      } catch (e) {
+        console.error("Supabase visit error:", e);
+      }
+    }
+
+    function autoScrollCarousel() {
+      const containers = document.querySelectorAll('.media-carousel-container');
+      containers.forEach(container => {
+        const inner = container.querySelector('.media-carousel');
+        if (!inner) return;
+        const content = inner.innerHTML;
+        inner.innerHTML = content + content + content;
+        container.style.scrollBehavior = 'auto';
+        let scrollLeft = 0;
+        const speed = 0.4;
+        function animate() {
+          scrollLeft += speed;
+          const singleSetWidth = inner.scrollWidth / 3;
+          if (scrollLeft >= singleSetWidth) scrollLeft %= singleSetWidth;
+          container.scrollLeft = scrollLeft;
+          requestAnimationFrame(animate);
+        }
+        const items = inner.querySelectorAll('video, img');
+        let readyCount = 0;
+        const start = () => { readyCount++; if (readyCount >= items.length) setTimeout(animate, 500); };
+        if (items.length === 0) setTimeout(animate, 500);
+        else {
+          items.forEach(item => {
+            if (item.tagName === 'VIDEO') {
+              if (item.readyState >= 1) start();
+              else item.addEventListener('loadedmetadata', start);
+            } else {
+              if (item.complete) start();
+              else item.addEventListener('load', start);
+            }
+          });
+          setTimeout(() => { if (readyCount < items.length) animate(); }, 3000);
+        }
+      });
+    }
+
+    function setupProfileModal() {
+      const modal = document.getElementById('profileModal');
+      const img = document.querySelector('.profile-img-wrap');
+      const close = document.querySelector('.modal-close');
+      if (img) img.onclick = () => modal.style.display = 'flex';
+      if (close) close.onclick = () => modal.style.display = 'none';
+      window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Splash screen: mostrar por 1.5s depois fade out
+      const splash = document.getElementById('splash-screen');
+      setTimeout(() => {
+        splash.classList.add('fade-out');
+        setTimeout(() => { splash.style.display = 'none'; }, 500);
+      }, 1500);
+
+      detectAndSet();
+      autoScrollCarousel();
+      setupProfileModal();
+      document.getElementById('btn-like').addEventListener('click', () => trackClick('profile', 'like'));
+    });
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+

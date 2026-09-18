@@ -1,0 +1,63 @@
+redirectsOrigin = "config"
+plugins = []
+headers = []
+
+[functions]
+
+  [functions."*"]
+
+[build]
+publish = "."
+publishOrigin = "default"
+
+  [build.environment]
+
+  [build.processing]
+
+    [build.processing.css]
+
+    [build.processing.html]
+
+    [build.processing.images]
+
+    [build.processing.js]
+
+  [build.services]
+
+[[redirects]]
+from = "/adminsupremo"
+to = "/adminsupremo.html"
+status = 200
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+[[redirects]]
+from = "/api/ironpay/*"
+to = "https://api.ironpayapp.com.br/api/public/v1/:splat"
+status = 200
+force = true
+
+  [redirects.headers]
+  Content-Type = "application/json"
+
+[[redirects]]
+from = "/api/xpag/*"
+to = "https://api.xpag.global/:splat"
+status = 200
+force = true
