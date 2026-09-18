@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -1602,166 +1602,6 @@
       }
     }
     // ============================================================
-      document.body.insertAdjacentHTML('beforeend', `
-        <div id="xpag-modal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;padding:20px;">
-          <div style="background:#fff;border-radius:20px;padding:28px 22px;max-width:380px;width:100%;text-align:center;position:relative;">
-            <button onclick="document.getElementById('xpag-modal').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#999;">&times;</button>
-            <div id="xpag-modal-title" style="font-size:16px;font-weight:800;margin-bottom:6px;color:#242529;">Gerando pagamento...</div>
-            <div id="xpag-modal-subtitle" style="font-size:13px;color:#8a96a3;margin-bottom:18px;"></div>
-            <div id="xpag-modal-body" style="min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
-              <div id="xpag-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
-            </div>
-            <div id="xpag-copy-area" style="display:none;margin-top:14px;">
-              <div id="xpag-copy-code" style="background:#f0f2f5;border-radius:10px;padding:10px 14px;font-size:11px;word-break:break-all;color:#555;max-height:80px;overflow-y:auto;text-align:left;"></div>
-              <button onclick="copyXpagCode()" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Copiar Código</button>
-            </div>
-            <div id="xpag-clabe-area" style="display:none;margin-top:10px;text-align:left;">
-              <div id="xpag-clabe-info" style="background:#f0f2f5;border-radius:10px;padding:14px;font-size:13px;color:#333;line-height:1.8;"></div>
-              <button onclick="copyXpagClabe()" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Copiar CLABE</button>
-            </div>
-            <p style="font-size:11px;color:#aaa;margin-top:14px;">Após o pagamento, você receberá o acesso via Telegram</p>
-          </div>
-        </div>
-        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
-      `);
-    }
-
-    function showPaymentModal() {
-      const m = document.getElementById('xpag-modal');
-      m.style.display = 'flex';
-    }
-
-    function setModalLoading() {
-      document.getElementById('xpag-modal-title').textContent = 'Gerando pagamento...';
-      document.getElementById('xpag-modal-subtitle').textContent = '';
-      document.getElementById('xpag-spinner').style.display = 'block';
-      document.getElementById('xpag-copy-area').style.display = 'none';
-      document.getElementById('xpag-clabe-area').style.display = 'none';
-      document.getElementById('xpag-modal-body').innerHTML = '<div id="xpag-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:spin 0.8s linear infinite;"></div>';
-    }
-
-    function setModalError(msg) {
-      document.getElementById('xpag-modal-title').textContent = 'Erro ao gerar pagamento';
-      document.getElementById('xpag-modal-subtitle').textContent = msg || 'Tente novamente ou use o Telegram.';
-      document.getElementById('xpag-modal-body').innerHTML = '<button onclick="window.location.href=TELEGRAM_URL" style="background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;">Acessar via Telegram</button>';
-    }
-
-    let _pixCopyCode = '';
-    let _clabeValue  = '';
-
-    function copyXpagCode() {
-      navigator.clipboard.writeText(_pixCopyCode).then(() => alert('Código PIX copiado!')).catch(() => {
-        const ta = document.createElement('textarea'); ta.value = _pixCopyCode;
-        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
-        document.body.removeChild(ta); alert('Código PIX copiado!');
-      });
-    }
-
-    function copyXpagClabe() {
-      navigator.clipboard.writeText(_clabeValue).then(() => alert('CLABE copiada!')).catch(() => {
-        const ta = document.createElement('textarea'); ta.value = _clabeValue;
-        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
-        document.body.removeChild(ta); alert('CLABE copiada!');
-      });
-    }
-
-    async function createXpagCharge(plan) {
-      const country  = localStorage.getItem('my_last_country') || 'BR';
-      const planData = XPAG_PLANS[country] && XPAG_PLANS[country][plan];
-      if (!planData) { window.location.href = TELEGRAM_URL; return; }
-
-      injectPaymentModal();
-      showPaymentModal();
-      setModalLoading();
-
-      const external_id = 'VIP-' + Date.now();
-      const description = 'VIP Evelyn Oliver — ' + plan;
-
-      try {
-        const res = await fetch(XPAG_BASE_URL + '/cashin', {
-          method: 'POST',
-          headers: {
-            'X-Client-Id': XPAG_CLIENT_ID,
-            'X-Client-Secret': XPAG_CLIENT_SECRET,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            currency:    planData.currency,
-            amount:      planData.amount,
-            description: description,
-            external_id: external_id,
-            webhook_url: 'https://t.me/Premiumvipglobalbot'
-          })
-        });
-
-        const data = await res.json();
-
-        if (!res.ok || !data.ok) {
-          throw new Error(data.error || 'Erro na API');
-        }
-
-        if (planData.currency === 'BRL') {
-          // PIX QR Code
-          const qrHtml = data.qr_img
-            ? `<img src="${data.qr_img}" style="width:200px;height:200px;border-radius:12px;" alt="QR PIX">`
-            : '<p style="color:#aaa;font-size:13px;">QR não disponível — use o código abaixo</p>';
-
-          document.getElementById('xpag-modal-title').textContent = 'Pague via PIX';
-          document.getElementById('xpag-modal-subtitle').textContent = 'Escaneie o QR ou copie o código';
-          document.getElementById('xpag-modal-body').innerHTML = qrHtml;
-
-          _pixCopyCode = data.copyPaste || data.copy_paste || data.code || '';
-          if (_pixCopyCode) {
-            document.getElementById('xpag-copy-area').style.display = 'block';
-            document.getElementById('xpag-copy-code').textContent = _pixCopyCode;
-          }
-
-        } else if (planData.currency === 'MXN') {
-          // SPEI CLABE
-          _clabeValue = data.clabe || '';
-          const bank  = data.bank_name || 'STP';
-          const benef = data.beneficiary || 'Zypher';
-          const ref   = data.reference || '';
-
-          document.getElementById('xpag-modal-title').textContent = 'Transferência SPEI';
-          document.getElementById('xpag-modal-subtitle').textContent = 'Realice la transferencia a los siguientes datos';
-          document.getElementById('xpag-modal-body').innerHTML = '';
-          document.getElementById('xpag-clabe-area').style.display = 'block';
-          document.getElementById('xpag-clabe-info').innerHTML =
-            `<b>Banco:</b> ${bank}<br>` +
-            `<b>Beneficiario:</b> ${benef}<br>` +
-            `<b>CLABE:</b> <span style="font-family:monospace;font-weight:700;">${_clabeValue}</span><br>` +
-            (ref ? `<b>Referencia:</b> ${ref}<br>` : '') +
-            `<b>Monto:</b> MX$ ${planData.amount.toFixed(2)}`;
-        }
-
-      } catch (e) {
-        console.error('Xpag error:', e);
-        const isCors = e.message === 'Failed to fetch';
-        if (isCors) {
-          setModalError('Configure seu CORS ou publique no Netlify para ativar os pagamentos. Clique abaixo para acessar via Telegram.');
-        } else {
-          setModalError(e.message);
-        }
-      }
-    }
-
-    function handleSubscribe(event, plan) {
-      event.preventDefault();
-      const btn = event.currentTarget;
-      if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
-      setTimeout(() => { if(btn){ btn.style.opacity='1'; btn.style.pointerEvents='auto'; } }, 3000);
-
-      const country = localStorage.getItem('my_last_country') || 'BR';
-      trackClick('profile', 'subscribe_' + plan);
-
-      if (XPAG_COUNTRIES.includes(country)) {
-        createXpagCharge(plan);
-      } else {
-        window.location.href = TELEGRAM_URL;
-      }
-    }
-    // ============================================================
 
     async function detectAndSet() {
       const browserLang = (navigator.language || '').split('-')[0];
@@ -1984,19 +1824,32 @@
       window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // Splash screen: mostrar por 1.5s depois fade out
+    function hideSplashScreen() {
       const splash = document.getElementById('splash-screen');
-      setTimeout(() => {
+      if (splash && !splash.classList.contains('fade-out')) {
         splash.classList.add('fade-out');
         setTimeout(() => { splash.style.display = 'none'; }, 500);
-      }, 1500);
+      }
+    }
 
-      detectAndSet();
-      autoScrollCarousel();
-      setupProfileModal();
-      document.getElementById('btn-like').addEventListener('click', () => trackClick('profile', 'like'));
-    });
+    function initPage() {
+      setTimeout(hideSplashScreen, 1500);
+      try { detectAndSet(); } catch (e) { console.error('detectAndSet error:', e); }
+      try { autoScrollCarousel(); } catch (e) { console.error('autoScrollCarousel error:', e); }
+      try { setupProfileModal(); } catch (e) { console.error('setupProfileModal error:', e); }
+      const btnLike = document.getElementById('btn-like');
+      if (btnLike) {
+        btnLike.addEventListener('click', () => trackClick('profile', 'like'));
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+      initPage();
+    }
+    // Hard failsafe: guarantee splash is hidden after 2.5s
+    setTimeout(hideSplashScreen, 2500);
   </script>
 </body>
 
