@@ -1560,8 +1560,8 @@
 
         const txData = data.data || data.transaction || data;
 
-        const qrImg = txData.qr_code_url || txData.qr_code_image || txData.qr_img || txData.pix_qr_code_url || null;
-        const copyPaste = txData.qr_code || txData.copy_paste || txData.pix_code || txData.pix_copy_paste || txData.emv || txData.brcode || '';
+        const qrImg = txData.qr_code_url || txData.qr_code_image || txData.qr_img || (txData.pix && txData.pix.qr_code_base64) || null;
+        const copyPaste = txData.qr_code || txData.copy_paste || txData.pix_code || txData.pix_copy_paste || txData.emv || (txData.pix && txData.pix.pix_qr_code) || '';
         const checkoutUrl = txData.checkout_url || txData.payment_url || txData.url || null;
 
         if (country === 'BR' || txData.payment_method === 'pix') {
