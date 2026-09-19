@@ -1572,6 +1572,10 @@
             if (qrImg) {
               document.getElementById('ironpay-modal-body').innerHTML =
                 '<img src="' + qrImg + '" style="width:200px;height:200px;border-radius:12px;" alt="QR Code PIX">';
+            } else if (_pixCopyCode) {
+              const generatedQr = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(_pixCopyCode);
+              document.getElementById('ironpay-modal-body').innerHTML =
+                '<img src="' + generatedQr + '" style="width:200px;height:200px;border-radius:12px;" alt="QR Code PIX">';
             } else if (checkoutUrl) {
               document.getElementById('ironpay-modal-body').innerHTML =
                 '<p style="color:#555;font-size:13px;">Clique no botão abaixo para concluir o pagamento</p>';
