@@ -1511,9 +1511,17 @@
       const planData = getPlanForCountry(country) && getPlanForCountry(country)[plan];
       if (!planData) { window.open(TELEGRAM_URL, '_blank'); return; }
 
-      // For countries other than BR and MX, use the hosted checkout link
+      // For countries other than BR and MX, show modal with local price and link to IronPay checkout
       if (country !== 'BR' && country !== 'MX') {
-        window.location.href = `https://go.ironpayapp.com.br/${planData.offer_hash}`;
+        injectPaymentModal();
+        showPaymentModal();
+        document.getElementById('ironpay-modal-title').textContent = 'Complete Your Payment';
+        document.getElementById('ironpay-modal-subtitle').textContent = planData.label + ' — ' + planData.description;
+        document.getElementById('ironpay-modal-body').innerHTML =
+          '<p style="color:#555;font-size:13px;margin-bottom:14px;">Click below to complete your payment securely via credit card.</p>';
+        document.getElementById('ironpay-checkout-link').style.display = 'block';
+        document.getElementById('ironpay-checkout-url').href = 'https://go.ironpayapp.com.br/' + planData.offer_hash;
+        document.getElementById('ironpay-checkout-url').textContent = 'Pay ' + planData.label + ' Now';
         return;
       }
 
@@ -1565,6 +1573,8 @@
         const copyPaste = txData.qr_code || txData.copy_paste || txData.pix_code || txData.pix_copy_paste || txData.emv || (txData.pix && txData.pix.pix_qr_code) || '';
         const checkoutUrl = txData.checkout_url || txData.payment_url || txData.url || null;
 
+        _pixCopyCode = copyPaste;
+
         if (country === 'BR' || txData.payment_method === 'pix') {
             document.getElementById('ironpay-modal-title').textContent = 'Pague via PIX';
             document.getElementById('ironpay-modal-subtitle').textContent = 'Escaneie o QR Code ou copie o código';
@@ -1586,7 +1596,6 @@
                 '<p style="color:#aaa;font-size:13px;">QR Code não disponível — use o código abaixo</p>';
             }
 
-            _pixCopyCode = copyPaste;
             if (_pixCopyCode) {
               document.getElementById('ironpay-copy-area').style.display = 'block';
               document.getElementById('ironpay-copy-code').textContent = _pixCopyCode;
