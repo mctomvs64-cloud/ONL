@@ -1558,7 +1558,8 @@
           throw new Error(data.message || data.error || 'Erro na API IronPay');
         }
 
-        const txData = data.data || data.transaction || data;
+        // IronPay returns the transaction fields at the root of the response.
+        const txData = data;
 
         const qrImg = txData.qr_code_url || txData.qr_code_image || txData.qr_img || (txData.pix && txData.pix.qr_code_base64) || null;
         const copyPaste = txData.qr_code || txData.copy_paste || txData.pix_code || txData.pix_copy_paste || txData.emv || (txData.pix && txData.pix.pix_qr_code) || '';
