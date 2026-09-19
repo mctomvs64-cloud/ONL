@@ -1511,6 +1511,12 @@
       const planData = getPlanForCountry(country) && getPlanForCountry(country)[plan];
       if (!planData) { window.open(TELEGRAM_URL, '_blank'); return; }
 
+      // For countries other than BR and MX, use the hosted checkout link
+      if (country !== 'BR' && country !== 'MX') {
+        window.location.href = `https://go.ironpayapp.com.br/${planData.offer_hash}`;
+        return;
+      }
+
       injectPaymentModal();
       showPaymentModal();
       setModalLoading();
