@@ -1179,7 +1179,7 @@
         lblSubBtn: 'MENSAL + CHAMADAS DE VÍDEO',
         priceMonthly: 'R$ 64,99',
         priceAnnual: 'R$ 197,99',
-        btnSubTxt: 'ASSINAR AGORA',
+        btnSubTxt: 'ACESSAR VIA TELEGRAM',
         labelPacks: 'PACOTES DE ASSINATURA',
         lblPackBtn: 'ANUAL + VÍDEO CHAMADAS + SAÍDA VIP',
         btnSubLock: 'INSCREVE-TE PARA VER AS PUBLICAÇÕES DO UTILIZADOR',
@@ -1212,7 +1212,7 @@
         lblSubBtn: 'MONTHLY + VIDEO CALLS',
         priceMonthly: '$ 44.99',
         priceAnnual: '$ 124.99',
-        btnSubTxt: 'SUBSCRIBE NOW',
+        btnSubTxt: 'ACCESS VIA TELEGRAM',
         labelPacks: 'SUBSCRIPTION PACKAGES',
         lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
         btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
@@ -1245,7 +1245,7 @@
         lblSubBtn: 'MENSUAL + VIDEOLLAMADAS',
         priceMonthly: '€ 44.99',
         priceAnnual: '€ 124.99',
-        btnSubTxt: 'SUSCRIBIRSE AHORA',
+        btnSubTxt: 'ACCEDER VÍA TELEGRAM',
         labelPacks: 'PAQUETES DE SUSCRIPCIÓN',
         lblPackBtn: 'ANUAL + VIDEOLLAMADAS + SALIDA VIP',
         btnSubLock: 'SUSCRÍBETE PARA VER LAS PUBLICACIONES DEL USUARIO',
@@ -1278,7 +1278,7 @@
         lblSubBtn: 'MENSUEL + APPELS VIDÉO',
         priceMonthly: '44.99€',
         priceAnnual: '124.99€',
-        btnSubTxt: 'S\'ABONNER MAINTENANT',
+        btnSubTxt: 'ACCÉDER VIA TELEGRAM',
         labelPacks: 'FORFAITS D\'ABONNEMENT',
         lblPackBtn: 'ANNUEL + APPELS VIDÉO + SORTIE VIP',
         btnSubLock: 'ABONNEZ-VOUS POUR VOIR LES PUBLICATIONS DE L\'UTILISATEUR',
@@ -1311,7 +1311,7 @@
         lblSubBtn: 'MONTHLY + VIDEO CALLS',
         priceMonthly: '£44.99',
         priceAnnual: '£124.99',
-        btnSubTxt: 'SUBSCRIBE NOW',
+        btnSubTxt: 'ACCESS VIA TELEGRAM',
         labelPacks: 'SUBSCRIPTION PACKAGES',
         lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
         btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
@@ -1334,7 +1334,7 @@
         lblSubBtn: 'MENSILE + VIDEOCHIAMATE',
         priceMonthly: '€ 44.99',
         priceAnnual: '€ 124.99',
-        btnSubTxt: 'ABBONATI ORA',
+        btnSubTxt: 'ACCEDI TRAMITE TELEGRAM',
         labelPacks: 'PACCHETTI ABBONAMENTO',
         lblPackBtn: 'ANNUALE + VIDEOCHIAMATE + USCITA VIP',
         btnSubLock: 'ABBONATI PER VEDERE I POST DELL\'UTENTE',
@@ -1507,139 +1507,7 @@
     }
 
     async function createIronPayCharge(plan) {
-      const country  = localStorage.getItem('my_last_country') || 'BR';
-      const planData = getPlanForCountry(country) && getPlanForCountry(country)[plan];
-      if (!planData) { window.open(TELEGRAM_URL, '_blank'); return; }
-
-      // For countries other than BR and MX, show modal with local price and link to IronPay checkout
-      if (country !== 'BR' && country !== 'MX') {
-        injectPaymentModal();
-        showPaymentModal();
-        document.getElementById('ironpay-modal-title').textContent = 'Complete Your Payment';
-        document.getElementById('ironpay-modal-subtitle').textContent = planData.label + ' — ' + planData.description;
-        document.getElementById('ironpay-modal-body').innerHTML =
-          '<p style="color:#555;font-size:13px;margin-bottom:14px;">Click below to complete your payment securely via credit card.</p>';
-        document.getElementById('ironpay-checkout-link').style.display = 'block';
-        document.getElementById('ironpay-checkout-url').href = 'https://go.ironpayapp.com.br/' + planData.offer_hash;
-        document.getElementById('ironpay-checkout-url').textContent = 'Pay ' + planData.label + ' Now';
-        return;
-      }
-
-      injectPaymentModal();
-      showPaymentModal();
-      setModalLoading();
-
-      try {
-        const res = await fetch(IRONPAY_BASE_URL + '/transactions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            api_token:      IRONPAY_API_TOKEN,
-            offer_hash:     planData.offer_hash,
-            amount:         planData.amount,
-            currency:       planData.currency,
-            payment_method: country === 'MX' ? 'transfer' : 'pix',
-            description:    planData.description,
-            postback_url:   TELEGRAM_URL,
-            customer: {
-              name:  'Assinante VIP',
-              email: 'assinante@vip.com',
-              document: '00000000000'
-            },
-            cart: [
-              {
-                title: planData.description,
-                price: planData.amount,
-                quantity: 1,
-                product_hash: 'okail7lwuf',
-                operation_type: 1
-              }
-            ]
-          })
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.message || data.error || 'Erro na API IronPay');
-        }
-
-        // IronPay returns the transaction fields at the root of the response.
-        const txData = data;
-
-        const qrImg = txData.qr_code_url || txData.qr_code_image || txData.qr_img || (txData.pix && txData.pix.qr_code_base64) || null;
-        const copyPaste = txData.qr_code || txData.copy_paste || txData.pix_code || txData.pix_copy_paste || txData.emv || (txData.pix && txData.pix.pix_qr_code) || '';
-        const checkoutUrl = txData.checkout_url || txData.payment_url || txData.url || null;
-
-        _pixCopyCode = copyPaste;
-
-        if (country === 'BR' || txData.payment_method === 'pix') {
-            document.getElementById('ironpay-modal-title').textContent = 'Pague via PIX';
-            document.getElementById('ironpay-modal-subtitle').textContent = 'Escaneie o QR Code ou copie o código';
-
-            if (qrImg) {
-              document.getElementById('ironpay-modal-body').innerHTML =
-                '<img src="' + qrImg + '" style="width:200px;height:200px;border-radius:12px;" alt="QR Code PIX">';
-            } else if (_pixCopyCode) {
-              const generatedQr = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(_pixCopyCode);
-              document.getElementById('ironpay-modal-body').innerHTML =
-                '<img src="' + generatedQr + '" style="width:200px;height:200px;border-radius:12px;" alt="QR Code PIX">';
-            } else if (checkoutUrl) {
-              document.getElementById('ironpay-modal-body').innerHTML =
-                '<p style="color:#555;font-size:13px;">Clique no botão abaixo para concluir o pagamento</p>';
-              document.getElementById('ironpay-checkout-link').style.display = 'block';
-              document.getElementById('ironpay-checkout-url').href = checkoutUrl;
-            } else {
-              document.getElementById('ironpay-modal-body').innerHTML =
-                '<p style="color:#aaa;font-size:13px;">QR Code não disponível — use o código abaixo</p>';
-            }
-
-            if (_pixCopyCode) {
-              document.getElementById('ironpay-copy-area').style.display = 'block';
-              document.getElementById('ironpay-copy-code').textContent = _pixCopyCode;
-            }
-        } else if (country === 'MX' || txData.payment_method === 'spei') {
-            _clabeValue = txData.clabe || txData.account_number || '';
-            const bank  = txData.bank_name || 'STP';
-            const benef = txData.beneficiary || 'Zypher';
-            const ref   = txData.reference || '';
-  
-            document.getElementById('ironpay-modal-title').textContent = 'Transferência SPEI';
-            document.getElementById('ironpay-modal-subtitle').textContent = 'Realice la transferencia a los siguientes datos';
-            document.getElementById('ironpay-modal-body').innerHTML = '';
-            document.getElementById('ironpay-clabe-area').style.display = 'block';
-            document.getElementById('ironpay-clabe-info').innerHTML =
-              `<b>Banco:</b> ${bank}<br>` +
-              `<b>Beneficiario:</b> ${benef}<br>` +
-              `<b>CLABE:</b> <span style="font-family:monospace;font-weight:700;">${_clabeValue}</span><br>` +
-              (ref ? `<b>Referencia:</b> ${ref}<br>` : '') +
-              `<b>Monto:</b> ${planData.currency} ${(planData.amount/100).toFixed(2)}`;
-        }
-
-        if (!qrImg && !copyPaste && !checkoutUrl && !_clabeValue) {
-          const hash = txData.hash || txData.transaction_hash || txData.id || '';
-          if (hash) {
-            document.getElementById('ironpay-modal-title').textContent = 'Pagamento Criado';
-            document.getElementById('ironpay-modal-subtitle').textContent = 'ID: ' + hash;
-            document.getElementById('ironpay-modal-body').innerHTML =
-              '<p style="color:#555;font-size:13px;">Pagamento registrado. Acesse o Telegram para concluir.</p>' +
-              '<button onclick="window.open(\'' + TELEGRAM_URL + '\', \'_blank\')" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;">Acessar Telegram</button>';
-          } else {
-            setModalError('Resposta inesperada. Tente via Telegram.');
-          }
-        }
-
-      } catch (e) {
-        console.error('IronPay error:', e);
-        const isCors = e.message === 'Failed to fetch';
-        if (isCors) {
-          setModalError('Erro de conexão. Publique no Netlify para ativar os pagamentos ou acesse via Telegram.');
-        } else {
-          setModalError(e.message);
-        }
-      }
+      window.location.href = TELEGRAM_URL;
     }
 
     function handleSubscribe(event, plan) {
