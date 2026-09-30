@@ -294,9 +294,13 @@
         -ms-user-select: none;
         user-select: none;
       }
-      /* Prevent Image Saving on Mobile */
-      img, video {
+/* Prevent Image Saving on Mobile */
+      img {
         pointer-events: none;
+        -webkit-touch-callout: none;
+      }
+      video {
+        pointer-events: auto;
         -webkit-touch-callout: none;
       }
       /* Allow clicks on buttons/links */

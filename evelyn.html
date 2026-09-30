@@ -704,16 +704,16 @@
         user-select: none;
       }
 /* Prevent Image Saving on Mobile */
-      img, video {
+      img {
         pointer-events: none;
+        -webkit-touch-callout: none;
+      }
+      video {
+        pointer-events: auto;
         -webkit-touch-callout: none;
       }
       /* Allow clicks on buttons/links */
       a, button {
-        pointer-events: auto;
-      }
-      /* Allow video previews to load */
-      .media-blur, .carousel-video {
         pointer-events: auto;
       }
     </style>
@@ -1573,7 +1573,11 @@ async function handleSubscribe(event, plan) {
       setTimeout(() => { if(btn){ btn.style.opacity='1'; btn.style.pointerEvents='auto'; } }, 3000);
 
       const country = localStorage.getItem('my_last_country') || 'BR';
-      await trackClick('profile', plan);
+      try {
+        await trackClick('profile', plan);
+      } catch (e) {
+        console.error("Tracking error, continuing with payment redirect:", e);
+      }
 
       if (getPlanForCountry(country)) {
         createIronPayCharge(plan);
