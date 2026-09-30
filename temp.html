@@ -206,7 +206,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
     }
 
     .profile-actions {
@@ -710,17 +710,13 @@
         -ms-user-select: none;
         user-select: none;
       }
-/* Prevent Image Saving on Mobile */
+      /* Prevent Image Saving on Mobile */
       img, video {
         pointer-events: none;
         -webkit-touch-callout: none;
       }
       /* Allow clicks on buttons/links */
       a, button {
-        pointer-events: auto;
-      }
-      /* Allow video previews to load */
-      .media-blur, .carousel-video {
         pointer-events: auto;
       }
     </style>
@@ -758,25 +754,25 @@
         </div>
         <div class="header-stats-text" id="h-stats">
           <span class="header-stat-item">
-            <!-- Ícone foto/imagem -->
+            <!-- ├ìcone foto/imagem -->
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             <span id="h-posts-cnt">503</span>
           </span>
-          <span class="header-stat-item">·</span>
+          <span class="header-stat-item">┬À</span>
           <span class="header-stat-item">
-            <!-- Ícone balão de comentário/chat -->
+            <!-- ├ìcone bal├úo de coment├írio/chat -->
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             <span id="h-vids-cnt">227</span>
           </span>
-          <span class="header-stat-item">·</span>
+          <span class="header-stat-item">┬À</span>
           <span class="header-stat-item">
-            <!-- Ícone live/broadcast -->
+            <!-- ├ìcone live/broadcast -->
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48 0a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
             <span style="text-decoration: underline;" id="h-live-cnt">30</span>
           </span>
-          <span class="header-stat-item">·</span>
+          <span class="header-stat-item">┬À</span>
           <span class="header-stat-item">
-            <!-- Ícone coração -->
+            <!-- ├ìcone cora├º├úo -->
             <svg width="13" height="13" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <span id="h-likes-cnt">14.9K</span>
           </span>
@@ -786,14 +782,14 @@
   </header>
 
   <div class="banner-container">
-    <img src="assets/media/CAPA.jpg" class="banner-img" alt="Banner">
+    <img src="assets/media/whatsapp image 2026-01-10 at 13.15.26.jpeg" class="banner-img" alt="Banner">
     <div class="banner-overlay"></div>
   </div>
 
   <section class="profile-area">
     <div class="profile-top">
       <div class="profile-img-wrap">
-        <img src="assets/media/perfil.jpg" alt="Profile">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" alt="Profile">
       </div>
       <div class="profile-actions" style="margin-top: 15px;">
         <!-- Buttons removed here to match Mia Brandt image better, they are usually in header or info -->
@@ -807,7 +803,7 @@
             <polyline points="9 12 11 14 15 10"></polyline>
           </svg>
         </div>
-        <div class="profile-username" id="p-user">@3velynoliver19 • <span style="color: #22c55e; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #22c55e;"></span><span id="p-seen">Online agora</span></span></div>
+        <div class="profile-username" id="p-user">@3velynoliver19 ÔÇó <span style="color: #22c55e; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #22c55e;"></span><span id="p-seen">Online agora</span></span></div>
       </div>
       <div class="action-btn"
         style="background: white; border: 1px solid #efefef; width: 45px; height: 45px; cursor: pointer;"
@@ -820,10 +816,10 @@
       </div>
     </div>
     <div class="profile-bio" id="p-bio">
-      Hello ❤️<br>
-      <span id="bio-short">🚨🚨VOCÊ ACABOU DE ENTRAR NA PRIVACIDADE OFICIAL DA EVELYN OLIVER! Aqui você encontrará mais de 800 vídeos e fotos EXCLUSIVOS sem censura... <br></span>
-      <span id="bio-full" style="display:none;">🚨🚨VOCÊ ACABOU DE ENTRAR NA PRIVACIDADE OFICIAL DA EVELYN OLIVER! Aqui você encontrará mais de 800 vídeos e fotos EXCLUSIVOS sem censura. Todo o conteúdo é protegido por direitos autorais e monitorado (DMCA).<br>DM me, I promise I won't ghost u.. 👻</span>
-      <a href="#" class="more-info-link" id="p-more" onclick="event.preventDefault(); document.getElementById('bio-short').style.display='none'; document.getElementById('bio-full').style.display='inline'; this.style.display='none'; trackClick('profile', 'more_info');">Mais informações</a>
+      Hello ÔØñ´©Å<br>
+      <span id="bio-short">­ƒÜ¿­ƒÜ¿VOC├è ACABOU DE ENTRAR NA PRIVACIDADE OFICIAL DA EVELYN OLIVER! Aqui voc├¬ encontrar├í mais de 800 v├¡deos e fotos EXCLUSIVOS sem censura... <br></span>
+      <span id="bio-full" style="display:none;">­ƒÜ¿­ƒÜ¿VOC├è ACABOU DE ENTRAR NA PRIVACIDADE OFICIAL DA EVELYN OLIVER! Aqui voc├¬ encontrar├í mais de 800 v├¡deos e fotos EXCLUSIVOS sem censura. Todo o conte├║do ├® protegido por direitos autorais e monitorado (DMCA).<br>DM me, I promise I won't ghost u.. ­ƒæ╗</span>
+      <a href="#" class="more-info-link" id="p-more" onclick="event.preventDefault(); document.getElementById('bio-short').style.display='none'; document.getElementById('bio-full').style.display='inline'; this.style.display='none'; trackClick('profile', 'more_info');">Mais informa├º├Áes</a>
     </div>
   </section>
 
@@ -848,33 +844,24 @@
   <!-- Plano mensal -->
   <button onclick="handleSubscribe(event,'monthly')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 10px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
     <div>
-      <div class="lbl-sub-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">MENSAL + CHAMADAS DE VÍDEO</div>
+      <div class="lbl-sub-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">MENSAL + CHAMADAS DE V├ìDEO</div>
       <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
     </div>
     <div class="price-monthly" style="font-size:18px;font-weight:800;">R$ 64,99</div>
   </button>
 
-<!-- Plano anual -->
-  <button onclick="handleSubscribe(event,'annual')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 10px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
+  <!-- Plano anual -->
+  <button onclick="handleSubscribe(event,'annual')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 20px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
     <div>
-      <div class="lbl-pack-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">ANUAL + VÍDEO CHAMADAS + SAÍDA VIP</div>
+      <div class="lbl-pack-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">ANUAL + V├ìDEO CHAMADAS + SA├ìDA VIP</div>
       <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
     </div>
     <div class="price-annual" style="font-size:18px;font-weight:800;">R$ 197,99</div>
   </button>
 
-  <!-- Plano VIP Básico -->
-  <button onclick="handleSubscribe(event,'vip_basic')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 20px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
-    <div>
-      <div class="lbl-vip-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">VIP BÁSICO</div>
-      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
-    </div>
-    <div class="price-vip" style="font-size:18px;font-weight:800;">R$ 29,99</div>
-  </button>
-
   <div class="main-tabs">
     <div class="tab-item active tab-posts-txt" onclick="trackClick('profile', 'tab_posts')">953 POSTAGENS</div>
-    <div class="tab-item tab-midia-txt" onclick="trackClick('profile', 'tab_media')">1027 MÍDIA</div>
+    <div class="tab-item tab-midia-txt" onclick="trackClick('profile', 'tab_media')">1027 M├ìDIA</div>
   </div>
 
   <!-- Grid de posts bloqueados -->
@@ -886,16 +873,16 @@
     <!-- Post 1: 01.mp4 -->
     <div class="post-card">
       <div class="post-header">
-        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
         <div class="post-info">
-          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-author">Evelyn Oliver ­ƒÆÄ <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
           <div class="post-date">17 out, 2023</div>
         </div>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
       </div>
-      <div class="post-text" id="post-text-1">Conteúdo exclusivo para assinantes 🔥</div>
+      <div class="post-text" id="post-text-1">Conte├║do exclusivo para assinantes ­ƒöÑ</div>
       <div class="post-media">
-        <video class="media-blur"  src="assets/media/01.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <video class="media-blur"  src="assets/media/01.mp4" autoplay loop muted playsinline></video>
         <div class="lock-overlay">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
@@ -911,16 +898,16 @@
     <!-- Post 2: 02.mp4 -->
     <div class="post-card">
       <div class="post-header">
-        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
         <div class="post-info">
-          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-author">Evelyn Oliver ­ƒÆÄ <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
           <div class="post-date">10 nov, 2023</div>
         </div>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
       </div>
-      <div class="post-text" id="post-text-2">Novo vídeo exclusivo 😈 Só para assinantes!</div>
+      <div class="post-text" id="post-text-2">Novo v├¡deo exclusivo ­ƒÿê S├│ para assinantes!</div>
       <div class="post-media">
-        <video class="media-blur"  src="assets/media/02.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <video class="media-blur"  src="assets/media/02.mp4" autoplay loop muted playsinline></video>
         <div class="lock-overlay">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
@@ -936,16 +923,16 @@
     <!-- Post 4: ffff.mp4 -->
     <div class="post-card">
       <div class="post-header">
-        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
         <div class="post-info">
-          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-author">Evelyn Oliver ­ƒÆÄ <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
           <div class="post-date">20 jan, 2024</div>
         </div>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
       </div>
-      <div class="post-text" id="post-text-3">Conteúdo fresquinho! 😈👀 Não perca!</div>
+      <div class="post-text" id="post-text-3">Conte├║do fresquinho! ­ƒÿê­ƒæÇ N├úo perca!</div>
       <div class="post-media">
-        <video class="media-blur"  src="assets/media/ffff.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <video class="media-blur"  src="assets/media/ffff.mp4" autoplay loop muted playsinline></video>
         <div class="lock-overlay">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
@@ -961,16 +948,16 @@
     <!-- Post 5: 1i1u8ra.mp4 -->
     <div class="post-card">
       <div class="post-header">
-        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
         <div class="post-info">
-          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-author">Evelyn Oliver ­ƒÆÄ <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
           <div class="post-date">14 fev, 2024</div>
         </div>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
       </div>
-      <div class="post-text" id="post-text-4">Mais um presentinho 🔥 Só para você!</div>
+      <div class="post-text" id="post-text-4">Mais um presentinho ­ƒöÑ S├│ para voc├¬!</div>
       <div class="post-media">
-        <video class="media-blur"  src="assets/media/1i1u8ra.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <video class="media-blur"  src="assets/media/1i1u8ra.mp4" autoplay loop muted playsinline></video>
         <div class="lock-overlay">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
@@ -986,16 +973,16 @@
     <!-- Post 7: video 01.mp4 -->
     <div class="post-card">
       <div class="post-header">
-        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
         <div class="post-info">
-          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-author">Evelyn Oliver ­ƒÆÄ <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
           <div class="post-date">18 abr, 2024</div>
         </div>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
       </div>
-      <div class="post-text" id="post-text-5">Aqui você vai ver de tudo 🔥🔥 Assine!</div>
+      <div class="post-text" id="post-text-5">Aqui voc├¬ vai ver de tudo ­ƒöÑ­ƒöÑ Assine!</div>
       <div class="post-media">
-        <video class="media-blur"  src="assets/media/video 01.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <video class="media-blur"  src="assets/media/video 01.mp4" autoplay loop muted playsinline></video>
         <div class="lock-overlay">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
@@ -1011,16 +998,16 @@
     <!-- Post 8: video_2025-08-31_22-56-38.mp4 -->
     <div class="post-card">
       <div class="post-header">
-        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
         <div class="post-info">
-          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-author">Evelyn Oliver ­ƒÆÄ <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
           <div class="post-date">31 ago, 2025</div>
         </div>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
       </div>
-      <div class="post-text" id="post-text-6">Recém saído 🔥 Só para quem é assinante!</div>
+      <div class="post-text" id="post-text-6">Rec├®m sa├¡do ­ƒöÑ S├│ para quem ├® assinante!</div>
       <div class="post-media">
-        <video class="media-blur"  src="assets/media/video_2025-08-31_22-56-38.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <video class="media-blur"  src="assets/media/video_2025-08-31_22-56-38.mp4" autoplay loop muted playsinline></video>
         <div class="lock-overlay">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
@@ -1036,16 +1023,16 @@
     <!-- Post 10: video_2025-12-25_01-39-49.mp4 -->
     <div class="post-card">
       <div class="post-header">
-        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
         <div class="post-info">
-          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-author">Evelyn Oliver ­ƒÆÄ <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
           <div class="post-date">25 dez, 2025</div>
         </div>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
       </div>
-      <div class="post-text" id="post-text-7">Última do dia ✨ Você não pode perder!</div>
+      <div class="post-text" id="post-text-7">├Ültima do dia Ô£¿ Voc├¬ n├úo pode perder!</div>
       <div class="post-media">
-        <video class="media-blur"  src="assets/media/video_2025-12-25_01-39-49.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <video class="media-blur"  src="assets/media/video_2025-12-25_01-39-49.mp4" autoplay loop muted playsinline></video>
         <div class="lock-overlay">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
@@ -1061,16 +1048,16 @@
     <!-- Post 12: 0i0au959gnoe5x7w8vjpo_source.mp4 -->
     <div class="post-card">
       <div class="post-header">
-        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="post-avatar" alt="avatar">
         <div class="post-info">
-          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-author">Evelyn Oliver ­ƒÆÄ <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
           <div class="post-date">20 jan, 2026</div>
         </div>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
       </div>
-      <div class="post-text" id="post-text-8">Novo conteúdo imperdível 😈🔥</div>
+      <div class="post-text" id="post-text-8">Novo conte├║do imperd├¡vel ­ƒÿê­ƒöÑ</div>
       <div class="post-media">
-        <video class="media-blur"  src="assets/media/0i0au959gnoe5x7w8vjpo_source.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <video class="media-blur"  src="assets/media/0i0au959gnoe5x7w8vjpo_source.mp4" autoplay loop muted playsinline></video>
         <div class="lock-overlay">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
@@ -1089,20 +1076,20 @@
 
     <!-- Post 5 -->
 
-    <!-- Botão central de assinatura -->
+    <!-- Bot├úo central de assinatura -->
     <div style="padding: 20px 15px 10px; text-align:center;">
       <div style="color:#8a96a3;font-size:13px;margin-bottom:15px;">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1d9e6" stroke-width="1.5" style="display:block;margin:0 auto 10px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span id="bs-main">Assine para desbloquear 953 publicações</span>
+        <span id="bs-main">Assine para desbloquear 953 publica├º├Áes</span>
       </div>
-      <button onclick="handleSubscribe(event,'monthly')" class="btn-subscribe-locked" id="btn-sub-lock2" style="display:block;width:100%;text-align:center;cursor:pointer;">ASSINE PARA VER AS PUBLICAÇÕES</button>
+      <button onclick="handleSubscribe(event,'monthly')" class="btn-subscribe-locked" id="btn-sub-lock2" style="display:block;width:100%;text-align:center;cursor:pointer;">ASSINE PARA VER AS PUBLICA├ç├òES</button>
     </div>
   </div>
 
-  <!-- Espaço para a barra de navegação não cobrir conteúdo -->
+  <!-- Espa├ºo para a barra de navega├º├úo n├úo cobrir conte├║do -->
   <div style="height:60px;"></div>
 
-  <!-- Barra de navegação inferior estilo OnlyFans -->
+  <!-- Barra de navega├º├úo inferior estilo OnlyFans -->
   <nav style="
     position: fixed;
     bottom: 0;
@@ -1119,7 +1106,7 @@
     z-index: 1000;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
   ">
-    <!-- Ícone Home -->
+    <!-- ├ìcone Home -->
     <button onclick="trackClick('profile','nav_home')" style="background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;align-items:center;gap:2px;">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#242529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -1127,7 +1114,7 @@
       </svg>
     </button>
 
-    <!-- Ícone três pontos (mais opções) -->
+    <!-- ├ìcone tr├¬s pontos (mais op├º├Áes) -->
     <button onclick="trackClick('profile','nav_more')" style="background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;align-items:center;gap:2px;">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#242529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
@@ -1138,49 +1125,18 @@
   <!-- Profile Photo Modal -->
   <div id="profileModal" class="modal">
     <span class="modal-close">&times;</span>
-    <img src="assets/media/perfil.jpg" class="modal-content">
+    <img src="assets/media/whatsapp image 2026-01-10 at 13.16.24.jpeg" class="modal-content">
   </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const supabaseUrl = 'https://zdoezqsurnyldcghnjji.supabase.co';
     const supabaseKey = 'sb_publishable_jgD0rsS6p1Rsw9UwsGA8oA_l8aS3kci';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Track visit on page load (PVC style)
-    (async () => {
-      try {
-        let userId = localStorage.getItem('my_supabase_user_id');
-        if (!userId) {
-          const { data, error } = await supabaseClient
-            .from('analytics_users')
-            .insert([{}])
-            .select('id')
-            .single();
-          if (!error && data) {
-            userId = data.id;
-            localStorage.setItem('my_supabase_user_id', userId);
-          } else {
-            userId = 'user_' + Date.now();
-          }
-        }
-        const userLang = localStorage.getItem('preferredLang') || 'en';
-        const userCountry = localStorage.getItem('my_last_country') || 'XX';
-        
-        await supabaseClient.from('analytics_events').insert([{
-          user_id: userId,
-          event_type: 'visit',
-          page: 'profile',
-          country: userCountry,
-          lang: userLang
-        }]);
-        console.log('✅ Visit tracked: profile');
-      } catch (e) { console.error('Visit track error:', e); }
-    })();
-
-    // Funções de tracking DEVEM vir primeiro
-    // Funções de tracking DEVEM vir primeiro
+    // Fun├º├Áes de tracking DEVEM vir primeiro
+    // Fun├º├Áes de tracking DEVEM vir primeiro
     function handleClick(event, page, button, url) {
       event.preventDefault();
 
@@ -1211,56 +1167,52 @@
 
     const translations = {
       pt: {
-        hName: 'Evelyn Oliver 💎',
+        hName: 'Evelyn Oliver ­ƒÆÄ',
         btnLike: 'Curtir',
         seen: 'Online agora',
-        moreInfo: 'Mais informações',
-        bio: 'Evelyn Oliver 💎<br>Vem ver o que eu não posto no Instagram 😈<br>Conteúdo exclusivo todos os dias 🔥<br>👇 Assine agora e tenha acesso total!',
-        hl1: 'Destaques', hl2: 'Itália', hl3: 'Gostosa', hl4: 'Gata 🤣', hl5: 'Sol',
+        moreInfo: 'Mais informa├º├Áes',
+        bio: 'Evelyn Oliver ­ƒÆÄ<br>Vem ver o que eu n├úo posto no Instagram ­ƒÿê<br>Conte├║do exclusivo todos os dias ­ƒöÑ<br>­ƒæç Assine agora e tenha acesso total!',
+        hl1: 'Destaques', hl2: 'It├ília', hl3: 'Gostosa', hl4: 'Gata ­ƒñú', hl5: 'Sol',
         labelSub: 'ASSINATURA',
         lblWeekBtn: '7 DIAS + CHAT PRIVADO',
         priceWeekly: 'R$ 24,99',
-        lblSubBtn: 'MENSAL + CHAMADAS DE VÍDEO',
+        lblSubBtn: 'MENSAL + CHAMADAS DE V├ìDEO',
         priceMonthly: 'R$ 64,99',
-priceAnnual: 'R$ 197,99',
-        lblVipBtn: 'VIP BÁSICO',
-        priceVip: 'R$ 29,99',
-        btnSubTxt: 'ACESSAR VIA TELEGRAM',
+        priceAnnual: 'R$ 197,99',
+        btnSubTxt: 'ASSINAR AGORA',
         labelPacks: 'PACOTES DE ASSINATURA',
-        lblPackBtn: 'ANUAL + VÍDEO CHAMADAS + SAÍDA VIP',
-        btnSubLock: 'INSCREVE-TE PARA VER AS PUBLICAÇÕES DO UTILIZADOR',
+        lblPackBtn: 'ANUAL + V├ìDEO CHAMADAS + SA├ìDA VIP',
+        btnSubLock: 'INSCREVE-TE PARA VER AS PUBLICA├ç├òES DO UTILIZADOR',
         tabPosts: '953 POSTAGENS',
-        tabMidia: '1027 MÍDIA',
+        tabMidia: '1027 M├ìDIA',
         labelRecente: 'RECENTE',
         postDate: '17 out, 2023',
-        postContent: 'Confira os novos conteúdos exclusivos 😈',
+        postContent: 'Confira os novos conte├║dos exclusivos ­ƒÿê',
 
-        post1: 'Conteúdo exclusivo para assinantes 🔥',
-        post2: 'Novo vídeo exclusivo 😈 Só para assinantes!',
-        post3: 'Conteúdo fresquinho! 😈👀 Não perca!',
-        post4: 'Mais um presentinho 🔥 Só para você!',
-        post5: 'Aqui você vai ver de tudo 🔥🔥 Assine!',
-        post6: 'Recém saído 🔥 Só para quem é assinante!',
-        post7: 'Última do dia ✨ Você não pode perder!',
-        post8: 'Novo conteúdo imperdível 😈🔥',
+        post1: 'Conte├║do exclusivo para assinantes ­ƒöÑ',
+        post2: 'Novo v├¡deo exclusivo ­ƒÿê S├│ para assinantes!',
+        post3: 'Conte├║do fresquinho! ­ƒÿê­ƒæÇ N├úo perca!',
+        post4: 'Mais um presentinho ­ƒöÑ S├│ para voc├¬!',
+        post5: 'Aqui voc├¬ vai ver de tudo ­ƒöÑ­ƒöÑ Assine!',
+        post6: 'Rec├®m sa├¡do ­ƒöÑ S├│ para quem ├® assinante!',
+        post7: '├Ültima do dia Ô£¿ Voc├¬ n├úo pode perder!',
+        post8: 'Novo conte├║do imperd├¡vel ­ƒÿê­ƒöÑ',
 
       },
       en: {
-        hName: 'Evelyn Oliver 💎',
+        hName: 'Evelyn Oliver ­ƒÆÄ',
         btnLike: 'Like',
         seen: 'Online now',
         moreInfo: 'More information',
-        bio: 'Evelyn Oliver 💎<br>See what I don\'t post on Instagram 😈<br>Exclusive content every day 🔥<br>👇 Subscribe now for full access!',
-        hl1: 'Highlights', hl2: 'Italy', hl3: 'Tasty', hl4: 'Hot 🤣', hl5: 'Sun',
+        bio: 'Evelyn Oliver ­ƒÆÄ<br>See what I don\'t post on Instagram ­ƒÿê<br>Exclusive content every day ­ƒöÑ<br>­ƒæç Subscribe now for full access!',
+        hl1: 'Highlights', hl2: 'Italy', hl3: 'Tasty', hl4: 'Hot ­ƒñú', hl5: 'Sun',
         labelSub: 'SUBSCRIPTION',
         lblWeekBtn: '7 DAYS + PRIVATE CHAT',
         priceWeekly: '$ 14.99',
         lblSubBtn: 'MONTHLY + VIDEO CALLS',
         priceMonthly: '$ 44.99',
-priceAnnual: '$ 124.99',
-        lblVipBtn: 'VIP BASIC',
-        priceVip: '$ 5.99',
-        btnSubTxt: 'ACCESS VIA TELEGRAM',
+        priceAnnual: '$ 124.99',
+        btnSubTxt: 'SUBSCRIBE NOW',
         labelPacks: 'SUBSCRIPTION PACKAGES',
         lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
         btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
@@ -1268,104 +1220,98 @@ priceAnnual: '$ 124.99',
         tabMidia: '1027 MEDIA',
         labelRecente: 'RECENT',
         postDate: 'Oct 17, 2023',
-        postContent: 'Check out the new exclusive content 😈',
+        postContent: 'Check out the new exclusive content ­ƒÿê',
 
-        post1: 'Exclusive content for subscribers 🔥',
-        post2: 'New exclusive video 😈 For subscribers only!',
-        post3: 'Fresh content! 😈👀 Don\'t miss out!',
-        post4: 'Another little gift 🔥 Just for you!',
-        post5: 'Here you will see everything 🔥🔥 Subscribe!',
-        post6: 'Fresh out 🔥 Only for subscribers!',
-        post7: 'Last one of the day ✨ You can\'t miss this!',
-        post8: 'New unmissable content 😈🔥',
+        post1: 'Exclusive content for subscribers ­ƒöÑ',
+        post2: 'New exclusive video ­ƒÿê For subscribers only!',
+        post3: 'Fresh content! ­ƒÿê­ƒæÇ Don\'t miss out!',
+        post4: 'Another little gift ­ƒöÑ Just for you!',
+        post5: 'Here you will see everything ­ƒöÑ­ƒöÑ Subscribe!',
+        post6: 'Fresh out ­ƒöÑ Only for subscribers!',
+        post7: 'Last one of the day Ô£¿ You can\'t miss this!',
+        post8: 'New unmissable content ­ƒÿê­ƒöÑ',
 
       },
       es: {
-        hName: 'Evelyn Oliver 💎',
+        hName: 'Evelyn Oliver ­ƒÆÄ',
         btnLike: 'Me gusta',
-        seen: 'En línea ahora',
-        moreInfo: 'Más información',
-        bio: 'Evelyn Oliver 💎<br>Mira lo que no publico en Instagram 😈<br>Contenido exclusivo todos los días 🔥<br>👇 ¡Suscríbete ahora para acceso total!',
-        hl1: 'Destacados', hl2: 'Italia', hl3: 'Sabrosa', hl4: 'Gata 🤣', hl5: 'Sol',
-        labelSub: 'SUSCRIPCIÓN',
-        lblWeekBtn: '7 DÍAS + CHAT PRIVADO',
-        priceWeekly: '€ 14.99',
+        seen: 'En l├¡nea ahora',
+        moreInfo: 'M├ís informaci├│n',
+        bio: 'Evelyn Oliver ­ƒÆÄ<br>Mira lo que no publico en Instagram ­ƒÿê<br>Contenido exclusivo todos los d├¡as ­ƒöÑ<br>­ƒæç ┬íSuscr├¡bete ahora para acceso total!',
+        hl1: 'Destacados', hl2: 'Italia', hl3: 'Sabrosa', hl4: 'Gata ­ƒñú', hl5: 'Sol',
+        labelSub: 'SUSCRIPCI├ôN',
+        lblWeekBtn: '7 D├ìAS + CHAT PRIVADO',
+        priceWeekly: 'Ôé¼ 14.99',
         lblSubBtn: 'MENSUAL + VIDEOLLAMADAS',
-        priceMonthly: '€ 44.99',
-priceAnnual: '€ 124.99',
-        lblVipBtn: 'VIP BÁSICO',
-        priceVip: '€ 5.99',
-        btnSubTxt: 'ACCEDER VÍA TELEGRAM',
-        labelPacks: 'PAQUETES DE SUSCRIPCIÓN',
+        priceMonthly: 'Ôé¼ 44.99',
+        priceAnnual: 'Ôé¼ 124.99',
+        btnSubTxt: 'SUSCRIBIRSE AHORA',
+        labelPacks: 'PAQUETES DE SUSCRIPCI├ôN',
         lblPackBtn: 'ANUAL + VIDEOLLAMADAS + SALIDA VIP',
-        btnSubLock: 'SUSCRÍBETE PARA VER LAS PUBLICACIONES DEL USUARIO',
+        btnSubLock: 'SUSCR├ìBETE PARA VER LAS PUBLICACIONES DEL USUARIO',
         tabPosts: '953 PUBLICACIONES',
         tabMidia: '1027 MEDIA',
         labelRecente: 'RECIENTE',
         postDate: '17 oct, 2023',
-        postContent: 'Mira los nuevos contenidos exclusivos 😈',
+        postContent: 'Mira los nuevos contenidos exclusivos ­ƒÿê',
 
-        post1: 'Contenido exclusivo para suscriptores 🔥',
-        post2: '¡Nuevo video exclusivo 😈 Solo para suscriptores!',
-        post3: '¡Contenido fresquito! 😈👀 ¡No te lo pierdas!',
-        post4: 'Un regalito más 🔥 ¡Solo para ti!',
-        post5: 'Aquí verás de todo 🔥🔥 ¡Suscríbete!',
-        post6: '¡Recién salido 🔥 Solo para suscriptores!',
-        post7: '¡El último del día ✨ No te lo puedes perder!',
-        post8: 'Nuevo contenido imperdible 😈🔥',
+        post1: 'Contenido exclusivo para suscriptores ­ƒöÑ',
+        post2: '┬íNuevo video exclusivo ­ƒÿê Solo para suscriptores!',
+        post3: '┬íContenido fresquito! ­ƒÿê­ƒæÇ ┬íNo te lo pierdas!',
+        post4: 'Un regalito m├ís ­ƒöÑ ┬íSolo para ti!',
+        post5: 'Aqu├¡ ver├ís de todo ­ƒöÑ­ƒöÑ ┬íSuscr├¡bete!',
+        post6: '┬íReci├®n salido ­ƒöÑ Solo para suscriptores!',
+        post7: '┬íEl ├║ltimo del d├¡a Ô£¿ No te lo puedes perder!',
+        post8: 'Nuevo contenido imperdible ­ƒÿê­ƒöÑ',
 
       },
       fr: {
-        hName: 'Evelyn Oliver 💎',
-        btnLike: 'J’aime',
+        hName: 'Evelyn Oliver ­ƒÆÄ',
+        btnLike: 'JÔÇÖaime',
         seen: 'En ligne maintenant',
         moreInfo: 'Plus d\'informations',
-        bio: 'Evelyn Oliver 💎<br>Découvrez ce que je ne poste pas sur Instagram 😈<br>Contenu exclusif chaque jour 🔥<br>👇 Abonnez-vous maintenant pour un accès total!',
-        hl1: 'Points forts', hl2: 'Italie', hl3: 'Savoureuse', hl4: 'Belle 🤣', hl5: 'Soleil',
+        bio: 'Evelyn Oliver ­ƒÆÄ<br>D├®couvrez ce que je ne poste pas sur Instagram ­ƒÿê<br>Contenu exclusif chaque jour ­ƒöÑ<br>­ƒæç Abonnez-vous maintenant pour un acc├¿s total!',
+        hl1: 'Points forts', hl2: 'Italie', hl3: 'Savoureuse', hl4: 'Belle ­ƒñú', hl5: 'Soleil',
         labelSub: 'ABONNEMENT',
-        lblWeekBtn: '7 JOURS + CHAT PRIVÉ',
-        priceWeekly: '14.99€',
-        lblSubBtn: 'MENSUEL + APPELS VIDÉO',
-        priceMonthly: '44.99€',
-priceAnnual: '124.99€',
-        lblVipBtn: 'VIP BASIQUE',
-        priceVip: '5.99€',
-        btnSubTxt: 'ACCÉDER VIA TELEGRAM',
+        lblWeekBtn: '7 JOURS + CHAT PRIV├ë',
+        priceWeekly: '14.99Ôé¼',
+        lblSubBtn: 'MENSUEL + APPELS VID├ëO',
+        priceMonthly: '44.99Ôé¼',
+        priceAnnual: '124.99Ôé¼',
+        btnSubTxt: 'S\'ABONNER MAINTENANT',
         labelPacks: 'FORFAITS D\'ABONNEMENT',
-        lblPackBtn: 'ANNUEL + APPELS VIDÉO + SORTIE VIP',
+        lblPackBtn: 'ANNUEL + APPELS VID├ëO + SORTIE VIP',
         btnSubLock: 'ABONNEZ-VOUS POUR VOIR LES PUBLICATIONS DE L\'UTILISATEUR',
         tabPosts: '953 POSTS',
-        tabMidia: '1027 MÉDIAS',
-        labelRecente: 'RÉCENT',
+        tabMidia: '1027 M├ëDIAS',
+        labelRecente: 'R├ëCENT',
         postDate: '17 oct. 2023',
-        postContent: 'Découvrez les nouveaux contenus exclusifs 😈',
+        postContent: 'D├®couvrez les nouveaux contenus exclusifs ­ƒÿê',
 
-        post1: 'Contenu exclusif pour les abonnés 🔥',
-        post2: 'Nouvelle vidéo exclusive 😈 Uniquement pour les abonnés !',
-        post3: 'Contenu tout frais ! 😈👀 À ne pas manquer !',
-        post4: 'Un petit cadeau de plus 🔥 Rien que pour toi !',
-        post5: 'Ici tu verras de tout 🔥🔥 Abonne-toi !',
-        post6: 'Tout juste sorti 🔥 Uniquement pour ceux qui sont abonnés !',
-        post7: 'Le dernier de la journée ✨ Tu ne peux pas rater ça !',
-        post8: 'Nouveau contenu incontournable 😈🔥',
+        post1: 'Contenu exclusif pour les abonn├®s ­ƒöÑ',
+        post2: 'Nouvelle vid├®o exclusive ­ƒÿê Uniquement pour les abonn├®s !',
+        post3: 'Contenu tout frais ! ­ƒÿê­ƒæÇ ├Ç ne pas manquer !',
+        post4: 'Un petit cadeau de plus ­ƒöÑ Rien que pour toi !',
+        post5: 'Ici tu verras de tout ­ƒöÑ­ƒöÑ Abonne-toi !',
+        post6: 'Tout juste sorti ­ƒöÑ Uniquement pour ceux qui sont abonn├®s !',
+        post7: 'Le dernier de la journ├®e Ô£¿ Tu ne peux pas rater ├ºa !',
+        post8: 'Nouveau contenu incontournable ­ƒÿê­ƒöÑ',
 
       },
       gb: {
-        hName: 'Evelyn Oliver 💎',
+        hName: 'Evelyn Oliver ­ƒÆÄ',
         btnLike: 'Like',
         seen: 'Online now',
         moreInfo: 'More information',
-        bio: 'Evelyn Oliver 💎<br>See what I don\'t post on Instagram 😈<br>Exclusive content every day 🔥<br>👇 Subscribe now for full access!',
-        hl1: 'Highlights', hl2: 'Italy', hl3: 'Tasty', hl4: 'Hot 🤣', hl5: 'Sun',
+        bio: 'Evelyn Oliver ­ƒÆÄ<br>See what I don\'t post on Instagram ­ƒÿê<br>Exclusive content every day ­ƒöÑ<br>­ƒæç Subscribe now for full access!',
+        hl1: 'Highlights', hl2: 'Italy', hl3: 'Tasty', hl4: 'Hot ­ƒñú', hl5: 'Sun',
         labelSub: 'SUBSCRIPTION',
         lblWeekBtn: '7 DAYS + PRIVATE CHAT',
-        priceWeekly: '£14.99',
+        priceWeekly: '┬ú14.99',
         lblSubBtn: 'MONTHLY + VIDEO CALLS',
-        priceMonthly: '£44.99',
-priceAnnual: '£124.99',
-        lblVipBtn: 'VIP BASIC',
-        priceVip: '£5.99',
-        btnSubTxt: 'ACCESS VIA TELEGRAM',
+        priceMonthly: '┬ú44.99',
+        priceAnnual: '┬ú124.99',
+        btnSubTxt: 'SUBSCRIBE NOW',
         labelPacks: 'SUBSCRIPTION PACKAGES',
         lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
         btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
@@ -1373,24 +1319,22 @@ priceAnnual: '£124.99',
         tabMidia: '1027 MEDIA',
         labelRecente: 'RECENT',
         postDate: 'Oct 17, 2023',
-        postContent: 'Check out the new exclusive content 😈'
+        postContent: 'Check out the new exclusive content ­ƒÿê'
       },
       it: {
-        hName: 'Evelyn Oliver 💎',
+        hName: 'Evelyn Oliver ­ƒÆÄ',
         btnLike: 'Mi piace',
         seen: 'Online ora',
-        moreInfo: 'Più informazioni',
-        bio: 'Evelyn Oliver 💎<br>Guarda cosa non pubblico su Instagram 😈<br>Contenuti esclusivi ogni giorno 🔥<br>👇 Abbonati ora per l\'accesso totale!',
-        hl1: 'In evidenza', hl2: 'Italia', hl3: 'Sexy', hl4: 'Bella 🤣', hl5: 'Sole',
+        moreInfo: 'Pi├╣ informazioni',
+        bio: 'Evelyn Oliver ­ƒÆÄ<br>Guarda cosa non pubblico su Instagram ­ƒÿê<br>Contenuti esclusivi ogni giorno ­ƒöÑ<br>­ƒæç Abbonati ora per l\'accesso totale!',
+        hl1: 'In evidenza', hl2: 'Italia', hl3: 'Sexy', hl4: 'Bella ­ƒñú', hl5: 'Sole',
         labelSub: 'ABBONAMENTO',
         lblWeekBtn: '7 GIORNI + CHAT PRIVATA',
-        priceWeekly: '€ 14.99',
+        priceWeekly: 'Ôé¼ 14.99',
         lblSubBtn: 'MENSILE + VIDEOCHIAMATE',
-        priceMonthly: '€ 44.99',
-priceAnnual: '€ 124.99',
-        lblVipBtn: 'VIP BASE',
-        priceVip: '€ 5.99',
-        btnSubTxt: 'ACCEDI TRAMITE TELEGRAM',
+        priceMonthly: 'Ôé¼ 44.99',
+        priceAnnual: 'Ôé¼ 124.99',
+        btnSubTxt: 'ABBONATI ORA',
         labelPacks: 'PACCHETTI ABBONAMENTO',
         lblPackBtn: 'ANNUALE + VIDEOCHIAMATE + USCITA VIP',
         btnSubLock: 'ABBONATI PER VEDERE I POST DELL\'UTENTE',
@@ -1398,16 +1342,16 @@ priceAnnual: '€ 124.99',
         tabMidia: '1027 MEDIA',
         labelRecente: 'RECENTE',
         postDate: '17 ott, 2023',
-        postContent: 'Scopri i nuovi contenuti esclusivi 😈',
+        postContent: 'Scopri i nuovi contenuti esclusivi ­ƒÿê',
 
-        post1: 'Contenuto esclusivo per gli abbonati 🔥',
-        post2: 'Nuovo video esclusivo 😈 Solo per gli abbonati!',
-        post3: 'Contenuto freschissimo! 😈👀 Non perderlo!',
-        post4: 'Un altro regalino 🔥 Solo per te!',
-        post5: 'Qui vedrai di tutto 🔥🔥 Abbonati!',
-        post6: 'Appena uscito 🔥 Solo per chi è abbonato!',
-        post7: 'L\'ultimo della giornata ✨ Non puoi perderlo!',
-        post8: 'Nuovo contenuto imperdibile 😈🔥',
+        post1: 'Contenuto esclusivo per gli abbonati ­ƒöÑ',
+        post2: 'Nuovo video esclusivo ­ƒÿê Solo per gli abbonati!',
+        post3: 'Contenuto freschissimo! ­ƒÿê­ƒæÇ Non perderlo!',
+        post4: 'Un altro regalino ­ƒöÑ Solo per te!',
+        post5: 'Qui vedrai di tutto ­ƒöÑ­ƒöÑ Abbonati!',
+        post6: 'Appena uscito ­ƒöÑ Solo per chi ├¿ abbonato!',
+        post7: 'L\'ultimo della giornata Ô£¿ Non puoi perderlo!',
+        post8: 'Nuovo contenuto imperdibile ­ƒÿê­ƒöÑ',
 
       }
     };
@@ -1430,9 +1374,7 @@ priceAnnual: '€ 124.99',
         document.querySelectorAll('.price-monthly').forEach(el => el.innerText = t.priceMonthly);
         if (document.getElementById('label-packs')) document.getElementById('label-packs').innerText = t.labelPacks;
         document.querySelectorAll('.lbl-pack-btn').forEach(el => el.innerText = t.lblPackBtn);
-document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceAnnual);
-        document.querySelectorAll('.lbl-vip-btn').forEach(el => el.innerText = t.lblVipBtn);
-        document.querySelectorAll('.price-vip').forEach(el => el.innerText = t.priceVip);
+        document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceAnnual);
         document.querySelectorAll('.tab-posts-txt').forEach(el => el.innerText = t.tabPosts);
         document.querySelectorAll('.tab-midia-txt').forEach(el => el.innerText = t.tabMidia);
         document.querySelectorAll('#btn-sub-lock, #btn-sub-lock2').forEach(el => el.innerText = t.btnSubLock);
@@ -1451,54 +1393,24 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
     // IRONPAY PAYMENT INTEGRATION
     // Auth: api_token in request body
     // PIX checkout for all countries (BRL)
-    // Fallback → Telegram
+    // Fallback ÔåÆ Telegram
     // ============================================================
         const IRONPAY_API_TOKEN = '2ox8phHYN9DUVMLdRl06uRr6FgprkMA9fMKI6FhX9CbK9EINvo09Uv49p4bp';
     const IRONPAY_BASE_URL  = '/api/ironpay';
     const TELEGRAM_URL      = 'https://t.me/Evelynoliver_bot';
 
-const IRONPAY_PLANS = {
+    const IRONPAY_PLANS = {
       BR: {
-        weekly:  { offer_hash: 'uispe', amount: 2499,   currency: 'BRL', description: 'VIP Semanal - 7 Dias + Chat Privado', label: 'R$ 24,99' },
-        monthly: { offer_hash: 'taymw', amount: 6499,   currency: 'BRL', description: 'VIP Mensal + Chamadas de Vídeo', label: 'R$ 64,99' },
-        annual:  { offer_hash: 'llmx1', amount: 19799,  currency: 'BRL', description: 'VIP Anual + Vídeo Chamadas + Saída VIP', label: 'R$ 197,99' },
-        vip_basic: { offer_hash: 'vipbas', amount: 2999,  currency: 'BRL', description: 'VIP Básico', label: 'R$ 29,99' }
+        weekly:  { amount: 2499,   currency: 'BRL', description: 'VIP Semanal - 7 Dias + Chat Privado' },
+        monthly: { amount: 6499,   currency: 'BRL', description: 'VIP Mensal + Chamadas de V├¡deo' },
+        annual:  { amount: 19799,  currency: 'BRL', description: 'VIP Anual + V├¡deo Chamadas + Sa├¡da VIP' }
       },
       MX: {
-        weekly:  { offer_hash: 'bjkly', amount: 7900,   currency: 'MXN', description: 'VIP Semanal - 7 Dias + Chat Privado', label: 'MX$ 79.00' },
-        monthly: { offer_hash: 'apkip', amount: 19900,  currency: 'MXN', description: 'VIP Mensal + Chamadas de Vídeo', label: 'MX$ 199.00' },
-        annual:  { offer_hash: 'ba2cd', amount: 59900,  currency: 'MXN', description: 'VIP Anual + Vídeo Chamadas + Saída VIP', label: 'MX$ 599.00' },
-        vip_basic: { offer_hash: 'vipbas', amount: 11900, currency: 'MXN', description: 'VIP Básico', label: 'MX$ 119.00' }
-      },
-      USD: {
-        weekly:  { offer_hash: 'ukglt', amount: 1499,   currency: 'USD', description: 'VIP Access - 7 Days', label: '$ 14.99' },
-        monthly: { offer_hash: 'czdmn', amount: 4499,   currency: 'USD', description: 'VIP Content + Video Calls', label: '$ 44.99' },
-        annual:  { offer_hash: 'fyx25', amount: 12499,  currency: 'USD', description: 'Everything + Exclusive Encounters', label: '$ 124.99' },
-        vip_basic: { offer_hash: 'vipbas', amount: 599,   currency: 'USD', description: 'VIP Basic', label: '$ 5.99' }
-      },
-      EUR: {
-        weekly:  { offer_hash: 'kxkue', amount: 1499,   currency: 'EUR', description: 'VIP Access - 7 Days', label: '€ 14.99' },
-        monthly: { offer_hash: 'wqiic', amount: 4499,   currency: 'EUR', description: 'VIP Content + Video Calls', label: '€ 44.99' },
-        annual:  { offer_hash: 'a03xl', amount: 12499,  currency: 'EUR', description: 'Everything + Exclusive Encounters', label: '€ 124.99' },
-        vip_basic: { offer_hash: 'vipbas', amount: 599,   currency: 'EUR', description: 'VIP Basique', label: '€ 5.99' }
-      },
-      GBP: {
-        weekly:  { offer_hash: 'ggynu', amount: 1499,   currency: 'GBP', description: 'VIP Access - 7 Days', label: '£ 14.99' },
-        monthly: { offer_hash: 'xnivj', amount: 4499,   currency: 'GBP', description: 'VIP Content + Video Calls', label: '£ 44.99' },
-        annual:  { offer_hash: 'thsff', amount: 12499,  currency: 'GBP', description: 'Everything + Exclusive Encounters', label: '£ 124.99' },
-        vip_basic: { offer_hash: 'vipbas', amount: 599,   currency: 'GBP', description: 'VIP Basic', label: '£ 5.99' }
+        weekly:  { amount: 7900,   currency: 'MXN', description: 'VIP Semanal - 7 Dias + Chat Privado' },
+        monthly: { amount: 19900,  currency: 'MXN', description: 'VIP Mensal + Chamadas de V├¡deo' },
+        annual:  { amount: 59900,  currency: 'MXN', description: 'VIP Anual + V├¡deo Chamadas + Sa├¡da VIP' }
       }
     };
-
-    function getPlanForCountry(country) {
-      if (country === 'BR') return IRONPAY_PLANS.BR;
-      if (country === 'MX') return IRONPAY_PLANS.MX;
-      const eurCountries = ['PT', 'ES', 'FR', 'IT', 'DE', 'NL', 'BE', 'AT', 'GR', 'IE', 'FI'];
-      if (eurCountries.includes(country)) return IRONPAY_PLANS.EUR;
-      if (country === 'GB') return IRONPAY_PLANS.GBP;
-      return IRONPAY_PLANS.USD; // Default to USD
-    }
-
 
     // ---- Payment Modal HTML (injected once) ----
     function injectPaymentModal() {
@@ -1514,7 +1426,7 @@ const IRONPAY_PLANS = {
             </div>
             <div id="ironpay-copy-area" style="display:none;margin-top:14px;">
               <div id="ironpay-copy-code" style="background:#f0f2f5;border-radius:10px;padding:10px 14px;font-size:11px;word-break:break-all;color:#555;max-height:80px;overflow-y:auto;text-align:left;"></div>
-              <button onclick="copyIronPayCode()" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Copiar Código PIX</button>
+              <button onclick="copyIronPayCode()" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Copiar C├│digo PIX</button>
             </div>
             <div id="ironpay-clabe-area" style="display:none;margin-top:10px;text-align:left;">
               <div id="ironpay-clabe-info" style="background:#f0f2f5;border-radius:10px;padding:14px;font-size:13px;color:#333;line-height:1.8;"></div>
@@ -1523,7 +1435,7 @@ const IRONPAY_PLANS = {
             <div id="ironpay-checkout-link" style="display:none;margin-top:14px;">
               <a id="ironpay-checkout-url" href="#" target="_blank" style="display:block;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;text-decoration:none;text-align:center;">Pagar Agora</a>
             </div>
-            <p style="font-size:11px;color:#aaa;margin-top:14px;">Após o pagamento, você receberá o acesso via Telegram</p>
+            <p style="font-size:11px;color:#aaa;margin-top:14px;">Ap├│s o pagamento, voc├¬ receber├í o acesso via Telegram</p>
           </div>
         </div>
         <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
@@ -1554,10 +1466,10 @@ const IRONPAY_PLANS = {
     let _clabeValue  = '';
 
     function copyIronPayCode() {
-      navigator.clipboard.writeText(_pixCopyCode).then(() => alert('Código PIX copiado!')).catch(() => {
+      navigator.clipboard.writeText(_pixCopyCode).then(() => alert('C├│digo PIX copiado!')).catch(() => {
         const ta = document.createElement('textarea'); ta.value = _pixCopyCode;
         document.body.appendChild(ta); ta.select(); document.execCommand('copy');
-        document.body.removeChild(ta); alert('Código PIX copiado!');
+        document.body.removeChild(ta); alert('C├│digo PIX copiado!');
       });
     }
 
@@ -1570,7 +1482,108 @@ const IRONPAY_PLANS = {
     }
 
     async function createIronPayCharge(plan) {
-      window.location.href = TELEGRAM_URL;
+      const country  = localStorage.getItem('my_last_country') || 'BR';
+      const planData = IRONPAY_PLANS[country] && IRONPAY_PLANS[country][plan];
+      if (!planData) { window.open(TELEGRAM_URL, '_blank'); return; }
+
+      injectPaymentModal();
+      showPaymentModal();
+      setModalLoading();
+
+      try {
+        const res = await fetch(IRONPAY_BASE_URL + '/transactions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            api_token:      IRONPAY_API_TOKEN,
+            amount:         planData.amount,
+            currency:       planData.currency, // Send currency dynamically
+            payment_method: country === 'MX' ? 'transfer' : 'pix', // Assuming IronPay uses transfer/spei for MXN
+            description:    planData.description,
+            postback_url:   TELEGRAM_URL,
+            customer: {
+              name:  'Assinante VIP',
+              email: 'assinante@vip.com'
+            }
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || data.error || 'Erro na API IronPay');
+        }
+
+        const txData = data.data || data.transaction || data;
+
+        const qrImg = txData.qr_code_url || txData.qr_code_image || txData.qr_img || txData.pix_qr_code_url || null;
+        const copyPaste = txData.qr_code || txData.copy_paste || txData.pix_code || txData.pix_copy_paste || txData.emv || txData.brcode || '';
+        const checkoutUrl = txData.checkout_url || txData.payment_url || txData.url || null;
+
+        if (country === 'BR' || txData.payment_method === 'pix') {
+            document.getElementById('ironpay-modal-title').textContent = 'Pague via PIX';
+            document.getElementById('ironpay-modal-subtitle').textContent = 'Escaneie o QR Code ou copie o c├│digo';
+
+            if (qrImg) {
+              document.getElementById('ironpay-modal-body').innerHTML =
+                '<img src="' + qrImg + '" style="width:200px;height:200px;border-radius:12px;" alt="QR Code PIX">';
+            } else if (checkoutUrl) {
+              document.getElementById('ironpay-modal-body').innerHTML =
+                '<p style="color:#555;font-size:13px;">Clique no bot├úo abaixo para concluir o pagamento</p>';
+              document.getElementById('ironpay-checkout-link').style.display = 'block';
+              document.getElementById('ironpay-checkout-url').href = checkoutUrl;
+            } else {
+              document.getElementById('ironpay-modal-body').innerHTML =
+                '<p style="color:#aaa;font-size:13px;">QR Code n├úo dispon├¡vel ÔÇö use o c├│digo abaixo</p>';
+            }
+
+            _pixCopyCode = copyPaste;
+            if (_pixCopyCode) {
+              document.getElementById('ironpay-copy-area').style.display = 'block';
+              document.getElementById('ironpay-copy-code').textContent = _pixCopyCode;
+            }
+        } else if (country === 'MX' || txData.payment_method === 'spei') {
+            _clabeValue = txData.clabe || txData.account_number || '';
+            const bank  = txData.bank_name || 'STP';
+            const benef = txData.beneficiary || 'Zypher';
+            const ref   = txData.reference || '';
+  
+            document.getElementById('ironpay-modal-title').textContent = 'Transfer├¬ncia SPEI';
+            document.getElementById('ironpay-modal-subtitle').textContent = 'Realice la transferencia a los siguientes datos';
+            document.getElementById('ironpay-modal-body').innerHTML = '';
+            document.getElementById('ironpay-clabe-area').style.display = 'block';
+            document.getElementById('ironpay-clabe-info').innerHTML =
+              `<b>Banco:</b> ${bank}<br>` +
+              `<b>Beneficiario:</b> ${benef}<br>` +
+              `<b>CLABE:</b> <span style="font-family:monospace;font-weight:700;">${_clabeValue}</span><br>` +
+              (ref ? `<b>Referencia:</b> ${ref}<br>` : '') +
+              `<b>Monto:</b> ${planData.currency} ${(planData.amount/100).toFixed(2)}`;
+        }
+
+        if (!qrImg && !copyPaste && !checkoutUrl && !_clabeValue) {
+          const hash = txData.hash || txData.transaction_hash || txData.id || '';
+          if (hash) {
+            document.getElementById('ironpay-modal-title').textContent = 'Pagamento Criado';
+            document.getElementById('ironpay-modal-subtitle').textContent = 'ID: ' + hash;
+            document.getElementById('ironpay-modal-body').innerHTML =
+              '<p style="color:#555;font-size:13px;">Pagamento registrado. Acesse o Telegram para concluir.</p>' +
+              '<button onclick="window.open(\'' + TELEGRAM_URL + '\', \'_blank\')" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;">Acessar Telegram</button>';
+          } else {
+            setModalError('Resposta inesperada. Tente via Telegram.');
+          }
+        }
+
+      } catch (e) {
+        console.error('IronPay error:', e);
+        const isCors = e.message === 'Failed to fetch';
+        if (isCors) {
+          setModalError('Erro de conex├úo. Publique no Netlify para ativar os pagamentos ou acesse via Telegram.');
+        } else {
+          setModalError(e.message);
+        }
+      }
     }
 
     function handleSubscribe(event, plan) {
@@ -1582,7 +1595,7 @@ const IRONPAY_PLANS = {
       const country = localStorage.getItem('my_last_country') || 'BR';
       trackClick('profile', 'subscribe_' + plan);
 
-      if (getPlanForCountry(country)) {
+      if (IRONPAY_PLANS[country]) {
         createIronPayCharge(plan);
       } else {
         window.location.href = TELEGRAM_URL;
@@ -1642,9 +1655,9 @@ const IRONPAY_PLANS = {
         detectedLang = countryMap[detectedCountry] || 'en';
       }
 
-      // Update prices based on country
-      const plans = getPlanForCountry(detectedCountry);
-      if (plans) {
+      // Update prices based on country for Xpag countries
+      if (XPAG_PLANS[detectedCountry]) {
+        const plans = XPAG_PLANS[detectedCountry];
         document.querySelectorAll('.price-weekly').forEach(el => el.innerText = plans.weekly.label);
         document.querySelectorAll('.price-monthly').forEach(el => el.innerText = plans.monthly.label);
         document.querySelectorAll('.price-annual').forEach(el => el.innerText = plans.annual.label);
@@ -1652,7 +1665,7 @@ const IRONPAY_PLANS = {
         // Non-Xpag countries show Telegram button style  
         const tgNote = document.createElement('div');
         tgNote.style.cssText = 'font-size:11px;opacity:0.75;margin-top:3px;';
-        tgNote.textContent = '→ Telegram VIP';
+        tgNote.textContent = 'ÔåÆ Telegram VIP';
         document.querySelectorAll('.subscription-card').forEach(btn => {
           if (!btn.querySelector('.tg-note')) {
             const note = tgNote.cloneNode(true);
@@ -1672,7 +1685,7 @@ const IRONPAY_PLANS = {
 
       if (!storedId) {
         try {
-          // Criar novo usuário no Supabase para ganhar o próximo ID da fila
+          // Criar novo usu├írio no Supabase para ganhar o pr├│ximo ID da fila
           const { data, error } = await supabaseClient
             .from('analytics_users')
             .insert([{}])
@@ -1682,7 +1695,7 @@ const IRONPAY_PLANS = {
           if (error) throw error;
           storedId = data.id;
           localStorage.setItem('my_supabase_user_id', storedId);
-          console.log("🆕 Novo ID Sequencial gerado no Supabase:", storedId);
+          console.log("­ƒåò Novo ID Sequencial gerado no Supabase:", storedId);
         } catch (e) {
           console.error("Erro ao gerar ID no Supabase:", e);
           // Fallback local se o banco falhar
@@ -1726,7 +1739,7 @@ const IRONPAY_PLANS = {
           keepalive: true
         }).then(res => {
           if (!res.ok) throw new Error('Tracking failed: ' + res.statusText);
-          console.log(`✅ Click tracked (keepalive): User ${userId} - ${page} → ${button}`);
+          console.log(`Ô£à Click tracked (keepalive): User ${userId} - ${page} ÔåÆ ${button}`);
         });
       } catch (e) {
         console.error("Tracking error:", e);
@@ -1760,7 +1773,7 @@ const IRONPAY_PLANS = {
           lang: details.lang || 'en'
         }]);
 
-        console.log(`✅ Visit tracked to Supabase: User ${userId} - ${page}`);
+        console.log(`Ô£à Visit tracked to Supabase: User ${userId} - ${page}`);
       } catch (e) {
         console.error("Supabase visit error:", e);
       }
@@ -1841,7 +1854,6 @@ const IRONPAY_PLANS = {
 </body>
 
 </html>
-
 
 
 
