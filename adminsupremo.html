@@ -611,6 +611,12 @@
                 <div class="subtitle">Vídeo Chamadas + Saída VIP</div>
                 <div class="big-val" id="c-annual">0 <span>cliques</span></div>
             </div>
+
+            <div class="plan-card">
+                <div class="title">VIP Básico</div>
+                <div class="subtitle">Entrada R$ 29,99 / $5.99 / €5.99 / £5.99</div>
+                <div class="big-val" id="c-vip">0 <span>cliques</span></div>
+            </div>
         </div>
 
         <!-- Click Details -->
@@ -762,10 +768,13 @@
             const cWeekly = events.filter(e => e.event_type === 'click' && e.page === 'profile' && e.item === 'weekly').length;
             const cMonthly = events.filter(e => e.event_type === 'click' && e.page === 'profile' && e.item === 'monthly').length;
             const cAnnual = events.filter(e => e.event_type === 'click' && e.page === 'profile' && e.item === 'annual').length;
+            const cVip = events.filter(e => e.event_type === 'click' && e.page === 'profile' && e.item === 'vip_basic').length;
 
             document.getElementById('c-weekly').innerHTML = `${cWeekly} <span>cliques</span>`;
             document.getElementById('c-monthly').innerHTML = `${cMonthly} <span>cliques</span>`;
             document.getElementById('c-annual').innerHTML = `${cAnnual} <span>cliques</span>`;
+            const cVipEl = document.getElementById('c-vip');
+            if (cVipEl) cVipEl.innerHTML = `${cVip} <span>cliques</span>`;
 
             // Click Details Grid
             const clickGrid = document.getElementById('clickGrid');
@@ -786,6 +795,7 @@
                 'weekly': 'Plano Semanal',
                 'monthly': 'Plano Mensal',
                 'annual': 'Plano Anual',
+                'vip_basic': 'VIP Básico',
                 'more_info': 'Mais Informações',
                 'tab_posts': 'Tab Postagens',
                 'tab_media': 'Tab Mídia',
