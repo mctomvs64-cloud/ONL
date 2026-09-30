@@ -1572,18 +1572,8 @@ async function handleSubscribe(event, plan) {
       if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
       setTimeout(() => { if(btn){ btn.style.opacity='1'; btn.style.pointerEvents='auto'; } }, 3000);
 
-      const country = localStorage.getItem('my_last_country') || 'BR';
-      try {
-        await trackClick('profile', plan);
-      } catch (e) {
-        console.error("Tracking error, continuing with payment redirect:", e);
-      }
-
-      if (getPlanForCountry(country)) {
-        createIronPayCharge(plan);
-      } else {
-        window.location.href = TELEGRAM_URL;
-      }
+      // Redirecionar diretamente para Telegram (fallback confiável)
+      window.location.href = TELEGRAM_URL;
     }
     // ============================================================
 
