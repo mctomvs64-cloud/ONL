@@ -458,8 +458,7 @@
           return fetch(url, {
             method: 'POST',
             headers: headers,
-            body: body,
-            keepalive: true
+            body: body
           }).then(res => {
             if (!res.ok) throw new Error('Tracking failed: ' + res.statusText);
             console.log(`✅ Click tracked: User ${userId} - ${page} → ${button}`);

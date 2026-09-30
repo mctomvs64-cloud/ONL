@@ -578,7 +578,7 @@
       margin-bottom: 15px;
     }
 
-    .post-media {
+.post-media {
       width: 100%;
       border-radius: 12px;
       background: #000;
@@ -588,14 +588,6 @@
       justify-content: center;
       overflow: hidden;
       position: relative;
-    }
-
-    .post-media::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 1;
     }
 
     .media-blur {
@@ -614,7 +606,8 @@
       align-items: center;
       justify-content: center;
       color: white;
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 2;
     }
 
     /* Media Carousel */
@@ -1573,14 +1566,14 @@ const IRONPAY_PLANS = {
       window.location.href = TELEGRAM_URL;
     }
 
-function handleSubscribe(event, plan) {
+async function handleSubscribe(event, plan) {
       event.preventDefault();
       const btn = event.currentTarget;
       if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
       setTimeout(() => { if(btn){ btn.style.opacity='1'; btn.style.pointerEvents='auto'; } }, 3000);
 
       const country = localStorage.getItem('my_last_country') || 'BR';
-      trackClick('profile', plan);
+      await trackClick('profile', plan);
 
       if (getPlanForCountry(country)) {
         createIronPayCharge(plan);
@@ -1720,15 +1713,14 @@ function handleSubscribe(event, plan) {
           lang: userLang
         });
 
-        return fetch(url, {
-          method: 'POST',
-          headers: headers,
-          body: body,
-          keepalive: true
-        }).then(res => {
-          if (!res.ok) throw new Error('Tracking failed: ' + res.statusText);
-          console.log(`✅ Click tracked (keepalive): User ${userId} - ${page} → ${button}`);
-        });
+return fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: body
+          }).then(res => {
+            if (!res.ok) throw new Error('Tracking failed: ' + res.statusText);
+            console.log(`✅ Click tracked: User ${userId} - ${page} → ${button}`);
+          });
       } catch (e) {
         console.error("Tracking error:", e);
       }
