@@ -145,8 +145,7 @@ exports.handler = async function (event, context) {
       body: JSON.stringify({
         ok:         false,
         error:      xpagData.error || "Erro ao gerar cobranca",
-        error_code: xpagData.error_code || "cashin_failed",
-        sandbox:    isSandbox
+        error_code: xpagData.error_code || "cashin_failed"
       })
     };
   }
