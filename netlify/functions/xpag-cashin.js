@@ -111,8 +111,8 @@ exports.handler = async function (event, context) {
     external_id: txExternalId,
     name:        "Cliente VIP"
   };
-  
   if (webhookUrl) xpagPayload.webhook_url = webhookUrl;
+  if (body.payer_phone) xpagPayload.payer_phone = body.payer_phone;
 
   // Chamar API XPag
   let xpagRes, xpagData;
