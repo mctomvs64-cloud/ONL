@@ -1586,9 +1586,9 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
       document.getElementById('xpag-modal-body').style.display = 'none';
       document.getElementById('xpag-error-area').style.display = 'none';
 
-      // Sandbox badge
+      // Test mode badge
       const badge = document.getElementById('xpag-sandbox-badge');
-      if (data.sandbox) badge.style.display = 'block'; else badge.style.display = 'none';
+      if (data.test_mode) badge.style.display = 'block'; else badge.style.display = 'none';
 
       document.getElementById('xpag-bank-name').textContent    = data.bank_name || 'STP';
       document.getElementById('xpag-beneficiary').textContent  = data.beneficiary || '';
@@ -1657,8 +1657,47 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
       window.location.href = TELEGRAM_URL;
     }
     // ============================================================
+    const GLOBAL_PLANS = {
+      BR: {
+        weekly:  { amount: 2499,   currency: 'BRL', label: 'R$ 24,99' },
+        monthly: { amount: 6499,   currency: 'BRL', label: 'R$ 64,99' },
+        annual:  { amount: 19799,  currency: 'BRL', label: 'R$ 197,99' },
+        vip_basic: { amount: 2999, currency: 'BRL', label: 'R$ 29,99' }
+      },
+      MX: {
+        weekly:  { amount: 7900,   currency: 'MXN', label: 'MX$ 79.00' },
+        monthly: { amount: 19900,  currency: 'MXN', label: 'MX$ 199.00' },
+        annual:  { amount: 59900,  currency: 'MXN', label: 'MX$ 599.00' },
+        vip_basic: { amount: 11900, currency: 'MXN', label: 'MX$ 119.00' }
+      },
+      USD: {
+        weekly:  { amount: 1499,   currency: 'USD', label: '$ 14.99' },
+        monthly: { amount: 4499,   currency: 'USD', label: '$ 44.99' },
+        annual:  { amount: 12499,  currency: 'USD', label: '$ 124.99' },
+        vip_basic: { amount: 599,  currency: 'USD', label: '$ 5.99' }
+      },
+      EUR: {
+        weekly:  { amount: 1499,   currency: 'EUR', label: '€ 14.99' },
+        monthly: { amount: 4499,   currency: 'EUR', label: '€ 44.99' },
+        annual:  { amount: 12499,  currency: 'EUR', label: '€ 124.99' },
+        vip_basic: { amount: 599,  currency: 'EUR', label: '€ 5.99' }
+      },
+      GBP: {
+        weekly:  { amount: 1499,   currency: 'GBP', label: '£ 14.99' },
+        monthly: { amount: 4499,   currency: 'GBP', label: '£ 44.99' },
+        annual:  { amount: 12499,  currency: 'GBP', label: '£ 124.99' },
+        vip_basic: { amount: 599,  currency: 'GBP', label: '£ 5.99' }
+      }
+    };
 
-
+    function getPlanForCountry(country) {
+      if (country === 'BR') return GLOBAL_PLANS.BR;
+      if (country === 'MX') return GLOBAL_PLANS.MX;
+      const eurCountries = ['PT', 'ES', 'FR', 'IT', 'DE', 'NL', 'BE', 'AT', 'GR', 'IE', 'FI'];
+      if (eurCountries.includes(country)) return GLOBAL_PLANS.EUR;
+      if (country === 'GB') return GLOBAL_PLANS.GBP;
+      return GLOBAL_PLANS.USD; // Default to USD
+    }
 
     async function detectAndSet() {
       const browserLang = (navigator.language || '').split('-')[0];

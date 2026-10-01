@@ -1,21 +1,16 @@
-﻿// ============================================================
+// ============================================================
 // XPag Cash-In — Netlify Serverless Function
 // ============================================================
 // Cria uma cobranca SPEI/CLABE MXN na XPag.
-// Credenciais ficam APENAS no servidor (env vars no painel Netlify).
 //
-// Env vars necessarias (Netlify dashboard -> Site settings -> Env):
-//   XPAG_ENV           = "sandbox"     (trocar para "production" quando quiser ir ao ar)
-//   XPAG_CLIENT_ID     = "tomvs_46029384"             (producao)
-//   XPAG_CLIENT_SECRET = "2ob5g70i6042fmva9qon019q"   (producao)
-//   XPAG_WEBHOOK_URL   = "https://webhook.site/SEU-UUID"
+// Env vars (arquivo .env local ou Netlify dashboard -> Env vars):
+//   XPAG_CLIENT_ID     = "tomvs_46029384"
+//   XPAG_CLIENT_SECRET = "2ob5g70i6042fmva9qon019q"
+//   XPAG_WEBHOOK_URL   = "https://webhook.site/SEU-UUID"  (opcional)
+//   XPAG_TEST_MODE     = "true"  (opcional — mostra badge de teste no modal, mas usa API real)
 // ============================================================
 
 const XPAG_BASE_URL = "https://api.xpag.global";
-
-// Credenciais de Sandbox (publicas — nao movem dinheiro real)
-const SANDBOX_CLIENT_ID     = "xpagsandbox_00000000";
-const SANDBOX_CLIENT_SECRET = "202620262026202620262026";
 
 // Planos MXN com valores em pesos (float)
 const MXN_PLANS = {
@@ -67,18 +62,17 @@ exports.handler = async function (event, context) {
     };
   }
 
-  // Ambiente: sandbox (padrao) ou production
-  const isSandbox = (process.env.XPAG_ENV || "sandbox") !== "production";
+  // Credenciais (sempre via env vars)
+  const clientId     = process.env.XPAG_CLIENT_ID     || "";
+  const clientSecret = process.env.XPAG_CLIENT_SECRET || "";
+  const webhookUrl   = process.env.XPAG_WEBHOOK_URL   || "";
+  const isTestMode   = process.env.XPAG_TEST_MODE === "true"; // badge visual apenas
 
-  const clientId     = isSandbox ? SANDBOX_CLIENT_ID     : (process.env.XPAG_CLIENT_ID     || "");
-  const clientSecret = isSandbox ? SANDBOX_CLIENT_SECRET : (process.env.XPAG_CLIENT_SECRET || "");
-  const webhookUrl   = process.env.XPAG_WEBHOOK_URL || "";
-
-  if (!isSandbox && (!clientId || !clientSecret)) {
+  if (!clientId || !clientSecret) {
     return {
       statusCode: 500,
       headers: corsHeaders,
-      body: JSON.stringify({ ok: false, error: "Credenciais de producao nao configuradas" })
+      body: JSON.stringify({ ok: false, error: "Env vars XPAG_CLIENT_ID e XPAG_CLIENT_SECRET nao configuradas" })
     };
   }
 
@@ -133,12 +127,13 @@ exports.handler = async function (event, context) {
   }
 
   // Sucesso — retorna CLABE + dados de exibicao
+  console.log("[xpag-cashin] OK:", xpagData.transaction_id, "|", xpagData.clabe, "| MXN", xpagData.amount);
   return {
     statusCode: 200,
     headers: corsHeaders,
     body: JSON.stringify({
       ok:             true,
-      sandbox:        isSandbox,
+      test_mode:      isTestMode,   // badge visual no modal se XPAG_TEST_MODE=true
       clabe:          xpagData.clabe,
       reference:      xpagData.reference,
       amount:         xpagData.amount,
