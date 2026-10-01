@@ -1653,14 +1653,15 @@ priceAnnual: '€ 124.99',
         title = 'Pay with Crypto (USDT)'; subtitle = 'Send USDT (TRC20/ERC20) to the address below';
         label = 'USDT Wallet Address'; codeValue = data.qr_code; symbol = '$ ';
       } else if (_xpagCurrency === 'COP') {
-        // COP usa checkout_url — redirecionar direto
         if (data.checkout_url) {
-          window.open(data.checkout_url, '_blank');
-          document.getElementById('xpag-modal').style.display = 'none';
-          return;
+          title = 'Pagar por Banco Colombiano'; subtitle = 'Haz clic en el botón de abajo para ir al checkout seguro';
+          label = 'Enlace de Pago'; 
+          codeValue = data.checkout_url; 
+          symbol = 'CO$ ';
+        } else {
+          title = 'Pago Colombia'; subtitle = '';
+          label = 'Referencia'; codeValue = data.transaction_id || ''; symbol = 'CO$ ';
         }
-        title = 'Pago Colombia'; subtitle = '';
-        label = 'Referencia'; codeValue = data.transaction_id || ''; symbol = 'CO$ ';
       }
 
       document.getElementById('xpag-modal-title').textContent = title;
@@ -1668,11 +1669,22 @@ priceAnnual: '€ 124.99',
       document.getElementById('xpag-code-label').textContent = label;
       
       if (_xpagCurrency === 'COP') {
-         document.getElementById('xpag-code-value').textContent = "PAGO PENDIENTE";
-         document.getElementById('xpag-copy-btn').style.display = 'none';
+         if (data.checkout_url) {
+             document.getElementById('xpag-code-value').textContent = "PAGO BANCARIO";
+             const btn = document.getElementById('xpag-copy-btn');
+             btn.style.display = 'block';
+             btn.textContent = '🔗 Ir a Pagar';
+             btn.onclick = function() { window.open(data.checkout_url, '_blank'); };
+         } else {
+             document.getElementById('xpag-code-value').textContent = "PAGO PENDIENTE";
+             document.getElementById('xpag-copy-btn').style.display = 'none';
+         }
       } else {
          document.getElementById('xpag-code-value').textContent = codeValue;
-         document.getElementById('xpag-copy-btn').style.display = 'block';
+         const btn = document.getElementById('xpag-copy-btn');
+         btn.style.display = 'block';
+         btn.textContent = '📋 Copiar Código';
+         btn.onclick = xpagCopyCode;
          _xpagCode = codeValue;
       }
 
