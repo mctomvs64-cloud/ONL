@@ -15,7 +15,7 @@ const XPAG_BASE_URL = "https://api.xpag.global";
 // Map de moedas e planos com valores seguros no servidor
 const PLANS = {
   BRL: {
-    weekly:    { amount: 24.99,  description: "VIP Semanal BR" },
+    weekly:    { amount: 9.99,   description: "VIP Semanal BR" },
     monthly:   { amount: 64.99,  description: "VIP Mensal BR" },
     annual:    { amount: 197.99, description: "VIP Anual BR" },
     vip_basic: { amount: 29.99,  description: "VIP Basico BR" }
