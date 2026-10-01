@@ -1418,14 +1418,10 @@ priceAnnual: '€ 124.99',
         document.getElementById('label-sub').innerText = t.labelSub;
         document.querySelectorAll('.lbl-week-btn').forEach(el => el.innerText = t.lblWeekBtn);
         document.querySelectorAll('.btn-sub-txt').forEach(el => el.innerText = t.btnSubTxt);
-        document.querySelectorAll('.price-weekly').forEach(el => el.innerText = t.priceWeekly);
         document.querySelectorAll('.lbl-sub-btn').forEach(el => el.innerText = t.lblSubBtn);
-        document.querySelectorAll('.price-monthly').forEach(el => el.innerText = t.priceMonthly);
         if (document.getElementById('label-packs')) document.getElementById('label-packs').innerText = t.labelPacks;
         document.querySelectorAll('.lbl-pack-btn').forEach(el => el.innerText = t.lblPackBtn);
-document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceAnnual);
         document.querySelectorAll('.lbl-vip-btn').forEach(el => el.innerText = t.lblVipBtn);
-        document.querySelectorAll('.price-vip').forEach(el => el.innerText = t.priceVip);
         document.querySelectorAll('.tab-posts-txt').forEach(el => el.innerText = t.tabPosts);
         document.querySelectorAll('.tab-midia-txt').forEach(el => el.innerText = t.tabMidia);
         document.querySelectorAll('#btn-sub-lock, #btn-sub-lock2').forEach(el => el.innerText = t.btnSubLock);
@@ -1507,9 +1503,18 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
             <div id="xpag-modal-subtitle" style="font-size:12px;color:#8a96a3;margin-bottom:18px;"></div>
 
             <!-- Spinner / Conteúdo -->
-            <div id="xpag-modal-body" style="min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
+            <div id="xpag-modal-body" style="min-height:160px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
               <div id="xpag-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:xpagSpin 0.8s linear infinite;"></div>
-              <div style="color:#8a96a3;font-size:13px;">Generando CLABE...</div>
+              <div style="color:#8a96a3;font-size:13px;">Conectando...</div>
+            </div>
+
+            <!-- Formulário Telefone (Nequi - COP) -->
+            <div id="xpag-phone-area" style="display:none;margin-top:10px;text-align:left;">
+              <div style="color:#333;font-size:13px;margin-bottom:12px;">Para pagos en Colombia (Nequi), necesitamos tu número de celular registrado:</div>
+              <input type="text" id="xpag-phone-input" placeholder="Ej: 3001234567" style="width:100%;padding:14px;border-radius:12px;border:2px solid #eee;font-size:15px;margin-bottom:14px;box-sizing:border-box;">
+              <button onclick="submitXPagPhone()" id="xpag-phone-btn" style="background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 0;font-size:14px;font-weight:700;cursor:pointer;width:100%;transition:background 0.2s;">
+                Continuar al Pago
+              </button>
             </div>
 
             <!-- Dados de Pagamento (oculto até carregar) -->
@@ -1569,6 +1574,7 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
 
     let _xpagCode = '';
     let _xpagCurrency = '';
+    let _pendingPlan = '';
 
     function xpagCopyCode() {
       const btn = document.getElementById('xpag-copy-btn');
@@ -1588,7 +1594,42 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
       document.getElementById('xpag-modal-body').style.display = 'flex';
       document.getElementById('xpag-modal-body').innerHTML = '<div id="xpag-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:xpagSpin 0.8s linear infinite;"></div><div style="color:#8a96a3;font-size:13px;">Conectando...</div>';
       document.getElementById('xpag-payment-area').style.display = 'none';
+      document.getElementById('xpag-phone-area').style.display = 'none';
       document.getElementById('xpag-error-area').style.display = 'none';
+    }
+    
+    function _xpagAskPhone(plan) {
+      _pendingPlan = plan;
+      document.getElementById('xpag-modal-title').textContent = 'Pago Nequi (Colombia)';
+      document.getElementById('xpag-modal-subtitle').textContent = 'Se enviará una notificación a tu celular';
+      document.getElementById('xpag-modal-body').style.display = 'none';
+      document.getElementById('xpag-payment-area').style.display = 'none';
+      document.getElementById('xpag-error-area').style.display = 'none';
+      
+      const phoneInput = document.getElementById('xpag-phone-input');
+      phoneInput.value = '';
+      document.getElementById('xpag-phone-area').style.display = 'block';
+    }
+
+    async function submitXPagPhone() {
+      const phone = document.getElementById('xpag-phone-input').value.trim();
+      if (!phone || phone.length < 10) {
+        alert("Por favor, ingresa un celular Nequi válido de 10 dígitos.");
+        return;
+      }
+      
+      _xpagSetLoading();
+      try {
+        const data = await createXPagCharge(_pendingPlan, 'COP', phone);
+        if (data.ok) {
+          _xpagShowPayment(data);
+        } else {
+          _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
+        }
+      } catch (e) {
+        console.error('[XPag] Error:', e);
+        _xpagShowError('Erro de conexão. Tente novamente.');
+      }
     }
 
     function _xpagShowPayment(data) {
@@ -1611,13 +1652,23 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
       } else if (_xpagCurrency === 'USD') {
         title = 'Pay with Crypto (USDT)'; subtitle = 'Send USDT (TRC20/ERC20) to the address below';
         label = 'USDT Wallet Address'; codeValue = data.qr_code; symbol = '$ ';
+      } else if (_xpagCurrency === 'COP') {
+        title = 'Notificación Nequi Enviada'; subtitle = 'Abre Nequi en tu celular para aceptar el pago';
+        label = 'Estado del Pago'; codeValue = 'Notificación Push enviada'; symbol = 'CO$ ';
       }
 
       document.getElementById('xpag-modal-title').textContent = title;
       document.getElementById('xpag-modal-subtitle').textContent = subtitle;
       document.getElementById('xpag-code-label').textContent = label;
-      document.getElementById('xpag-code-value').textContent = codeValue;
-      _xpagCode = codeValue;
+      
+      if (_xpagCurrency === 'COP') {
+         document.getElementById('xpag-code-value').textContent = "PAGO PENDIENTE";
+         document.getElementById('xpag-copy-btn').style.display = 'none';
+      } else {
+         document.getElementById('xpag-code-value').textContent = codeValue;
+         document.getElementById('xpag-copy-btn').style.display = 'block';
+         _xpagCode = codeValue;
+      }
 
       document.getElementById('xpag-amount').textContent = symbol + (data.amount || '').toLocaleString(undefined, {minimumFractionDigits:2});
 
@@ -1644,16 +1695,20 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
       document.getElementById('xpag-modal-subtitle').textContent = '';
       document.getElementById('xpag-modal-body').style.display = 'none';
       document.getElementById('xpag-payment-area').style.display = 'none';
+      document.getElementById('xpag-phone-area').style.display = 'none';
       document.getElementById('xpag-error-msg').textContent = msg || 'Tente novamente ou use o Telegram.';
       document.getElementById('xpag-error-area').style.display = 'block';
     }
 
-    async function createXPagCharge(planKey, currencyKey) {
+    async function createXPagCharge(planKey, currencyKey, payerPhone = null) {
       const externalId = currencyKey + '-' + planKey.toUpperCase() + '-' + Date.now();
+      const payload = { plan: planKey, currency: currencyKey, external_id: externalId };
+      if (payerPhone) payload.payer_phone = payerPhone;
+      
       const res = await fetch(XPAG_FUNCTION_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan: planKey, currency: currencyKey, external_id: externalId })
+        body: JSON.stringify(payload)
       });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
@@ -1670,26 +1725,33 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
 
       const country = localStorage.getItem('my_last_country') || 'BR';
       const plansForCountry = getPlanForCountry(country);
-      const currency = plansForCountry.weekly.currency; // BRL, MXN, USD, EUR, GBP
+      const currency = plansForCountry.weekly.currency; // BRL, MXN, USD, EUR, GBP, COP
 
-      // ── BRL, MXN, USD → XPag (PIX/SPEI/USDT) ──────────────────
-      if (['BRL', 'MXN', 'USD'].includes(currency)) {
+      // ── BRL, MXN, USD, COP → XPag (PIX/SPEI/USDT/NEQUI) ──────────────────
+      if (['BRL', 'MXN', 'USD', 'COP'].includes(currency)) {
         injectPaymentModal();
-        _xpagSetLoading();
+        
         document.getElementById('xpag-modal').style.display = 'flex';
         trackClick('profile', 'subscribe_xpag_' + currency.toLowerCase() + '_' + plan);
 
-        try {
-          const data = await createXPagCharge(plan, currency);
-          if (data.ok && (data.clabe || data.qr_code)) {
-            _xpagShowPayment(data);
-          } else {
-            _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
-          }
-        } catch (e) {
-          console.error('[XPag] Error:', e);
-          _xpagShowError('Erro de conexão. Tente novamente.');
+        if (currency === 'COP') {
+           // COP requires asking for Nequi Phone first
+           _xpagAskPhone(plan);
+        } else {
+           _xpagSetLoading();
+           try {
+             const data = await createXPagCharge(plan, currency);
+             if (data.ok && (data.clabe || data.qr_code)) {
+               _xpagShowPayment(data);
+             } else {
+               _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
+             }
+           } catch (e) {
+             console.error('[XPag] Error:', e);
+             _xpagShowError('Erro de conexão. Tente novamente.');
+           }
         }
+        
         if (btn) { btn.style.opacity='1'; btn.style.pointerEvents='auto'; }
         return;
       }
@@ -1711,6 +1773,12 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
         monthly: { amount: 19900,  currency: 'MXN', label: 'MX$ 199.00' },
         annual:  { amount: 59900,  currency: 'MXN', label: 'MX$ 599.00' },
         vip_basic: { amount: 11900, currency: 'MXN', label: 'MX$ 119.00' }
+      },
+      COP: {
+        weekly:  { amount: 59900,  currency: 'COP', label: 'CO$ 59,900' },
+        monthly: { amount: 189900, currency: 'COP', label: 'CO$ 189,900' },
+        annual:  { amount: 499900, currency: 'COP', label: 'CO$ 499,900' },
+        vip_basic: { amount: 79900, currency: 'COP', label: 'CO$ 79,900' }
       },
       USD: {
         weekly:  { amount: 1499,   currency: 'USD', label: '$ 14.99' },
@@ -1735,6 +1803,7 @@ document.querySelectorAll('.price-annual').forEach(el => el.innerText = t.priceA
     function getPlanForCountry(country) {
       if (country === 'BR') return GLOBAL_PLANS.BR;
       if (country === 'MX') return GLOBAL_PLANS.MX;
+      if (country === 'CO') return GLOBAL_PLANS.COP;
       const eurCountries = ['PT', 'ES', 'FR', 'IT', 'DE', 'NL', 'BE', 'AT', 'GR', 'IE', 'FI'];
       if (eurCountries.includes(country)) return GLOBAL_PLANS.EUR;
       if (country === 'GB') return GLOBAL_PLANS.GBP;

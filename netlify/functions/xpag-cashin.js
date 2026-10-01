@@ -31,6 +31,12 @@ const PLANS = {
     monthly:   { amount: 44.99,  description: "VIP Monthly USD" },
     annual:    { amount: 124.99, description: "VIP Annual USD" },
     vip_basic: { amount: 5.99,   description: "VIP Basic USD" }
+  },
+  COP: {
+    weekly:    { amount: 59900,  description: "VIP Semanal COP" },
+    monthly:   { amount: 189900, description: "VIP Mensal COP" },
+    annual:    { amount: 499900, description: "VIP Anual COP" },
+    vip_basic: { amount: 79900,  description: "VIP Basico COP" }
   }
 };
 
@@ -66,7 +72,7 @@ exports.handler = async function (event, context) {
     };
   }
 
-  const { plan, currency, external_id } = body;
+  const { plan, currency, external_id, payer_phone } = body;
   const targetCurrency = currency || "MXN"; // Fallback pra MXN se nao vier
 
   if (!PLANS[targetCurrency] || !PLANS[targetCurrency][plan]) {
@@ -105,7 +111,9 @@ exports.handler = async function (event, context) {
     external_id: txExternalId,
     name:        "Cliente VIP"
   };
+  
   if (webhookUrl) xpagPayload.webhook_url = webhookUrl;
+  if (payer_phone) xpagPayload.payer_phone = payer_phone; // OBRIGATÓRIO PARA COP (Nequi)
 
   // Chamar API XPag
   let xpagRes, xpagData;
