@@ -12,12 +12,26 @@
 
 const XPAG_BASE_URL = "https://api.xpag.global";
 
-// Planos MXN com valores em pesos (float)
-const MXN_PLANS = {
-  weekly:    { amount: 79.00,   description: "VIP Semanal 7 Dias + Chat Privado" },
-  monthly:   { amount: 199.00,  description: "VIP Mensal + Chamadas de Video" },
-  annual:    { amount: 599.00,  description: "VIP Anual + Video Chamadas + Saida VIP" },
-  vip_basic: { amount: 119.00,  description: "VIP Basico" }
+// Map de moedas e planos com valores seguros no servidor
+const PLANS = {
+  BRL: {
+    weekly:    { amount: 24.99,  description: "VIP Semanal BR" },
+    monthly:   { amount: 64.99,  description: "VIP Mensal BR" },
+    annual:    { amount: 197.99, description: "VIP Anual BR" },
+    vip_basic: { amount: 29.99,  description: "VIP Basico BR" }
+  },
+  MXN: {
+    weekly:    { amount: 79.00,  description: "VIP Semanal MX" },
+    monthly:   { amount: 199.00, description: "VIP Mensal MX" },
+    annual:    { amount: 599.00, description: "VIP Anual MX" },
+    vip_basic: { amount: 119.00, description: "VIP Basico MX" }
+  },
+  USD: {
+    weekly:    { amount: 14.99,  description: "VIP Weekly USD" },
+    monthly:   { amount: 44.99,  description: "VIP Monthly USD" },
+    annual:    { amount: 124.99, description: "VIP Annual USD" },
+    vip_basic: { amount: 5.99,   description: "VIP Basic USD" }
+  }
 };
 
 exports.handler = async function (event, context) {
@@ -52,13 +66,14 @@ exports.handler = async function (event, context) {
     };
   }
 
-  const { plan, external_id } = body;
+  const { plan, currency, external_id } = body;
+  const targetCurrency = currency || "MXN"; // Fallback pra MXN se nao vier
 
-  if (!plan || !MXN_PLANS[plan]) {
+  if (!PLANS[targetCurrency] || !PLANS[targetCurrency][plan]) {
     return {
       statusCode: 400,
       headers: corsHeaders,
-      body: JSON.stringify({ ok: false, error: "Plano invalido. Use: weekly, monthly, annual ou vip_basic" })
+      body: JSON.stringify({ ok: false, error: "Plano ou moeda invalidos." })
     };
   }
 
@@ -77,11 +92,14 @@ exports.handler = async function (event, context) {
   }
 
   // Montar payload XPag
-  const planData = MXN_PLANS[plan];
-  const txExternalId = external_id || ("MX-" + plan.toUpperCase() + "-" + Date.now());
+  const planData = PLANS[targetCurrency][plan];
+  const txExternalId = external_id || (`${targetCurrency}-${plan.toUpperCase()}-${Date.now()}`);
+
+  // XPag suporta USDT para dolares
+  const xpagCurrency = targetCurrency === "USD" ? "USDT" : targetCurrency;
 
   const xpagPayload = {
-    currency:    "MXN",
+    currency:    xpagCurrency,
     amount:      planData.amount,
     description: planData.description,
     external_id: txExternalId,
@@ -126,23 +144,25 @@ exports.handler = async function (event, context) {
     };
   }
 
-  // Sucesso — retorna CLABE + dados de exibicao
-  console.log("[xpag-cashin] OK:", xpagData.transaction_id, "|", xpagData.clabe, "| MXN", xpagData.amount);
+  // Sucesso — retorna os dados do pagamento correspondente a moeda
+  console.log(`[xpag-cashin] OK: ${xpagData.transaction_id} | ${targetCurrency} ${xpagData.amount}`);
+  
   return {
     statusCode: 200,
     headers: corsHeaders,
     body: JSON.stringify({
       ok:             true,
-      test_mode:      isTestMode,   // badge visual no modal se XPAG_TEST_MODE=true
-      clabe:          xpagData.clabe,
-      reference:      xpagData.reference,
+      test_mode:      isTestMode,
+      currency:       targetCurrency,
       amount:         xpagData.amount,
-      currency:       "MXN",
-      bank_name:      xpagData.bank_name   || "STP",
-      beneficiary:    xpagData.beneficiary || "Zypher",
+      clabe:          xpagData.clabe || "",
+      qr_code:        xpagData.copy_paste || xpagData.code || xpagData.qr || "", // PIX ou USDT address
+      qr_url:         xpagData.qr_url || "",
+      bank_name:      xpagData.bank_name || "",
+      beneficiary:    xpagData.beneficiary || "",
       transaction_id: xpagData.transaction_id,
       request_number: xpagData.request_number,
-      status:         xpagData.status      || "pending",
+      status:         xpagData.status || "pending",
       external_id:    txExternalId
     })
   };
