@@ -113,7 +113,6 @@ exports.handler = async function (event, context) {
   };
   
   if (webhookUrl) xpagPayload.webhook_url = webhookUrl;
-  if (payer_phone) xpagPayload.payer_phone = payer_phone; // OBRIGATÓRIO PARA COP (Nequi)
 
   // Chamar API XPag
   let xpagRes, xpagData;
@@ -164,8 +163,9 @@ exports.handler = async function (event, context) {
       currency:       targetCurrency,
       amount:         xpagData.amount,
       clabe:          xpagData.clabe || "",
-      qr_code:        xpagData.copy_paste || xpagData.code || xpagData.qr || "", // PIX ou USDT address
+      qr_code:        xpagData.copy_paste || xpagData.code || xpagData.qr || "",
       qr_url:         xpagData.qr_url || "",
+      checkout_url:   xpagData.checkout_url || "", // COP retorna checkout_url
       bank_name:      xpagData.bank_name || "",
       beneficiary:    xpagData.beneficiary || "",
       transaction_id: xpagData.transaction_id,
