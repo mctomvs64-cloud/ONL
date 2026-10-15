@@ -1,61 +1,56 @@
 // ============================================================
 // IronPay Checkout — Netlify Serverless Function
 // ============================================================
-// Cria uma transação PIX via IronPay para TODAS as moedas.
-// IronPay é um gateway brasileiro nativo — os bancos não bloqueiam.
-//
-// Fluxo:
-//   1. Frontend envia { plan, currency, customer_name, customer_phone }
-//   2. Esta função cria a transação na IronPay via POST /transactions
-//   3. Retorna o QR Code PIX / checkout_url para o cliente pagar
+// Processa pagamentos via IronPay para TODAS as moedas e planos.
+// Para BRL: Gera transação PIX instantânea com QR Code e Copia-e-Cola.
+// Para outras moedas (MXN, USD, EUR, GBP, COP): Fornece checkout seguro com cartão.
 //
 // API IronPay:
 //   Base URL: https://api.ironpayapp.com.br/api/public/v1
-//   Auth: api_token no body
-//   Valores em centavos
+//   Auth: api_token
 // ============================================================
 
 const IRONPAY_BASE = "https://api.ironpayapp.com.br/api/public/v1";
 const IRONPAY_TOKEN = "2ox8phHYN9DUVMLdRl06uRr6FgprkMA9fMKI6FhX9CbK9EINvo09Uv49p4bp";
 const PRODUCT_HASH = "cy381vdbuj"; // Evelyn Oliver VIP Global
 
-// Planos com valores em centavos para cada moeda
+// Mapeamento de ofertas ativas na IronPay
 const PLANS = {
   BRL: {
-    weekly:    { price: 999,    title: "VIP Semanal" },
-    monthly:   { price: 6499,   title: "VIP Mensal" },
-    annual:    { price: 19799,  title: "VIP Anual" },
-    vip_basic: { price: 2999,   title: "VIP Básico" }
+    weekly:    { offer_hash: "uispe", price: 2499,   title: "VIP Semanal BR" },
+    monthly:   { offer_hash: "taymw", price: 6499,   title: "VIP Mensal BR" },
+    annual:    { offer_hash: "llmx1", price: 19799,  title: "VIP Anual BR" },
+    vip_basic: { offer_hash: "2pgah", price: 2999,   title: "VIP Básico BR" }
   },
   MXN: {
-    weekly:    { price: 5500,   title: "VIP Semanal MX" },
-    monthly:   { price: 13900,  title: "VIP Mensal MX" },
-    annual:    { price: 41900,  title: "VIP Anual MX" },
-    vip_basic: { price: 8300,   title: "VIP Básico MX" }
+    weekly:    { offer_hash: "bjkly", price: 7900,   title: "VIP Semanal MXN" },
+    monthly:   { offer_hash: "apkip", price: 19900,  title: "VIP Mensal MXN" },
+    annual:    { offer_hash: "ba2cd", price: 59900,  title: "VIP Anual MXN" },
+    vip_basic: { offer_hash: "hdsdg", price: 9900,   title: "VIP Básico MXN" }
   },
   USD: {
-    weekly:    { price: 1499,   title: "VIP Weekly" },
-    monthly:   { price: 4499,   title: "VIP Monthly" },
-    annual:    { price: 12499,  title: "VIP Annual" },
-    vip_basic: { price: 599,    title: "VIP Basic" }
-  },
-  COP: {
-    weekly:    { price: 41900,  title: "VIP Semanal COP" },
-    monthly:   { price: 132900, title: "VIP Mensal COP" },
-    annual:    { price: 349900, title: "VIP Anual COP" },
-    vip_basic: { price: 55900,  title: "VIP Básico COP" }
+    weekly:    { offer_hash: "ukglt", price: 699,    title: "VIP Weekly USD" },
+    monthly:   { offer_hash: "czdmn", price: 1499,   title: "VIP Monthly USD" },
+    annual:    { offer_hash: "fyx25", price: 4499,   title: "VIP Annual USD" },
+    vip_basic: { offer_hash: "zosre", price: 500,    title: "VIP Basic USD" }
   },
   EUR: {
-    weekly:    { price: 1499,   title: "VIP Weekly EUR" },
-    monthly:   { price: 4499,   title: "VIP Monthly EUR" },
-    annual:    { price: 12499,  title: "VIP Annual EUR" },
-    vip_basic: { price: 599,    title: "VIP Basic EUR" }
+    weekly:    { offer_hash: "kxkue", price: 699,    title: "VIP Weekly EUR" },
+    monthly:   { offer_hash: "wqiic", price: 1499,   title: "VIP Monthly EUR" },
+    annual:    { offer_hash: "a03xl", price: 4499,   title: "VIP Annual EUR" },
+    vip_basic: { offer_hash: "2r4n3", price: 500,    title: "VIP Basic EUR" }
   },
   GBP: {
-    weekly:    { price: 1499,   title: "VIP Weekly GBP" },
-    monthly:   { price: 4499,   title: "VIP Monthly GBP" },
-    annual:    { price: 12499,  title: "VIP Annual GBP" },
-    vip_basic: { price: 599,    title: "VIP Basic GBP" }
+    weekly:    { offer_hash: "ggynu", price: 599,    title: "VIP Weekly GBP" },
+    monthly:   { offer_hash: "xnivj", price: 1299,   title: "VIP Monthly GBP" },
+    annual:    { offer_hash: "thsff", price: 3499,   title: "VIP Annual GBP" },
+    vip_basic: { offer_hash: "yj3w3", price: 500,    title: "VIP Basic GBP" }
+  },
+  COP: {
+    weekly:    { offer_hash: "cdwxv", price: 41900,  title: "VIP Semanal COP" },
+    monthly:   { offer_hash: "j72wp", price: 132900, title: "VIP Mensal COP" },
+    annual:    { offer_hash: "hlzs6", price: 349900, title: "VIP Anual COP" },
+    vip_basic: { offer_hash: "deazn", price: 55900,  title: "VIP Básico COP" }
   }
 };
 
@@ -90,31 +85,54 @@ exports.handler = async function (event) {
   }
 
   const { plan, currency, customer_name, customer_phone } = body;
-  const targetCurrency = currency || "BRL";
+  const targetCurrency = (currency || "BRL").toUpperCase();
 
-  if (!PLANS[targetCurrency] || !PLANS[targetCurrency][plan]) {
+  const currencyPlans = PLANS[targetCurrency] || PLANS.BRL;
+  const planData = currencyPlans[plan] || currencyPlans.weekly;
+
+  const checkoutUrl = `https://go.ironpayapp.com.br/${planData.offer_hash}`;
+
+  // Se não for BRL (internacional: MXN, USD, EUR, GBP, COP), direciona direto para o checkout com cartão
+  if (targetCurrency !== "BRL") {
     return {
-      statusCode: 400,
+      statusCode: 200,
       headers: corsHeaders,
-      body: JSON.stringify({ ok: false, error: "Plano ou moeda inválidos." })
+      body: JSON.stringify({
+        ok:             true,
+        gateway:        "ironpay",
+        currency:       targetCurrency,
+        amount:         planData.price / 100,
+        checkout_url:   checkoutUrl,
+        transaction_id: planData.offer_hash,
+        status:         "pending"
+      })
     };
   }
 
-  const planData = PLANS[targetCurrency][plan];
-
-  // ── Criar transação na IronPay ──────────────────────────────
+  // ── Para BRL: Criar transação PIX na IronPay ─────────────────
   const txPayload = {
-    api_token: IRONPAY_TOKEN,
-    product_hash: PRODUCT_HASH,
+    api_token:      IRONPAY_TOKEN,
+    offer_hash:     planData.offer_hash,
+    amount:         planData.price,
+    currency:       "BRL",
     payment_method: "pix",
-    amount: planData.price,
-    title: planData.title,
-    currency: targetCurrency,
+    description:    planData.title,
+    postback_url:   "https://t.me/Premiumvipglobalbot",
     customer: {
-      name:  customer_name || "Cliente VIP",
-      phone: customer_phone || "",
-      email: "cliente@premiumvip.com"
-    }
+      name:     customer_name || "Assinante VIP",
+      email:    "assinante@vip.com",
+      phone:    customer_phone || "",
+      document: "00000000000"
+    },
+    cart: [
+      {
+        title:          planData.title,
+        price:          planData.price,
+        quantity:       1,
+        product_hash:   PRODUCT_HASH,
+        operation_type: 1
+      }
+    ]
   };
 
   let ironRes, ironData;
@@ -139,28 +157,29 @@ exports.handler = async function (event) {
 
   console.log("[ironpay] Response status:", ironRes.status, "Body:", JSON.stringify(ironData));
 
-  // Verificar erro
-  if (!ironRes.ok || ironData.error) {
-    console.error("[ironpay] Error:", ironData);
+  // Se a criação PIX direta retornar erro, fallback gracioso para o checkout oficial da oferta
+  if (!ironRes.ok || ironData.error || ironData.success === false) {
+    console.warn("[ironpay] PIX direct failed, fallback to checkout URL:", ironData);
     return {
-      statusCode: ironRes.status || 422,
+      statusCode: 200,
       headers: corsHeaders,
       body: JSON.stringify({
-        ok:    false,
-        error: ironData.message || ironData.error || "Erro ao gerar cobrança no gateway."
+        ok:             true,
+        gateway:        "ironpay",
+        currency:       targetCurrency,
+        amount:         planData.price / 100,
+        checkout_url:   checkoutUrl,
+        transaction_id: planData.offer_hash,
+        status:         "pending"
       })
     };
   }
 
-  // ── Sucesso — Extrair dados de pagamento ────────────────────
-  // IronPay pode retornar: pix_code, qr_code, checkout_url, hash, etc.
-  const txHash = ironData.hash || ironData.transaction_hash || ironData.id || "";
-  const pixCode = ironData.pix_code || ironData.copy_paste || ironData.qr_code || ironData.code || "";
-  const qrUrl = ironData.qr_url || ironData.qr_code_url || ironData.qr_image || "";
-  const checkoutUrl = ironData.checkout_url || ironData.payment_url || ironData.url || "";
-  const status = ironData.status || "pending";
-
-  console.log(`[ironpay] OK: ${txHash} | ${targetCurrency} ${planData.price} | status: ${status}`);
+  // ── Sucesso PIX ──────────────────────────────────────────────
+  const txHash = ironData.hash || ironData.transaction || ironData.id || planData.offer_hash;
+  const pixCode = (ironData.pix && ironData.pix.pix_qr_code) || ironData.pix_code || ironData.qr_code || "";
+  const qrUrl = pixCode ? `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(pixCode)}` : "";
+  const status = ironData.payment_status || ironData.status || "waiting_payment";
 
   return {
     statusCode: 200,
@@ -169,13 +188,12 @@ exports.handler = async function (event) {
       ok:             true,
       gateway:        "ironpay",
       currency:       targetCurrency,
-      amount:         planData.price,
+      amount:         planData.price / 100,
       qr_code:        pixCode,
       qr_url:         qrUrl,
-      checkout_url:   checkoutUrl,
+      checkout_url:   (ironData.offer && ironData.offer.url) || checkoutUrl,
       transaction_id: txHash,
-      status:         status,
-      raw:            ironData  // Pass full response for debugging
+      status:         status
     })
   };
 };

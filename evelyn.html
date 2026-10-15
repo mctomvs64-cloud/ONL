@@ -1892,15 +1892,22 @@ priceAnnual: '€ 124.99',
     async function proceedToCheckout(plan) {
       const country = localStorage.getItem('my_last_country') || 'BR';
       const plansForCountry = getPlanForCountry(country);
-      const currency = plansForCountry.weekly.currency; // BRL, MXN, USD, EUR, GBP, COP
+      const currency = (plansForCountry && plansForCountry.weekly && plansForCountry.weekly.currency) || 'BRL';
 
-      // ── EUR, GBP → Telegram (IronPay não suporta) ─────────────
-      if (['EUR', 'GBP'].includes(currency)) {
-        window.location.href = TELEGRAM_URL;
-        return;
+      // ── Moedas internacionais (fora BRL) → redirecionar para o checkout oficial IronPay ──
+      if (currency !== 'BRL') {
+        try {
+          const data = await createIronPayCharge(plan, currency);
+          if (data && data.checkout_url) {
+            window.location.href = data.checkout_url;
+            return;
+          }
+        } catch (e) {
+          console.error('[IronPay] Error redirecting to checkout:', e);
+        }
       }
 
-      // ── BRL, MXN, USD, COP → IronPay (PIX / Checkout global) ──
+      // ── BRL → Mostrar modal com QR Code e Copia-e-Cola PIX ──
       injectPaymentModal();
       document.getElementById('xpag-modal').style.display = 'flex';
       _xpagSetLoading();
@@ -1909,10 +1916,6 @@ priceAnnual: '€ 124.99',
         const data = await createIronPayCharge(plan, currency);
         if (data.ok && (data.qr_code || data.checkout_url)) {
           _xpagShowPayment(data);
-        } else if (data.ok && data.raw && data.raw.checkout_url) {
-          // IronPay may return checkout_url in raw
-          window.open(data.raw.checkout_url, '_blank');
-          document.getElementById('xpag-modal').style.display = 'none';
         } else {
           _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
         }
@@ -1924,16 +1927,16 @@ priceAnnual: '€ 124.99',
     // ============================================================
     const GLOBAL_PLANS = {
       BR: {
-        weekly:    { amount: 999,    currency: 'BRL', label: 'R$ 9,99' },
+        weekly:    { amount: 2499,   currency: 'BRL', label: 'R$ 24,99' },
         monthly:   { amount: 6499,   currency: 'BRL', label: 'R$ 64,99' },
         annual:    { amount: 19799,  currency: 'BRL', label: 'R$ 197,99' },
         vip_basic: { amount: 2999,   currency: 'BRL', label: 'R$ 29,99' },
       },
       MX: {
-        weekly:    { amount: 5500,   currency: 'MXN', label: 'MX$ 55.00' },
-        monthly:   { amount: 13900,  currency: 'MXN', label: 'MX$ 139.00' },
-        annual:    { amount: 41900,  currency: 'MXN', label: 'MX$ 419.00' },
-        vip_basic: { amount: 8300,   currency: 'MXN', label: 'MX$ 83.00' },
+        weekly:    { amount: 7900,   currency: 'MXN', label: 'MX$ 79.00' },
+        monthly:   { amount: 19900,  currency: 'MXN', label: 'MX$ 199.00' },
+        annual:    { amount: 59900,  currency: 'MXN', label: 'MX$ 599.00' },
+        vip_basic: { amount: 9900,   currency: 'MXN', label: 'MX$ 99.00' },
       },
       COP: {
         weekly:    { amount: 41900,  currency: 'COP', label: 'CO$ 41,900' },
@@ -1942,22 +1945,22 @@ priceAnnual: '€ 124.99',
         vip_basic: { amount: 55900,  currency: 'COP', label: 'CO$ 55,900' },
       },
       USD: {
-        weekly:    { amount: 1499,   currency: 'USD', label: '$ 14.99' },
-        monthly:   { amount: 4499,   currency: 'USD', label: '$ 44.99' },
-        annual:    { amount: 12499,  currency: 'USD', label: '$ 124.99' },
-        vip_basic: { amount: 599,    currency: 'USD', label: '$ 5.99' },
+        weekly:    { amount: 699,    currency: 'USD', label: '$ 6.99' },
+        monthly:   { amount: 1499,   currency: 'USD', label: '$ 14.99' },
+        annual:    { amount: 4499,   currency: 'USD', label: '$ 44.99' },
+        vip_basic: { amount: 500,    currency: 'USD', label: '$ 5.00' },
       },
       EUR: {
-        weekly:    { amount: 1499,   currency: 'EUR', label: '€ 14.99' },
-        monthly:   { amount: 4499,   currency: 'EUR', label: '€ 44.99' },
-        annual:    { amount: 12499,  currency: 'EUR', label: '€ 124.99' },
-        vip_basic: { amount: 599,    currency: 'EUR', label: '€ 5.99' },
+        weekly:    { amount: 699,    currency: 'EUR', label: '€ 6.99' },
+        monthly:   { amount: 1499,   currency: 'EUR', label: '€ 14.99' },
+        annual:    { amount: 4499,   currency: 'EUR', label: '€ 44.99' },
+        vip_basic: { amount: 500,    currency: 'EUR', label: '€ 5.00' },
       },
       GBP: {
-        weekly:    { amount: 1499,   currency: 'GBP', label: '£ 14.99' },
-        monthly:   { amount: 4499,   currency: 'GBP', label: '£ 44.99' },
-        annual:    { amount: 12499,  currency: 'GBP', label: '£ 124.99' },
-        vip_basic: { amount: 599,    currency: 'GBP', label: '£ 5.99' },
+        weekly:    { amount: 599,    currency: 'GBP', label: '£ 5.99' },
+        monthly:   { amount: 1299,   currency: 'GBP', label: '£ 12.99' },
+        annual:    { amount: 3499,   currency: 'GBP', label: '£ 34.99' },
+        vip_basic: { amount: 500,    currency: 'GBP', label: '£ 5.00' },
       }
     };
 
