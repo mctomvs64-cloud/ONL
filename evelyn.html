@@ -865,14 +865,7 @@
     <div class="price-vip" style="font-size:18px;font-weight:800;">R$ 29,99</div>
   </button>
 
-  <!-- Plano TESTE (R$ 5,00 - Mínimo IronPay) -->
-  <button onclick="handleSubscribe(event,'test')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 20px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#ff6b6b,#ee5a24);border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
-    <div>
-      <div class="lbl-test-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">🧪 PLANO TESTE</div>
-      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">TESTAR AGORA</div>
-    </div>
-    <div class="price-test" style="font-size:18px;font-weight:800;">R$ 5,00</div>
-  </button>
+  
 
   <div class="main-tabs">
     <div class="tab-item active tab-posts-txt" onclick="trackClick('profile', 'tab_posts')">953 POSTAGENS</div>
@@ -1447,11 +1440,11 @@ priceAnnual: '€ 124.99',
 
     // ============================================================
     // PAYMENT INTEGRATION
-    // ALL → IronPay (gateway brasileiro nativo, sem bloqueio de fraude)
-    // EUR, GBP → Telegram (fallback)
+    // BRL, MXN, USD, COP → XPag (PIX / SPEI / Nequi / USDT)
+    // EUR, GBP → Telegram VIP
     // ============================================================
     const TELEGRAM_URL     = 'https://t.me/Evelynoliver_bot';
-    const IRONPAY_FUNCTION_URL = '/.netlify/functions/ironpay-checkout';
+    const XPAG_FUNCTION_URL = '/.netlify/functions/xpag-cashin';
 
     // Planos de preço por país (label exibido nos botões)
     // ============================================================
@@ -1860,19 +1853,12 @@ priceAnnual: '€ 124.99',
       document.getElementById('xpag-error-area').style.display = 'block';
     }
 
-    async function createIronPayCharge(planKey, currencyKey) {
-      // Get customer name/phone from lead modal if captured
-      const leadName = localStorage.getItem('last_lead_name') || 'Cliente VIP';
-      const leadPhone = localStorage.getItem('last_lead_phone') || '';
+    async function createXPagCharge(planKey, currencyKey, payerPhone = null) {
+      const externalId = currencyKey + '-' + planKey.toUpperCase() + '-' + Date.now();
+      const payload = { plan: planKey, currency: currencyKey, external_id: externalId };
+      if (payerPhone) payload.payer_phone = payerPhone;
       
-      const payload = { 
-        plan: planKey, 
-        currency: currencyKey,
-        customer_name: leadName,
-        customer_phone: leadPhone
-      };
-      
-      const res = await fetch(IRONPAY_FUNCTION_URL, {
+      const res = await fetch(XPAG_FUNCTION_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -1903,50 +1889,47 @@ priceAnnual: '€ 124.99',
       const plansForCountry = getPlanForCountry(country);
       const currency = (plansForCountry && plansForCountry.weekly && plansForCountry.weekly.currency) || 'BRL';
 
-      // ── Moedas internacionais (fora BRL) → redirecionar para o checkout oficial IronPay ──
-      if (currency !== 'BRL') {
-        try {
-          const data = await createIronPayCharge(plan, currency);
-          if (data && data.checkout_url) {
-            window.location.href = data.checkout_url;
-            return;
-          }
-        } catch (e) {
-          console.error('[IronPay] Error redirecting to checkout:', e);
+      // ── BRL, MXN, USD, COP → XPag (PIX/SPEI/USDT/Checkout) ──────────────────
+      if (['BRL', 'MXN', 'USD', 'COP'].includes(currency)) {
+        injectPaymentModal();
+        
+        document.getElementById('xpag-modal').style.display = 'flex';
+
+        if (currency === 'COP') {
+           _xpagAskPhone(plan);
+        } else {
+           _xpagSetLoading();
+           try {
+             const data = await createXPagCharge(plan, currency);
+             if (data.ok && (data.clabe || data.qr_code || data.checkout_url)) {
+               _xpagShowPayment(data);
+             } else {
+               _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
+             }
+           } catch (e) {
+             console.error('[XPag] Error:', e);
+             _xpagShowError('Erro de conexão. Tente novamente.');
+           }
         }
+        return;
       }
 
-      // ── BRL → Mostrar modal com QR Code e Copia-e-Cola PIX ──
-      injectPaymentModal();
-      document.getElementById('xpag-modal').style.display = 'flex';
-      _xpagSetLoading();
-      
-      try {
-        const data = await createIronPayCharge(plan, currency);
-        if (data.ok && (data.qr_code || data.checkout_url)) {
-          _xpagShowPayment(data);
-        } else {
-          _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
-        }
-      } catch (e) {
-        console.error('[IronPay] Error:', e);
-        _xpagShowError('Erro de conexão. Tente novamente.');
-      }
+      // ── EUR, GBP → Telegram ───────────────────────────
+      window.location.href = TELEGRAM_URL;
     }
     // ============================================================
     const GLOBAL_PLANS = {
       BR: {
-        weekly:    { amount: 2499,   currency: 'BRL', label: 'R$ 24,99' },
+        weekly:    { amount: 999,    currency: 'BRL', label: 'R$ 9,99' },
         monthly:   { amount: 6499,   currency: 'BRL', label: 'R$ 64,99' },
         annual:    { amount: 19799,  currency: 'BRL', label: 'R$ 197,99' },
         vip_basic: { amount: 2999,   currency: 'BRL', label: 'R$ 29,99' },
-        test:      { amount: 500,    currency: 'BRL', label: 'R$ 5,00' },
       },
       MX: {
-        weekly:    { amount: 7900,   currency: 'MXN', label: 'MX$ 79.00' },
-        monthly:   { amount: 19900,  currency: 'MXN', label: 'MX$ 199.00' },
-        annual:    { amount: 59900,  currency: 'MXN', label: 'MX$ 599.00' },
-        vip_basic: { amount: 9900,   currency: 'MXN', label: 'MX$ 99.00' },
+        weekly:    { amount: 5500,   currency: 'MXN', label: 'MX$ 55.00' },
+        monthly:   { amount: 13900,  currency: 'MXN', label: 'MX$ 139.00' },
+        annual:    { amount: 41900,  currency: 'MXN', label: 'MX$ 419.00' },
+        vip_basic: { amount: 8300,   currency: 'MXN', label: 'MX$ 83.00' },
       },
       COP: {
         weekly:    { amount: 41900,  currency: 'COP', label: 'CO$ 41,900' },
@@ -1955,22 +1938,22 @@ priceAnnual: '€ 124.99',
         vip_basic: { amount: 55900,  currency: 'COP', label: 'CO$ 55,900' },
       },
       USD: {
-        weekly:    { amount: 699,    currency: 'USD', label: '$ 6.99' },
-        monthly:   { amount: 1499,   currency: 'USD', label: '$ 14.99' },
-        annual:    { amount: 4499,   currency: 'USD', label: '$ 44.99' },
-        vip_basic: { amount: 500,    currency: 'USD', label: '$ 5.00' },
+        weekly:    { amount: 1499,   currency: 'USD', label: '$ 14.99' },
+        monthly:   { amount: 4499,   currency: 'USD', label: '$ 44.99' },
+        annual:    { amount: 12499,  currency: 'USD', label: '$ 124.99' },
+        vip_basic: { amount: 599,    currency: 'USD', label: '$ 5.99' },
       },
       EUR: {
-        weekly:    { amount: 699,    currency: 'EUR', label: '€ 6.99' },
-        monthly:   { amount: 1499,   currency: 'EUR', label: '€ 14.99' },
-        annual:    { amount: 4499,   currency: 'EUR', label: '€ 44.99' },
-        vip_basic: { amount: 500,    currency: 'EUR', label: '€ 5.00' },
+        weekly:    { amount: 1499,   currency: 'EUR', label: '€ 14.99' },
+        monthly:   { amount: 4499,   currency: 'EUR', label: '€ 44.99' },
+        annual:    { amount: 12499,  currency: 'EUR', label: '€ 124.99' },
+        vip_basic: { amount: 599,    currency: 'EUR', label: '€ 5.99' },
       },
       GBP: {
-        weekly:    { amount: 599,    currency: 'GBP', label: '£ 5.99' },
-        monthly:   { amount: 1299,   currency: 'GBP', label: '£ 12.99' },
-        annual:    { amount: 3499,   currency: 'GBP', label: '£ 34.99' },
-        vip_basic: { amount: 500,    currency: 'GBP', label: '£ 5.00' },
+        weekly:    { amount: 1499,   currency: 'GBP', label: '£ 14.99' },
+        monthly:   { amount: 4499,   currency: 'GBP', label: '£ 44.99' },
+        annual:    { amount: 12499,  currency: 'GBP', label: '£ 124.99' },
+        vip_basic: { amount: 599,    currency: 'GBP', label: '£ 5.99' },
       }
     };
 
@@ -2046,8 +2029,7 @@ priceAnnual: '€ 124.99',
         document.querySelectorAll('.price-monthly').forEach(el => el.innerText = plans.monthly.label);
         document.querySelectorAll('.price-annual').forEach(el => el.innerText = plans.annual.label);
         document.querySelectorAll('.price-vip').forEach(el => el.innerText = plans.vip_basic.label);
-        if (plans.test) document.querySelectorAll('.price-test').forEach(el => el.innerText = plans.test.label);
-      } else {
+              } else {
         // Non-IronPay countries (EUR/GBP) show Telegram button style  
         const tgNote = document.createElement('div');
         tgNote.style.cssText = 'font-size:11px;opacity:0.75;margin-top:3px;';
