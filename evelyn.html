@@ -1438,11 +1438,11 @@ priceAnnual: '€ 124.99',
 
     // ============================================================
     // PAYMENT INTEGRATION
-    // MX  → XPag SPEI/CLABE via Netlify Function (sandbox por padrão)
-    // Todos os outros → Telegram (fallback confiável)
+    // ALL → IronPay (gateway brasileiro nativo, sem bloqueio de fraude)
+    // EUR, GBP → Telegram (fallback)
     // ============================================================
     const TELEGRAM_URL     = 'https://t.me/Evelynoliver_bot';
-    const XPAG_FUNCTION_URL = '/.netlify/functions/xpag-cashin';
+    const IRONPAY_FUNCTION_URL = '/.netlify/functions/ironpay-checkout';
 
     // Planos de preço por país (label exibido nos botões)
     // ============================================================
@@ -1573,6 +1573,8 @@ priceAnnual: '€ 124.99',
           user_id: userId
         }]);
         console.log('✅ Lead salvo:', name, phone, plan);
+        localStorage.setItem('last_lead_name', name);
+        localStorage.setItem('last_lead_phone', phone);
       } catch (e) { console.warn(e); }
       try {
         await supabaseClient.from('analytics_events').insert([{
@@ -1849,12 +1851,19 @@ priceAnnual: '€ 124.99',
       document.getElementById('xpag-error-area').style.display = 'block';
     }
 
-    async function createXPagCharge(planKey, currencyKey, payerPhone = null) {
-      const externalId = currencyKey + '-' + planKey.toUpperCase() + '-' + Date.now();
-      const payload = { plan: planKey, currency: currencyKey, external_id: externalId };
-      if (payerPhone) payload.payer_phone = payerPhone;
+    async function createIronPayCharge(planKey, currencyKey) {
+      // Get customer name/phone from lead modal if captured
+      const leadName = localStorage.getItem('last_lead_name') || 'Cliente VIP';
+      const leadPhone = localStorage.getItem('last_lead_phone') || '';
       
-      const res = await fetch(XPAG_FUNCTION_URL, {
+      const payload = { 
+        plan: planKey, 
+        currency: currencyKey,
+        customer_name: leadName,
+        customer_phone: leadPhone
+      };
+      
+      const res = await fetch(IRONPAY_FUNCTION_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -1885,33 +1894,32 @@ priceAnnual: '€ 124.99',
       const plansForCountry = getPlanForCountry(country);
       const currency = plansForCountry.weekly.currency; // BRL, MXN, USD, EUR, GBP, COP
 
-      // ── BRL, MXN, USD, COP → XPag (PIX/SPEI/USDT/Checkout) ──────────────────
-      if (['BRL', 'MXN', 'USD', 'COP'].includes(currency)) {
-        injectPaymentModal();
-        
-        document.getElementById('xpag-modal').style.display = 'flex';
-
-        if (currency === 'COP') {
-           _xpagAskPhone(plan);
-        } else {
-           _xpagSetLoading();
-           try {
-             const data = await createXPagCharge(plan, currency);
-             if (data.ok && (data.clabe || data.qr_code || data.checkout_url)) {
-               _xpagShowPayment(data);
-             } else {
-               _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
-             }
-           } catch (e) {
-             console.error('[XPag] Error:', e);
-             _xpagShowError('Erro de conexão. Tente novamente.');
-           }
-        }
+      // ── EUR, GBP → Telegram (IronPay não suporta) ─────────────
+      if (['EUR', 'GBP'].includes(currency)) {
+        window.location.href = TELEGRAM_URL;
         return;
       }
 
-      // ── EUR, GBP → Telegram ───────────────────────────
-      window.location.href = TELEGRAM_URL;
+      // ── BRL, MXN, USD, COP → IronPay (PIX / Checkout global) ──
+      injectPaymentModal();
+      document.getElementById('xpag-modal').style.display = 'flex';
+      _xpagSetLoading();
+      
+      try {
+        const data = await createIronPayCharge(plan, currency);
+        if (data.ok && (data.qr_code || data.checkout_url)) {
+          _xpagShowPayment(data);
+        } else if (data.ok && data.raw && data.raw.checkout_url) {
+          // IronPay may return checkout_url in raw
+          window.open(data.raw.checkout_url, '_blank');
+          document.getElementById('xpag-modal').style.display = 'none';
+        } else {
+          _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
+        }
+      } catch (e) {
+        console.error('[IronPay] Error:', e);
+        _xpagShowError('Erro de conexão. Tente novamente.');
+      }
     }
     // ============================================================
     const GLOBAL_PLANS = {
@@ -2023,7 +2031,7 @@ priceAnnual: '€ 124.99',
         document.querySelectorAll('.price-annual').forEach(el => el.innerText = plans.annual.label);
         document.querySelectorAll('.price-vip').forEach(el => el.innerText = plans.vip_basic.label);
       } else {
-        // Non-Xpag countries show Telegram button style  
+        // Non-IronPay countries (EUR/GBP) show Telegram button style  
         const tgNote = document.createElement('div');
         tgNote.style.cssText = 'font-size:11px;opacity:0.75;margin-top:3px;';
         tgNote.textContent = '→ Telegram VIP';
