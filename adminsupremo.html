@@ -455,6 +455,38 @@
             color: var(--primary);
         }
 
+        /* Leads & Tab Panels */
+        .leads-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .leads-section h2 {
+            font-size: 16px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            color: var(--text-dim);
+        }
+
+        .whatsapp-link {
+            color: #22c55e;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .whatsapp-link:hover { opacity: 0.8; }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
         @media (max-width: 768px) {
             body {
                 padding: 15px;
@@ -515,6 +547,8 @@
                 <div class="op-status" id="op-start">OPERAÇÃO ATIVA</div>
             </div>
             <div class="header-actions">
+                <button class="btn-tab active" id="tab-metrics" onclick="switchTab('metrics')">&#x1F4CA; Métricas</button>
+                <button class="btn-tab" id="tab-leads" onclick="switchTab('leads')">&#x1F4AC; Leads / Contatos</button>
                 <button class="btn-reset" id="btnResetOp" onclick="resetMetrics()">Resetar Operação</button>
                 <button class="btn-refresh" onclick="render()">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -525,6 +559,9 @@
                 <button class="btn-logout" onclick="logout()">Sair</button>
             </div>
         </div>
+
+        <!-- Tab: Métricas -->
+        <div id="panel-metrics" class="tab-panel active">
 
         <!-- Top Metrics -->
         <div class="metrics-grid">
@@ -590,6 +627,15 @@
                 <div class="value" style="font-size: 18px;" id="last-visit">Nenhuma</div>
                 <div class="sub-value">Tempo real</div>
             </div>
+
+            <div class="metric-card">
+                <div class="icon-label">
+                    <span class="label">Leads Capturados</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.73h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="value" id="total-leads" style="color:var(--success)">0</div>
+                <div class="sub-value">Contatos coletados</div>
+            </div>
         </div>
 
         <!-- Plans Metrics -->
@@ -616,6 +662,12 @@
                 <div class="title">VIP Básico</div>
                 <div class="subtitle">Entrada R$ 29,99 / $5.99 / €5.99 / £5.99</div>
                 <div class="big-val" id="c-vip">0 <span>cliques</span></div>
+            </div>
+
+            <div class="plan-card" style="border-color: rgba(255,107,107,0.3);">
+                <div class="title" style="color:#ff6b6b;">&#x1F9EA; Plano Teste</div>
+                <div class="subtitle">R$0,99 / $0.99</div>
+                <div class="big-val" id="c-test">0 <span>cliques</span></div>
             </div>
         </div>
 
@@ -647,12 +699,38 @@
                 </table>
             </div>
         </div>
+    </div><!-- end panel-metrics -->
+
+    <!-- Tab: Leads / Contatos -->
+    <div id="panel-leads" class="tab-panel">
+      <div class="leads-section">
+        <h2>&#x1F4AC; Leads Capturados &mdash; Contatos de Clientes</h2>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>WhatsApp</th>
+                <th>Plano</th>
+                <th>Pais</th>
+                <th>Data/Hora</th>
+              </tr>
+            </thead>
+            <tbody id="leads-body">
+              <tr><td colspan="6" style="text-align:center;color:var(--text-dim);padding:30px;">Clique na aba Leads para carregar</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- end panel-leads -->
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-const supabaseUrl = 'https://mwruknzqfimnitpvlnax.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13cnVrbnpxZmltbml0cHZsbmF4Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MDc5NzQ4NiwiZXhwIjoyMTA2MzczNDg2fQ.hb9db5ZzE8hYi2uaGrSJn4v4yeMi1Q-TobBxnh0S6Kg';
+const supabaseUrl = 'https://icjaadpiwzhyoccgdejl.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljamFhZHBpd3poeW9jY2dkZWpsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MjA3NDA1OCwiZXhwIjoyMTA3NjUwMDU4fQ.MgD53JiBt7oTqDd1sS9Kte6gcIIQxXHjvfMc2WHScNA';
       const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         const ADMIN_PASSWORD = '99083160';
@@ -765,16 +843,19 @@ const supabaseUrl = 'https://mwruknzqfimnitpvlnax.supabase.co';
             }
 
             // Plans
-            const cWeekly = events.filter(e => e.event_type === 'click' && e.page === 'profile' && e.item === 'weekly').length;
-            const cMonthly = events.filter(e => e.event_type === 'click' && e.page === 'profile' && e.item === 'monthly').length;
-            const cAnnual = events.filter(e => e.event_type === 'click' && e.page === 'profile' && e.item === 'annual').length;
-            const cVip = events.filter(e => e.event_type === 'click' && e.page === 'profile' && e.item === 'vip_basic').length;
+            const cWeekly = events.filter(e => e.event_type === 'click' && e.item === 'weekly').length;
+            const cMonthly = events.filter(e => e.event_type === 'click' && e.item === 'monthly').length;
+            const cAnnual = events.filter(e => e.event_type === 'click' && e.item === 'annual').length;
+            const cVip = events.filter(e => e.event_type === 'click' && e.item === 'vip_basic').length;
+            const cTest = events.filter(e => e.event_type === 'click' && e.item === 'test').length;
 
             document.getElementById('c-weekly').innerHTML = `${cWeekly} <span>cliques</span>`;
             document.getElementById('c-monthly').innerHTML = `${cMonthly} <span>cliques</span>`;
             document.getElementById('c-annual').innerHTML = `${cAnnual} <span>cliques</span>`;
             const cVipEl = document.getElementById('c-vip');
             if (cVipEl) cVipEl.innerHTML = `${cVip} <span>cliques</span>`;
+            const cTestEl = document.getElementById('c-test');
+            if (cTestEl) cTestEl.innerHTML = `${cTest} <span>cliques</span>`;
 
             // Click Details Grid
             const clickGrid = document.getElementById('clickGrid');
@@ -796,6 +877,7 @@ const supabaseUrl = 'https://mwruknzqfimnitpvlnax.supabase.co';
                 'monthly': 'Plano Mensal',
                 'annual': 'Plano Anual',
                 'vip_basic': 'VIP Básico',
+                'test': '🧪 Plano Teste',
                 'more_info': 'Mais Informações',
                 'tab_posts': 'Tab Postagens',
                 'tab_media': 'Tab Mídia',
@@ -836,8 +918,8 @@ const supabaseUrl = 'https://mwruknzqfimnitpvlnax.supabase.co';
                         <td><span style="font-weight:700; color: #fbbf24; font-size: 1.1em;">#${entry.user_id || '-'}</span></td>
                         <td>${date}</td>
                         <td><span class="badge ${pageClass}">${actionLabel}</span></td>
-                        <td><span style="font-weight:700">📍 ${entry.country}</span></td>
-                        <td style="color:var(--text-dim)">${entry.lang.toUpperCase()}</td>
+                        <td><span style="font-weight:700">📍 ${entry.country || 'XX'}</span></td>
+                        <td style="color:var(--text-dim)">${(entry.lang || 'en').toUpperCase()}</td>
                     </tr>
                 `;
             });
@@ -845,6 +927,7 @@ const supabaseUrl = 'https://mwruknzqfimnitpvlnax.supabase.co';
             if (events.length === 0) {
                 logBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-dim)">Nenhuma atividade no banco de dados ainda</td></tr>';
             }
+            renderLeadsCount();
         }
 
         function getTimeAgo(date) {
@@ -904,6 +987,114 @@ const supabaseUrl = 'https://mwruknzqfimnitpvlnax.supabase.co';
                 console.error("Reset button not found!");
             }
         });
+
+        // ── Leads Functions ──────────────────────────────────────────
+        async function renderLeads() {
+            const leadsBody = document.getElementById('leads-body');
+            if (!leadsBody) return;
+            leadsBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-dim);padding:30px;">Carregando...</td></tr>';
+
+            try {
+                let leads = [];
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('leads')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+                    if (!error && data && data.length > 0) leads = data;
+                } catch (e) {}
+
+                // Fallback: check analytics_events for lead events
+                if (leads.length === 0) {
+                    try {
+                        const { data } = await supabaseClient
+                            .from('analytics_events')
+                            .select('*')
+                            .eq('event_type', 'lead')
+                            .order('created_at', { ascending: false });
+                        if (data && data.length > 0) {
+                            leads = data.map(ev => {
+                                const parts = (ev.item || '').split(' | ');
+                                return {
+                                    plan: parts[0] || 'unknown',
+                                    name: parts[1] || 'Lead',
+                                    whatsapp: parts[2] || '',
+                                    country: ev.country,
+                                    created_at: ev.created_at
+                                };
+                            });
+                        }
+                    } catch (e) {}
+                }
+
+                const totalLeadsEl = document.getElementById('total-leads');
+                if (totalLeadsEl) totalLeadsEl.innerText = leads.length;
+
+                if (leads.length === 0) {
+                    leadsBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-dim);padding:30px;">Nenhum lead capturado ainda</td></tr>';
+                    return;
+                }
+
+                leadsBody.innerHTML = '';
+                leads.forEach((lead, i) => {
+                    const date = new Date(lead.created_at).toLocaleString('pt-BR');
+                    const phone = lead.whatsapp || '';
+                    const cleanPhone = phone.replace(/[^\d+]/g, '');
+                    const waLink = cleanPhone ? 'https://wa.me/' + cleanPhone.replace('+', '') : '#';
+                    const planBadge = getPlanBadge(lead.plan);
+
+                    leadsBody.innerHTML += `
+                        <tr style="border-top: 1px solid var(--border);">
+                            <td style="color:var(--text-dim);font-size:12px;">${i + 1}</td>
+                            <td style="font-weight:700;">${lead.name || '-'}</td>
+                            <td>
+                                <a href="${waLink}" target="_blank" class="whatsapp-link">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#22c55e"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                    ${phone}
+                                </a>
+                            </td>
+                            <td>${planBadge}</td>
+                            <td><span style="font-weight:700;">📍 ${lead.country || 'XX'}</span></td>
+                            <td style="color:var(--text-dim);font-size:12px;">${date}</td>
+                        </tr>
+                    `;
+                });
+            } catch (e) {
+                console.error('Leads fetch error:', e);
+                leadsBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--danger);padding:30px;">Erro ao carregar leads. Verifique a tabela no Supabase.</td></tr>';
+            }
+        }
+
+        async function renderLeadsCount() {
+            try {
+                const { count, error } = await supabaseClient
+                    .from('leads')
+                    .select('*', { count: 'exact', head: true });
+                if (!error) {
+                    const el = document.getElementById('total-leads');
+                    if (el) el.innerText = count || 0;
+                }
+            } catch (e) { /* silent */ }
+        }
+
+        function getPlanBadge(plan) {
+            const badges = {
+                'weekly': '<span style="background:rgba(0,191,255,0.1);color:#00bfff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:800;">SEMANAL</span>',
+                'monthly': '<span style="background:rgba(139,92,246,0.1);color:#a78bfa;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:800;">MENSAL</span>',
+                'annual': '<span style="background:rgba(251,191,36,0.1);color:#fbbf24;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:800;">ANUAL</span>',
+                'vip_basic': '<span style="background:rgba(34,197,94,0.1);color:#22c55e;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:800;">VIP BÁSICO</span>',
+                'test': '<span style="background:rgba(255,107,107,0.15);color:#ff6b6b;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:800;">🧪 TESTE</span>'
+            };
+            return badges[plan] || ('<span style="background:rgba(113,113,122,0.1);color:#71717a;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:800;">' + (plan || 'N/A') + '</span>');
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById('panel-' + tab).classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+            if (tab === 'leads') renderLeads();
+        }
 
         // Auto-refresh every 5 seconds for faster updates
         setInterval(render, 5000);
