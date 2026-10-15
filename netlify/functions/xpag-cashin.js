@@ -18,29 +18,25 @@ const PLANS = {
     weekly:    { amount: 9.99,   description: "VIP Semanal BR" },
     monthly:   { amount: 64.99,  description: "VIP Mensal BR" },
     annual:    { amount: 197.99, description: "VIP Anual BR" },
-    vip_basic: { amount: 29.99,  description: "VIP Basico BR" },
-    test:      { amount: 1.00,   description: "Plano Teste BR" }
+    vip_basic: { amount: 29.99,  description: "VIP Basico BR" }
   },
   MXN: {
     weekly:    { amount: 55.00,  description: "VIP Semanal MX" },
     monthly:   { amount: 139.00, description: "VIP Mensal MX" },
     annual:    { amount: 419.00, description: "VIP Anual MX" },
-    vip_basic: { amount: 83.00,  description: "VIP Basico MX" },
-    test:      { amount: 10.00,  description: "Plan Prueba MX" }
+    vip_basic: { amount: 83.00,  description: "VIP Basico MX" }
   },
   USD: {
     weekly:    { amount: 14.99,  description: "VIP Weekly USD" },
     monthly:   { amount: 44.99,  description: "VIP Monthly USD" },
     annual:    { amount: 124.99, description: "VIP Annual USD" },
-    vip_basic: { amount: 5.99,   description: "VIP Basic USD" },
-    test:      { amount: 1.00,   description: "Test Plan USD" }
+    vip_basic: { amount: 5.99,   description: "VIP Basic USD" }
   },
   COP: {
     weekly:    { amount: 41900,  description: "VIP Semanal COP" },
     monthly:   { amount: 132900, description: "VIP Mensal COP" },
     annual:    { amount: 349900, description: "VIP Anual COP" },
-    vip_basic: { amount: 55900,  description: "VIP Basico COP" },
-    test:      { amount: 1000,   description: "Plan Prueba COP" }
+    vip_basic: { amount: 55900,  description: "VIP Basico COP" }
   }
 };
 
