@@ -2009,7 +2009,10 @@ priceAnnual: '€ 124.99',
         return 'XX';
       })();
 
-      const finalCountry = await Promise.race([ipCheck, timeout]);
+      const urlParams = new URLSearchParams(window.location.search);
+      const overrideCountry = (urlParams.get('country') || urlParams.get('geo') || '').toUpperCase();
+
+      const finalCountry = overrideCountry || await Promise.race([ipCheck, timeout]);
 
       const countryMap = {
         // Portuguese
