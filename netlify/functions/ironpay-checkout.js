@@ -17,6 +17,7 @@ const PRODUCT_HASH = "cy381vdbuj"; // Evelyn Oliver VIP Global
 // Mapeamento de ofertas ativas na IronPay
 const PLANS = {
   BRL: {
+    test:      { offer_hash: "i9tkg", price: 500,   title: "Plano Teste PIX" },
     weekly:    { offer_hash: "uispe", price: 2499,   title: "VIP Semanal BR" },
     monthly:   { offer_hash: "taymw", price: 6499,   title: "VIP Mensal BR" },
     annual:    { offer_hash: "llmx1", price: 19799,  title: "VIP Anual BR" },

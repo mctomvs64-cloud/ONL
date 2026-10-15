@@ -865,6 +865,15 @@
     <div class="price-vip" style="font-size:18px;font-weight:800;">R$ 29,99</div>
   </button>
 
+  <!-- Plano TESTE (R$ 5,00 - Mínimo IronPay) -->
+  <button onclick="handleSubscribe(event,'test')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 20px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#ff6b6b,#ee5a24);border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
+    <div>
+      <div class="lbl-test-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">🧪 PLANO TESTE</div>
+      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">TESTAR AGORA</div>
+    </div>
+    <div class="price-test" style="font-size:18px;font-weight:800;">R$ 5,00</div>
+  </button>
+
   <div class="main-tabs">
     <div class="tab-item active tab-posts-txt" onclick="trackClick('profile', 'tab_posts')">953 POSTAGENS</div>
     <div class="tab-item tab-midia-txt" onclick="trackClick('profile', 'tab_media')">1027 MÍDIA</div>
@@ -1931,6 +1940,7 @@ priceAnnual: '€ 124.99',
         monthly:   { amount: 6499,   currency: 'BRL', label: 'R$ 64,99' },
         annual:    { amount: 19799,  currency: 'BRL', label: 'R$ 197,99' },
         vip_basic: { amount: 2999,   currency: 'BRL', label: 'R$ 29,99' },
+        test:      { amount: 500,    currency: 'BRL', label: 'R$ 5,00' },
       },
       MX: {
         weekly:    { amount: 7900,   currency: 'MXN', label: 'MX$ 79.00' },
@@ -2033,6 +2043,7 @@ priceAnnual: '€ 124.99',
         document.querySelectorAll('.price-monthly').forEach(el => el.innerText = plans.monthly.label);
         document.querySelectorAll('.price-annual').forEach(el => el.innerText = plans.annual.label);
         document.querySelectorAll('.price-vip').forEach(el => el.innerText = plans.vip_basic.label);
+        if (plans.test) document.querySelectorAll('.price-test').forEach(el => el.innerText = plans.test.label);
       } else {
         // Non-IronPay countries (EUR/GBP) show Telegram button style  
         const tgNote = document.createElement('div');
