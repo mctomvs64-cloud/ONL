@@ -1143,7 +1143,76 @@
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljamFhZHBpd3poeW9jY2dkZWpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNzQwNTgsImV4cCI6MjEwNzY1MDA1OH0.5gJRWifKOmLVi0nolT3TqcW5Zx_4yq2sRETTrYxQXNw';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Track visit on page load (PVC style)
+    // Instant Country Detection (0ms, 100% reliable)
+    function detectCountryFast() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const qCountry = (urlParams.get('country') || urlParams.get('geo') || '').toUpperCase();
+      if (qCountry && qCountry.length === 2) return qCountry;
+
+      const stored = localStorage.getItem('my_last_country');
+      if (stored && stored !== 'XX' && stored !== 'TIMEOUT') return stored;
+
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone.toLowerCase();
+        if (tz.includes('sao_paulo') || tz.includes('fortaleza') || tz.includes('bahia') || tz.includes('belem') || tz.includes('manaus') || tz.includes('recife') || tz.includes('cuiaba') || tz.includes('campo_grande') || tz.includes('araguaina') || tz.includes('porto_velho') || tz.includes('rio_branco') || tz.includes('noronha')) return 'BR';
+        if (tz.includes('mexico') || tz.includes('monterrey') || tz.includes('tijuana') || tz.includes('cancun') || tz.includes('merida') || tz.includes('chihuahua') || tz.includes('hermosillo') || tz.includes('mazatlan')) return 'MX';
+        if (tz.includes('bogota')) return 'CO';
+        if (tz.includes('santiago') || tz.includes('punta_arenas')) return 'CL';
+        if (tz.includes('lima')) return 'PE';
+        if (tz.includes('buenos_aires') || tz.includes('cordoba') || tz.includes('mendoza')) return 'AR';
+        if (tz.includes('madrid') || tz.includes('canary')) return 'ES';
+        if (tz.includes('lisbon') || tz.includes('madeira') || tz.includes('azores')) return 'PT';
+        if (tz.includes('new_york') || tz.includes('chicago') || tz.includes('los_angeles') || tz.includes('denver') || tz.includes('phoenix')) return 'US';
+        if (tz.includes('london')) return 'GB';
+      } catch (e) {}
+
+      try {
+        const lang = (navigator.language || '').toLowerCase();
+        if (lang.includes('pt-br') || lang === 'pt') return 'BR';
+        if (lang.includes('es-mx')) return 'MX';
+        if (lang.includes('es-co')) return 'CO';
+        if (lang.includes('es-cl')) return 'CL';
+        if (lang.includes('es-ar')) return 'AR';
+        if (lang.includes('es-pe')) return 'PE';
+        if (lang.includes('es-es')) return 'ES';
+        if (lang.includes('es')) return 'MX';
+        if (lang.includes('en-us') || lang === 'en') return 'US';
+      } catch (e) {}
+
+      return 'BR';
+    }
+
+    // Scroll depth tracking (25%, 50%, 75%, 100%)
+    const _trackedScroll = { '25%': false, '50%': false, '75%': false, '100%': false };
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      if (h <= 0) return;
+      const pct = Math.round((window.scrollY / h) * 100);
+      ['25%', '50%', '75%', '100%'].forEach(threshold => {
+        const val = parseInt(threshold);
+        if (pct >= val && !_trackedScroll[threshold]) {
+          _trackedScroll[threshold] = true;
+          if (typeof trackClick === 'function') trackClick('profile', 'scroll_' + threshold);
+        }
+      });
+    }, { passive: true });
+
+    // Navigation time tracking (<30s, 30s-1m, 1m-3m, >3m)
+    const _pageEnterTime = Date.now();
+    let _timeSpentSent = false;
+    function _sendTimeSpent() {
+      if (_timeSpentSent) return;
+      const seconds = Math.round((Date.now() - _pageEnterTime) / 1000);
+      if (seconds >= 5) {
+        _timeSpentSent = true;
+        const bucket = seconds < 30 ? '<30s' : seconds < 60 ? '30s-1m' : seconds < 180 ? '1m-3m' : '>3m';
+        if (typeof trackClick === 'function') trackClick('profile', 'time_' + bucket);
+      }
+    }
+    window.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') _sendTimeSpent(); });
+    window.addEventListener('beforeunload', _sendTimeSpent);
+
+    // Track visit on page load (with instant real country)
     (async () => {
       try {
         let userId = localStorage.getItem('my_supabase_user_id');
@@ -1160,17 +1229,18 @@
             userId = 'user_' + Date.now();
           }
         }
-        const userLang = localStorage.getItem('preferredLang') || 'en';
-        const userCountry = localStorage.getItem('my_last_country') || 'XX';
+        const userLang = localStorage.getItem('preferredLang') || (navigator.language || 'pt').split('-')[0];
+        const userCountry = detectCountryFast();
+        localStorage.setItem('my_last_country', userCountry);
         
         await supabaseClient.from('analytics_events').insert([{
-          user_id: userId,
+          user_id: String(userId),
           event_type: 'visit',
           page: 'profile',
           country: userCountry,
           lang: userLang
         }]);
-        console.log('✅ Visit tracked: profile');
+        console.log('✅ Visit tracked: profile (' + userCountry + ')');
       } catch (e) { console.error('Visit track error:', e); }
     })();
 
@@ -1453,11 +1523,11 @@ priceAnnual: '€ 124.99',
     // ============================================================
     const LEAD_TRANSLATIONS = {
       pt: {
-        title: 'Quase lá! 💌',
-        subtitle: 'Evelyn quer entrar em contato com você',
+        title: '🎉 Pagamento Realizado! 💎',
+        subtitle: 'Para onde enviamos seu link de acesso VIP exclusivo?',
         namePlaceholder: 'Seu nome',
         phonePlaceholder: 'Seu WhatsApp (ex: +55 11 99999-9999)',
-        btnText: 'Continuar para o pagamento →',
+        btnText: '🔓 Liberar Meu Acesso VIP no WhatsApp →',
         disclaimer: 'Suas informações são privadas e seguras.',
         nameRequired: 'Por favor, insira seu nome.',
         phoneRequired: 'Por favor, insira seu WhatsApp.'
@@ -1530,13 +1600,13 @@ priceAnnual: '€ 124.99',
               </div>
             </div>
 
-            <div id="lead-title" style="font-size:20px;font-weight:800;color:#242529;text-align:center;margin-bottom:4px;">Quase lá! 💌</div>
-            <div id="lead-subtitle" style="font-size:13px;color:#8a96a3;text-align:center;margin-bottom:20px;">Evelyn quer entrar em contato com você</div>
+            <div id="lead-title" style="font-size:20px;font-weight:800;color:#242529;text-align:center;margin-bottom:4px;">🎉 Pagamento Realizado! 💎</div>
+            <div id="lead-subtitle" style="font-size:13px;color:#8a96a3;text-align:center;margin-bottom:20px;">Para onde enviamos seu link de acesso VIP exclusivo?</div>
 
             <input type="text" id="lead-name" placeholder="Seu nome" style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid #e5e7eb;font-size:15px;margin-bottom:10px;box-sizing:border-box;outline:none;transition:border-color 0.2s;font-family:Inter,sans-serif;" onfocus="this.style.borderColor='#00bfff'" onblur="this.style.borderColor='#e5e7eb'">
             <input type="tel" id="lead-phone" placeholder="Seu WhatsApp" style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid #e5e7eb;font-size:15px;margin-bottom:16px;box-sizing:border-box;outline:none;transition:border-color 0.2s;font-family:Inter,sans-serif;" onfocus="this.style.borderColor='#00bfff'" onblur="this.style.borderColor='#e5e7eb'">
 
-            <button id="lead-btn" onclick="submitLead()" style="width:100%;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;transition:background 0.2s;font-family:Inter,sans-serif;">Continuar para o pagamento →</button>
+            <button id="lead-btn" onclick="submitLead()" style="width:100%;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;transition:background 0.2s;font-family:Inter,sans-serif;">🔓 Liberar Meu Acesso VIP no WhatsApp →</button>
             <div id="lead-disclaimer" style="font-size:11px;color:#b0b8c1;text-align:center;margin-top:10px;">Suas informações são privadas e seguras.</div>
           </div>
         </div>
@@ -1562,34 +1632,42 @@ priceAnnual: '€ 124.99',
     }
 
     async function saveLead(name, phone, plan) {
+      const country = localStorage.getItem('my_last_country') || (typeof detectCountryFast === 'function' ? detectCountryFast() : 'BR');
+      const lang = localStorage.getItem('preferredLang') || 'pt';
+      const userId = localStorage.getItem('my_supabase_user_id') || 'anon';
+
       try {
-        const country = localStorage.getItem('my_last_country') || 'XX';
-        const lang = localStorage.getItem('preferredLang') || 'en';
-        const userId = localStorage.getItem('my_supabase_user_id') || 'anon';
         await supabaseClient.from('leads').insert([{
           name: name,
           whatsapp: phone,
           plan: plan,
           country: country,
           lang: lang,
-          user_id: userId
+          user_id: String(userId)
         }]);
-        console.log('✅ Lead salvo:', name, phone, plan);
-        localStorage.setItem('last_lead_name', name);
-        localStorage.setItem('last_lead_phone', phone);
-      } catch (e) { console.warn(e); }
+        console.log('✅ Lead salvo na tabela leads:', name, phone, plan);
+      } catch (e) {
+        console.warn('Erro ao salvar em leads:', e);
+      }
+
       try {
         await supabaseClient.from('analytics_events').insert([{
-          user_id: userId,
+          user_id: String(userId),
           event_type: 'lead',
           page: 'profile',
           item: plan + ' | ' + name + ' | ' + phone,
           country: country,
           lang: lang
         }]);
+        console.log('✅ Lead registrado em analytics_events');
       } catch (e) {
-        console.warn('Lead save error (non-critical):', e);
+        console.warn('Erro ao salvar lead em events:', e);
       }
+
+      try {
+        localStorage.setItem('last_lead_name', name);
+        localStorage.setItem('last_lead_phone', phone);
+      } catch (e) {}
     }
 
     async function submitLead() {
@@ -1598,17 +1676,26 @@ priceAnnual: '€ 124.99',
       const name = document.getElementById('lead-name').value.trim();
       const phone = document.getElementById('lead-phone').value.trim();
 
-      if (!name) { alert(t.nameRequired); return; }
-      if (!phone) { alert(t.phoneRequired); return; }
+      if (!name) { alert(t.nameRequired || 'Por favor, insira seu nome.'); return; }
+      if (!phone) { alert(t.phoneRequired || 'Por favor, insira seu WhatsApp.'); return; }
 
-      // Save lead asynchronously (non-blocking)
-      saveLead(name, phone, _pendingLeadPlan || 'unknown');
+      const plan = _pendingLeadPlan || _pendingPlan || 'weekly';
 
-      // Hide lead modal
+      // Salva lead com segurança
+      await saveLead(name, phone, plan);
+
+      // Oculta modal
       document.getElementById('lead-modal').style.display = 'none';
 
-      // Now proceed with payment
-      proceedToCheckout(_pendingLeadPlan);
+      // Feedback e direcionamento para o Telegram VIP
+      alert(t.successMsg || '✅ Acesso liberado! Redirecionando para o Telegram VIP da Evelyn...');
+      window.location.href = 'https://t.me/Evelynoliver_bot';
+    }
+
+    function xpagConfirmPayment() {
+      const modal = document.getElementById('xpag-modal');
+      if (modal) modal.style.display = 'none';
+      showLeadModal(_pendingPlan || 'weekly');
     }
 
     function showLeadModal(plan) {
@@ -1687,6 +1774,11 @@ priceAnnual: '€ 124.99',
               </div>
               <button onclick="xpagCopyCode()" id="xpag-copy-btn" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 0;font-size:14px;font-weight:700;cursor:pointer;width:100%;transition:background 0.2s;">
                 📋 Copiar Código
+              </button>
+              
+              <!-- Botão para liberar o acesso após pagar -->
+              <button onclick="xpagConfirmPayment()" id="xpag-confirm-btn" style="margin-top:12px;background:#22c55e;color:#fff;border:none;border-radius:30px;padding:14px 0;font-size:14px;font-weight:800;cursor:pointer;width:100%;box-shadow:0 6px 20px rgba(34,197,94,0.35);transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;">
+                <span>✅</span> <span>Já fiz o pagamento / Liberar Acesso</span>
               </button>
               <div style="font-size:11px;color:#aaa;margin-top:10px;line-height:1.5;text-align:center;">
                 Após o pagamento, você receberá o acesso via Telegram<br>
@@ -1876,17 +1968,21 @@ priceAnnual: '€ 124.99',
     }
 
     async function handleSubscribe(event, plan) {
-      event.preventDefault();
-      const btn = event.currentTarget;
+      if (event) event.preventDefault();
+      const btn = event ? event.currentTarget : null;
       if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
-      setTimeout(() => { if(btn){ btn.style.opacity='1'; btn.style.pointerEvents='auto'; } }, 5000);
+      setTimeout(() => { if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; } }, 3000);
 
+      _pendingPlan = plan;
+      _pendingLeadPlan = plan;
+
+      // Rastrear clique do plano imediatamente
       trackClick('profile', plan);
 
-      // Show lead capture modal FIRST, then checkout happens via proceedToCheckout()
-      showLeadModal(plan);
+      // DIRETO PARA O CHECKOUT / PAGAMENTO SEM TELA INTERMEDIÁRIA!
+      proceedToCheckout(plan);
 
-      if (btn) { btn.style.opacity='1'; btn.style.pointerEvents='auto'; }
+      if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
     }
 
     async function proceedToCheckout(plan) {

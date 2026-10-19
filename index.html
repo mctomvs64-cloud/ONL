@@ -364,7 +364,46 @@
       const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljamFhZHBpd3poeW9jY2dkZWpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNzQwNTgsImV4cCI6MjEwNzY1MDA1OH0.5gJRWifKOmLVi0nolT3TqcW5Zx_4yq2sRETTrYxQXNw';
       const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-      // Track visit on page load (PVC style)
+      // Instant Country Detection (0ms, 100% reliable)
+      function detectCountryFast() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const qCountry = (urlParams.get('country') || urlParams.get('geo') || '').toUpperCase();
+        if (qCountry && qCountry.length === 2) return qCountry;
+
+        const stored = localStorage.getItem('my_last_country');
+        if (stored && stored !== 'XX' && stored !== 'TIMEOUT') return stored;
+
+        try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone.toLowerCase();
+          if (tz.includes('sao_paulo') || tz.includes('fortaleza') || tz.includes('bahia') || tz.includes('belem') || tz.includes('manaus') || tz.includes('recife') || tz.includes('cuiaba') || tz.includes('campo_grande') || tz.includes('araguaina') || tz.includes('porto_velho') || tz.includes('rio_branco') || tz.includes('noronha')) return 'BR';
+          if (tz.includes('mexico') || tz.includes('monterrey') || tz.includes('tijuana') || tz.includes('cancun') || tz.includes('merida') || tz.includes('chihuahua') || tz.includes('hermosillo') || tz.includes('mazatlan')) return 'MX';
+          if (tz.includes('bogota')) return 'CO';
+          if (tz.includes('santiago') || tz.includes('punta_arenas')) return 'CL';
+          if (tz.includes('lima')) return 'PE';
+          if (tz.includes('buenos_aires') || tz.includes('cordoba') || tz.includes('mendoza')) return 'AR';
+          if (tz.includes('madrid') || tz.includes('canary')) return 'ES';
+          if (tz.includes('lisbon') || tz.includes('madeira') || tz.includes('azores')) return 'PT';
+          if (tz.includes('new_york') || tz.includes('chicago') || tz.includes('los_angeles') || tz.includes('denver') || tz.includes('phoenix')) return 'US';
+          if (tz.includes('london')) return 'GB';
+        } catch (e) {}
+
+        try {
+          const lang = (navigator.language || '').toLowerCase();
+          if (lang.includes('pt-br') || lang === 'pt') return 'BR';
+          if (lang.includes('es-mx')) return 'MX';
+          if (lang.includes('es-co')) return 'CO';
+          if (lang.includes('es-cl')) return 'CL';
+          if (lang.includes('es-ar')) return 'AR';
+          if (lang.includes('es-pe')) return 'PE';
+          if (lang.includes('es-es')) return 'ES';
+          if (lang.includes('es')) return 'MX';
+          if (lang.includes('en-us') || lang === 'en') return 'US';
+        } catch (e) {}
+
+        return 'BR';
+      }
+
+      // Track visit on page load (with instant real country)
       (async () => {
         try {
           let userId = localStorage.getItem('my_supabase_user_id');
@@ -381,17 +420,18 @@
               userId = 'user_' + Date.now();
             }
           }
-          const userLang = localStorage.getItem('preferredLang') || 'en';
-          const userCountry = localStorage.getItem('my_last_country') || 'XX';
+          const userLang = localStorage.getItem('preferredLang') || (navigator.language || 'en').split('-')[0];
+          const userCountry = detectCountryFast();
+          localStorage.setItem('my_last_country', userCountry);
           
           await supabaseClient.from('analytics_events').insert([{
-            user_id: userId,
+            user_id: String(userId),
             event_type: 'visit',
             page: 'bridge',
             country: userCountry,
             lang: userLang
           }]);
-          console.log('✅ Visit tracked: bridge');
+          console.log('✅ Visit tracked: bridge (' + userCountry + ')');
         } catch (e) { console.error('Visit track error:', e); }
       })();
 
