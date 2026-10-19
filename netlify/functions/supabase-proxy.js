@@ -28,16 +28,9 @@ exports.handler = async function (event) {
     };
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL || "";
-  const serviceKey  = process.env.SUPABASE_SERVICE_KEY || "";
+  const supabaseUrl = process.env.SUPABASE_URL || "https://icjaadpiwzhyoccgdejl.supabase.co";
+  const serviceKey  = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljamFhZHBpd3poeW9jY2dkZWpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNzQwNTgsImV4cCI6MjEwNzY1MDA1OH0.5gJRWifKOmLVi0nolT3TqcW5Zx_4yq2sRETTrYxQXNw";
 
-  if (!supabaseUrl || !serviceKey) {
-    return {
-      statusCode: 500,
-      headers: corsHeaders,
-      body: JSON.stringify({ ok: false, error: "SUPABASE_URL and SUPABASE_SERVICE_KEY env vars not configured" })
-    };
-  }
 
   let body;
   try {

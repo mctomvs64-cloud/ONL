@@ -724,16 +724,66 @@
     <!-- Supabase SDK removed - all admin ops use secure server-side proxy -->
     <script>
         const PROXY_URL = '/.netlify/functions/supabase-proxy';
+        const SUPABASE_URL = 'https://icjaadpiwzhyoccgdejl.supabase.co';
+        const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljamFhZHBpd3poeW9jY2dkZWpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNzQwNTgsImV4cCI6MjEwNzY1MDA1OH0.5gJRWifKOmLVi0nolT3TqcW5Zx_4yq2sRETTrYxQXNw';
 
-        // Helper to call the secure proxy (service_role key stays server-side)
+        // Helper to call the secure proxy with automatic direct fallback
         async function proxyCall(action, extra = {}) {
             const pw = sessionStorage.getItem('admin_pw') || ADMIN_PASSWORD;
-            const res = await fetch(PROXY_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action, password: pw, ...extra })
-            });
-            return await res.json();
+            try {
+                const res = await fetch(PROXY_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action, password: pw, ...extra })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.ok) return data;
+                }
+            } catch(e) {
+                console.warn('[proxyCall] proxy error, using direct fallback:', e);
+            }
+
+            const headers = {
+                'apikey': ANON_KEY,
+                'Authorization': 'Bearer ' + ANON_KEY,
+                'Content-Type': 'application/json'
+            };
+            try {
+                if (action === 'get_events') {
+                    const res = await fetch(SUPABASE_URL + '/rest/v1/analytics_events?select=*&order=created_at.desc', { headers });
+                    const data = await res.json();
+                    return { ok: true, data: Array.isArray(data) ? data : [] };
+                }
+                if (action === 'get_leads') {
+                    const res = await fetch(SUPABASE_URL + '/rest/v1/leads?select=*&order=created_at.desc', { headers });
+                    const data = await res.json();
+                    return { ok: true, data: Array.isArray(data) ? data : [] };
+                }
+                if (action === 'count_leads') {
+                    const res = await fetch(SUPABASE_URL + '/rest/v1/leads?select=*', {
+                        headers: { ...headers, 'Prefer': 'count=exact', 'Range': '0-0' }
+                    });
+                    const countHeader = res.headers.get('content-range');
+                    const count = countHeader ? parseInt(countHeader.split('/')[1]) : 0;
+                    return { ok: true, count: isNaN(count) ? 0 : count };
+                }
+                if (action === 'delete_event') {
+                    await fetch(SUPABASE_URL + '/rest/v1/analytics_events?id=eq.' + extra.event_id, { method: 'DELETE', headers });
+                    return { ok: true };
+                }
+                if (action === 'delete_lead') {
+                    await fetch(SUPABASE_URL + '/rest/v1/leads?id=eq.' + extra.lead_id, { method: 'DELETE', headers });
+                    return { ok: true };
+                }
+                if (action === 'reset') {
+                    const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/reset_id_counters', { method: 'POST', headers, body: JSON.stringify({}) });
+                    return { ok: res.ok };
+                }
+            } catch(fallbackErr) {
+                console.error('[proxyCall] Fallback error:', fallbackErr);
+            }
+            return { ok: false, error: 'Request failed' };
         }
 
         const ADMIN_PASSWORD = '99083160';
