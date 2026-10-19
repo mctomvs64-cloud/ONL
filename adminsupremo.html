@@ -721,11 +721,20 @@
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase SDK removed - all admin ops use secure server-side proxy -->
     <script>
-const supabaseUrl = 'https://icjaadpiwzhyoccgdejl.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljamFhZHBpd3poeW9jY2dkZWpsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MjA3NDA1OCwiZXhwIjoyMTA3NjUwMDU4fQ.MgD53JiBt7oTqDd1sS9Kte6gcIIQxXHjvfMc2WHScNA';
-      const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        const PROXY_URL = '/.netlify/functions/supabase-proxy';
+
+        // Helper to call the secure proxy (service_role key stays server-side)
+        async function proxyCall(action, extra = {}) {
+            const pw = sessionStorage.getItem('admin_pw') || ADMIN_PASSWORD;
+            const res = await fetch(PROXY_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action, password: pw, ...extra })
+            });
+            return await res.json();
+        }
 
         const ADMIN_PASSWORD = '99083160';
         const SESSION_KEY = 'admin_session';
@@ -736,8 +745,8 @@ const supabaseUrl = 'https://icjaadpiwzhyoccgdejl.supabase.co';
             if (confirm('🚨 ATENÇÃO: Resetar toda a operação?\n\nIsso apagará TODOS os dados de rastreio permanentemente (incluindo Banco de Dados Global) e reiniciará a contagem de IDs para 1.\n\nDeseja continuar?')) {
                 try {
                     // Chamar a função unificada de reset no banco
-                    const { error } = await supabaseClient.rpc('reset_id_counters');
-                    if (error) throw error;
+                    const result = await proxyCall('reset');
+                    if (!result.ok) throw new Error(result.error);
 
                     // Limpar localStorage local
                     localStorage.clear();
@@ -798,13 +807,9 @@ const supabaseUrl = 'https://icjaadpiwzhyoccgdejl.supabase.co';
         async function render() {
             let events = [];
             try {
-                const { data, error } = await supabaseClient
-                    .from('analytics_events')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-                events = data || [];
+                const result = await proxyCall('get_events');
+                if (!result.ok) throw new Error(result.error);
+                events = result.data || [];
             } catch (e) {
                 console.error("Supabase fetch error:", e);
                 // Fallback to empty
@@ -991,21 +996,15 @@ const supabaseUrl = 'https://icjaadpiwzhyoccgdejl.supabase.co';
             try {
                 let leads = [];
                 try {
-                    const { data, error } = await supabaseClient
-                        .from('leads')
-                        .select('*')
-                        .order('created_at', { ascending: false });
-                    if (!error && data && data.length > 0) leads = data;
+                    const result = await proxyCall('get_leads');
+                    if (result.ok && result.data && result.data.length > 0) leads = result.data;
                 } catch (e) {}
 
                 // Fallback: check analytics_events for lead events
                 if (leads.length === 0) {
                     try {
-                        const { data } = await supabaseClient
-                            .from('analytics_events')
-                            .select('*')
-                            .eq('event_type', 'lead')
-                            .order('created_at', { ascending: false });
+                        const evResult = await proxyCall('get_events');
+                        const data = (evResult.ok ? evResult.data : []).filter(e => e.event_type === 'lead');
                         if (data && data.length > 0) {
                             leads = data.map(ev => {
                                 const parts = (ev.item || '').split(' | ');
@@ -1061,10 +1060,9 @@ const supabaseUrl = 'https://icjaadpiwzhyoccgdejl.supabase.co';
 
         async function renderLeadsCount() {
             try {
-                const { count, error } = await supabaseClient
-                    .from('leads')
-                    .select('*', { count: 'exact', head: true });
-                if (!error) {
+                const countResult = await proxyCall('count_leads');
+                if (countResult.ok) {
+                    const count = countResult.count;
                     const el = document.getElementById('total-leads');
                     if (el) el.innerText = count || 0;
                 }

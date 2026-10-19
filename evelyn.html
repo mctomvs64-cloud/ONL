@@ -1440,7 +1440,7 @@ priceAnnual: '€ 124.99',
 
     // ============================================================
     // PAYMENT INTEGRATION
-    // BRL, MXN, USD, COP → XPag (PIX / SPEI / Nequi / USDT)
+    // BRL, MXN, USD, COP, CLP → XPag (PIX / SPEI / Nequi / USDT / Transferencia)
     // EUR, GBP → Telegram VIP
     // ============================================================
     const TELEGRAM_URL     = 'https://t.me/Evelynoliver_bot';
@@ -1787,6 +1787,9 @@ priceAnnual: '€ 124.99',
       } else if (_xpagCurrency === 'USD') {
         title = 'Pay with Crypto (USDT)'; subtitle = 'Send USDT (TRC20/ERC20) to the address below';
         label = 'USDT Wallet Address'; codeValue = data.qr_code; symbol = '$ ';
+      } else if (_xpagCurrency === 'CLP') {
+        title = 'Pagar con Transferencia (Chile)'; subtitle = 'Realiza la transferencia desde tu app bancaria';
+        label = 'Código de Pago'; codeValue = data.qr_code || data.clabe || data.checkout_url || ''; symbol = 'CL$ ';
       } else if (_xpagCurrency === 'COP') {
         if (data.checkout_url) {
           title = 'Pagar por Banco Colombiano'; subtitle = 'Haz clic en el botón de abajo para ir al checkout seguro';
@@ -1803,27 +1806,29 @@ priceAnnual: '€ 124.99',
       document.getElementById('xpag-modal-subtitle').textContent = subtitle;
       document.getElementById('xpag-code-label').textContent = label;
       
-      if (_xpagCurrency === 'COP') {
-         if (data.checkout_url) {
-             document.getElementById('xpag-code-value').textContent = "PAGO BANCARIO";
-             const btn = document.getElementById('xpag-copy-btn');
-             btn.style.display = 'block';
-             btn.textContent = '🔗 Ir a Pagar';
-             btn.onclick = function() { window.open(data.checkout_url, '_blank'); };
-         } else {
-             document.getElementById('xpag-code-value').textContent = "PAGO PENDIENTE";
-             document.getElementById('xpag-copy-btn').style.display = 'none';
-         }
-      } else {
-         document.getElementById('xpag-code-value').textContent = codeValue;
+      if (data.checkout_url) {
+         document.getElementById('xpag-code-value').textContent = "PAGO BANCARIO SEGURO";
          const btn = document.getElementById('xpag-copy-btn');
          btn.style.display = 'block';
-         btn.textContent = '📋 Copiar Código';
-         btn.onclick = xpagCopyCode;
-         _xpagCode = codeValue;
+         btn.textContent = '🔗 Ir a Pagar';
+         btn.onclick = function() { window.open(data.checkout_url, '_blank'); };
+      } else {
+         document.getElementById('xpag-code-value').textContent = codeValue || "PAGO PENDIENTE";
+         const btn = document.getElementById('xpag-copy-btn');
+         if (codeValue) {
+           btn.style.display = 'block';
+           btn.textContent = '📋 Copiar Código';
+           btn.onclick = xpagCopyCode;
+           _xpagCode = codeValue;
+         } else {
+           btn.style.display = 'none';
+         }
       }
 
-      document.getElementById('xpag-amount').textContent = symbol + (data.amount || '').toLocaleString(undefined, {minimumFractionDigits:2});
+      const formattedAmount = (_xpagCurrency === 'CLP' || _xpagCurrency === 'COP')
+        ? Math.round(Number(data.amount) || 0).toLocaleString('es-CL')
+        : (Number(data.amount) || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+      document.getElementById('xpag-amount').textContent = symbol + formattedAmount;
 
       if (_xpagCurrency === 'MXN') {
         document.getElementById('xpag-bank-info').style.display = 'block';
@@ -1890,7 +1895,7 @@ priceAnnual: '€ 124.99',
       const currency = (plansForCountry && plansForCountry.weekly && plansForCountry.weekly.currency) || 'BRL';
 
       // ── BRL, MXN, USD, COP → XPag (PIX/SPEI/USDT/Checkout) ──────────────────
-      if (['BRL', 'MXN', 'USD', 'COP'].includes(currency)) {
+      if (['BRL', 'MXN', 'USD', 'COP', 'CLP'].includes(currency)) {
         injectPaymentModal();
         
         document.getElementById('xpag-modal').style.display = 'flex';
@@ -1954,6 +1959,12 @@ priceAnnual: '€ 124.99',
         monthly:   { amount: 4499,   currency: 'GBP', label: '£ 44.99' },
         annual:    { amount: 12499,  currency: 'GBP', label: '£ 124.99' },
         vip_basic: { amount: 599,    currency: 'GBP', label: '£ 5.99' },
+      },
+      CLP: {
+        weekly:    { amount: 14690,  currency: 'CLP', label: 'CL$ 14.690' },
+        monthly:   { amount: 44090,  currency: 'CLP', label: 'CL$ 44.090' },
+        annual:    { amount: 122490, currency: 'CLP', label: 'CL$ 122.490' },
+        vip_basic: { amount: 5870,   currency: 'CLP', label: 'CL$ 5.870' },
       }
     };
 
@@ -1961,6 +1972,7 @@ priceAnnual: '€ 124.99',
       if (country === 'BR') return GLOBAL_PLANS.BR;
       if (country === 'MX') return GLOBAL_PLANS.MX;
       if (country === 'CO') return GLOBAL_PLANS.COP;
+      if (country === 'CL') return GLOBAL_PLANS.CLP;
       const eurCountries = ['PT', 'ES', 'FR', 'IT', 'DE', 'NL', 'BE', 'AT', 'GR', 'IE', 'FI'];
       if (eurCountries.includes(country)) return GLOBAL_PLANS.EUR;
       if (country === 'GB') return GLOBAL_PLANS.GBP;

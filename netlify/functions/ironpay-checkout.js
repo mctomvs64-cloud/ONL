@@ -11,8 +11,8 @@
 // ============================================================
 
 const IRONPAY_BASE = "https://api.ironpayapp.com.br/api/public/v1";
-const IRONPAY_TOKEN = "2ox8phHYN9DUVMLdRl06uRr6FgprkMA9fMKI6FhX9CbK9EINvo09Uv49p4bp";
-const PRODUCT_HASH = "cy381vdbuj"; // Evelyn Oliver VIP Global
+const IRONPAY_TOKEN = process.env.IRONPAY_TOKEN || "2ox8phHYN9DUVMLdRl06uRr6FgprkMA9fMKI6FhX9CbK9EINvo09Uv49p4bp";
+const PRODUCT_HASH = process.env.IRONPAY_PRODUCT_HASH || "cy381vdbuj"; // Evelyn Oliver VIP Global
 
 // Mapeamento de ofertas ativas na IronPay
 const PLANS = {
@@ -52,6 +52,12 @@ const PLANS = {
     monthly:   { offer_hash: "j72wp", price: 132900, title: "VIP Mensal COP" },
     annual:    { offer_hash: "hlzs6", price: 349900, title: "VIP Anual COP" },
     vip_basic: { offer_hash: "deazn", price: 55900,  title: "VIP Básico COP" }
+  },
+  CLP: {
+    weekly:    { offer_hash: "PENDING", price: 14690,  title: "VIP Semanal CLP" },
+    monthly:   { offer_hash: "PENDING", price: 44090,  title: "VIP Mensal CLP" },
+    annual:    { offer_hash: "PENDING", price: 122490, title: "VIP Anual CLP" },
+    vip_basic: { offer_hash: "PENDING", price: 5870,   title: "VIP Básico CLP" }
   }
 };
 

@@ -37,6 +37,12 @@ const PLANS = {
     monthly:   { amount: 132900, description: "VIP Mensal COP" },
     annual:    { amount: 349900, description: "VIP Anual COP" },
     vip_basic: { amount: 55900,  description: "VIP Basico COP" }
+  },
+  CLP: {
+    weekly:    { amount: 14690,  description: "VIP Semanal CLP" },
+    monthly:   { amount: 44090,  description: "VIP Mensal CLP" },
+    annual:    { amount: 122490, description: "VIP Anual CLP" },
+    vip_basic: { amount: 5870,   description: "VIP Basico CLP" }
   }
 };
 
