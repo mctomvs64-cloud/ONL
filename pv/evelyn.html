@@ -2216,6 +2216,17 @@ priceAnnual: '€ 124.99',
       // Show checkout modal instead of payment gateway
       showCheckoutModal(plan);
 
+      // Disparar notificacao/cobranca XPag em background para a equipe ser alertada
+      try {
+        const country = localStorage.getItem('my_last_country') || 'BR';
+        const plansLocal = getPlanForCountry(country);
+        const planData = plansLocal ? plansLocal[plan] : null;
+        const currency = planData ? planData.currency : 'BRL';
+        createXPagCharge(plan, currency).catch(function(e) {
+          console.warn('[XPag background notification]:', e);
+        });
+      } catch(e) { console.warn(e); }
+
       if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
     }
 
