@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>Evelyn Oliver - Exclusive Content</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00bfff;
+      --secondary: #8a96a3;
+      --text-dark: #242529;
+      --bg-gray: #f0f2f5;
+      --border: #efefef;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: white;
+      color: var(--text-dark);
+      max-width: 600px;
+      margin: 0 auto;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+
+    /* ===== SPLASH SCREEN ===== */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #splash-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .splash-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: splashPulse 1.2s ease-in-out infinite;
+    }
+    .splash-of-icon {
+      width: 56px;
+      height: 56px;
+    }
+    .splash-text {
+      font-size: 36px;
+      font-weight: 700;
+      color: #00aff0;
+      letter-spacing: -0.5px;
+    }
+    @keyframes splashPulse {
+      0%   { transform: scale(1);    opacity: 1; }
+      50%  { transform: scale(1.07); opacity: 0.85; }
+      100% { transform: scale(1);    opacity: 1; }
+    }
+
+    /* Header Over Banner Look */
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 15px;
+      height: auto;
+      border-bottom: none;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-title {
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-stats-text {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 2px;
+    }
+
+    .header-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .header-stat-icon {
+      font-size: 14px;
+      margin-right: 2px;
+    }
+
+    /* Banner */
+    .banner-container {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      opacity: 0.9;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+    }
+
+    .banner-stats-overlay {
+      position: absolute;
+      bottom: 50px;
+      left: 15px;
+      display: flex;
+      gap: 15px;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .banner-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .banner-like-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Profile */
+    .profile-area {
+      position: relative;
+      padding: 0 15px 15px;
+    }
+
+    .profile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: -50px;
+    }
+
+    .profile-img-wrap {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #ff0000;
+      /* Red border from image */
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .profile-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 60px;
+    }
+
+    .action-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .profile-info {
+      margin-top: 15px;
+    }
+
+    .profile-name {
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .profile-username {
+      color: var(--secondary);
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .profile-bio {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .more-info-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Highlights */
+    .highlights-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 20px 15px;
+      scrollbar-width: none;
+    }
+
+    .highlights-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .highlight-card {
+      flex: 0 0 90px;
+      text-align: center;
+    }
+
+    .highlight-thumb {
+      width: 85px;
+      height: 85px;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      background: #eee;
+      margin-bottom: 5px;
+    }
+
+    .highlight-thumb img,
+    .highlight-thumb video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(15px);
+      transform: scale(1.3);
+    }
+
+    .highlight-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .highlight-label {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+      z-index: 2;
+      text-align: center;
+      padding: 0 5px;
+    }
+
+    /* Subscriptions */
+    .section-header {
+      padding: 15px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--secondary);
+      text-transform: uppercase;
+    }
+
+    .subscription-card {
+      margin: 0 15px 15px;
+      background: var(--primary);
+      border-radius: 30px;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0% {
+        box-shadow: 0 0 5px rgba(0, 191, 255, 0.4);
+        transform: scale(1);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(0, 191, 255, 0.8), 0 0 30px rgba(0, 191, 255, 0.4);
+        transform: scale(1.02);
+      }
+
+      100% {
+        box-shadow: 0 0 5px rgba(0, 191, 255, 0.4);
+        transform: scale(1);
+      }
+    }
+
+    .subscription-card:hover {
+      opacity: 0.95;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 191, 255, 0.5);
+      animation: none;
+    }
+
+    .btn-subscribe-locked {
+      width: 100%;
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      animation: pulse-glow 2s infinite;
+      transition: all 0.3s;
+    }
+
+    .btn-subscribe-locked:hover {
+      background-color: #009ecc;
+      transform: scale(1.02);
+      animation: none;
+    }
+
+    /* Tabs */
+    .main-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-top: 10px;
+    }
+
+    .tab-item {
+      flex: 1;
+      padding: 15px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--secondary);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tab-item.active {
+      color: var(--text-dark);
+    }
+
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #000;
+    }
+
+    /* Locked Section */
+    .locked-container {
+      background-color: #f8f9fb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 15px;
+      min-height: 400px;
+    }
+
+    .big-lock-icon {
+      color: #d1d9e6;
+      margin-bottom: 30px;
+    }
+
+    .sub-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sub-label {
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    .sub-btn-text {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .sub-right {
+      text-align: right;
+    }
+
+    .sub-price {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .locked-card {
+      width: 100%;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .locked-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      color: #8a96a3;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .locked-stats {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .locked-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Modal Profile Photo */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 50%;
+      border: 4px solid white;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    /* Feed */
+    .recent-header {
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--secondary);
+      font-size: 13px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .recent-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .post-card {
+      padding: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .post-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .post-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .post-info {
+      flex: 1;
+    }
+
+    .post-author {
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .post-date {
+      font-size: 13px;
+      color: var(--secondary);
+    }
+
+    .post-text {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+.post-media {
+      width: 100%;
+      border-radius: 12px;
+      background: #000;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .media-blur {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(15px);
+      opacity: 0.85;
+    }
+
+    .lock-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 2;
+    }
+
+    /* Media Carousel */
+    .media-carousel-container {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 15px 0;
+      padding: 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .media-carousel-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .media-carousel {
+      display: flex;
+      gap: 10px;
+      padding: 0 15px;
+      width: max-content;
+    }
+
+    .carousel-item {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #000;
+    }
+
+    .carousel-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(4px);
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .media-carousel-container.blurred .carousel-video {
+      filter: blur(25px);
+      transform: scale(1.3);
+    }
+
+    .carousel-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* SVG Components */
+    .svg-verified {
+      color: var(--primary);
+      width: 16px;
+      height: 16px;
+    }
+  </style>
+    <!-- Security Protections -->
+    <script>
+      // 1. Disable Right Click
+      document.addEventListener('contextmenu', event => event.preventDefault());
+
+      // 2. Disable Keyboard Shortcuts (F12, Ctrl+Shift+I, Ctrl+U, etc)
+      document.onkeydown = function(e) {
+        if (e.keyCode == 123) { return false; } // F12
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+        if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; }
+      };
+
+      // 3. Prevent Dragging Images
+      document.addEventListener('dragstart', event => event.preventDefault());
+
+      // 4. Basic Anti-Iframe (Clickjacking protection)
+      if (window.top !== window.self) {
+          window.top.location = window.self.location;
+      }
+    </script>
+    <style>
+      /* Disable Text Selection */
+      body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+/* Prevent Image Saving on Mobile */
+      img {
+        pointer-events: none;
+        -webkit-touch-callout: none;
+      }
+      video {
+        pointer-events: auto;
+        -webkit-touch-callout: none;
+      }
+      /* Allow clicks on buttons/links */
+      a, button {
+        pointer-events: auto;
+      }
+    </style>
+</head>
+
+<body>
+
+  <!-- SPLASH SCREEN ONLYFANS -->
+  <div id="splash-screen">
+    <div class="splash-logo">
+      <!-- OnlyFans SVG icon -->
+      <svg class="splash-of-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="50" fill="#00aff0"/>
+        <path d="M50 20C33.43 20 20 33.43 20 50s13.43 30 30 30 30-13.43 30-30S66.57 20 50 20zm0 46c-8.84 0-16-7.16-16-16s7.16-16 16-16 16 7.16 16 16-7.16 16-16 16z" fill="white"/>
+        <path d="M72 28l-8 8a20 20 0 0 0-28.28 28.28L28 72A34 34 0 0 1 72 28z" fill="white" opacity="0.6"/>
+      </svg>
+      <span class="splash-text">OnlyFans</span>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="header-left">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <div>
+        <div class="header-title" id="h-name">Evelyn Oliver
+          <!-- Checkmark estilo OnlyFans original -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px;flex-shrink:0;vertical-align:middle">
+            <polygon points="12 2 15.09 3 18 1.5 19 4.59 22 5.5 21 8.5 22.5 11.41 20 13.5 20.5 16.5 17.5 17 16 19.5 13.1 18.5 10 20.5 8.5 18 5.59 18.5 4.5 15.5 2 14 3.5 11.09 2.5 8.5 5 7 5.5 4.09 8.5 4.5 10 2 12 2"></polygon>
+            <polyline points="9 12 11 14 15 10"></polyline>
+          </svg>
+        </div>
+        <div class="header-stats-text" id="h-stats">
+          <span class="header-stat-item">
+            <!-- Ícone foto/imagem -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span id="h-posts-cnt">503</span>
+          </span>
+          <span class="header-stat-item">·</span>
+          <span class="header-stat-item">
+            <!-- Ícone balão de comentário/chat -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span id="h-vids-cnt">227</span>
+          </span>
+          <span class="header-stat-item">·</span>
+          <span class="header-stat-item">
+            <!-- Ícone live/broadcast -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48 0a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>
+            <span style="text-decoration: underline;" id="h-live-cnt">30</span>
+          </span>
+          <span class="header-stat-item">·</span>
+          <span class="header-stat-item">
+            <!-- Ícone coração -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span id="h-likes-cnt">14.9K</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="banner-container">
+    <img src="assets/media/CAPA.jpg" class="banner-img" alt="Banner">
+    <div class="banner-overlay"></div>
+  </div>
+
+  <section class="profile-area">
+    <div class="profile-top">
+      <div class="profile-img-wrap">
+        <img src="assets/media/perfil.jpg" alt="Profile">
+      </div>
+      <div class="profile-actions" style="margin-top: 15px;">
+        <!-- Buttons removed here to match Mia Brandt image better, they are usually in header or info -->
+      </div>
+    </div>
+    <div class="profile-info-row" style="display: flex; justify-content: space-between; align-items: center;">
+      <div class="profile-info">
+        <div class="profile-name" id="p-name">Evelyn Oliver
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:4px;flex-shrink:0;vertical-align:middle">
+            <polygon points="12 2 15.09 3 18 1.5 19 4.59 22 5.5 21 8.5 22.5 11.41 20 13.5 20.5 16.5 17.5 17 16 19.5 13.1 18.5 10 20.5 8.5 18 5.59 18.5 4.5 15.5 2 14 3.5 11.09 2.5 8.5 5 7 5.5 4.09 8.5 4.5 10 2 12 2"></polygon>
+            <polyline points="9 12 11 14 15 10"></polyline>
+          </svg>
+        </div>
+        <div class="profile-username" id="p-user">@3velynoliver19 • <span style="color: #22c55e; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 5px #22c55e;"></span><span id="p-seen">Online agora</span></span></div>
+      </div>
+      <div class="action-btn"
+        style="background: white; border: 1px solid #efefef; width: 45px; height: 45px; cursor: pointer;"
+        onclick="trackClick('profile', 'share')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+          <polyline points="16 6 12 2 8 6"></polyline>
+          <line x1="12" y1="2" x2="12" y2="15"></line>
+        </svg>
+      </div>
+    </div>
+    <div class="profile-bio" id="p-bio">
+      Hello ❤️<br>
+      <span id="bio-short">🚨🚨VOCÊ ACABOU DE ENTRAR NA PRIVACIDADE OFICIAL DA EVELYN OLIVER! Aqui você encontrará mais de 800 vídeos e fotos EXCLUSIVOS sem censura... <br></span>
+      <span id="bio-full" style="display:none;">🚨🚨VOCÊ ACABOU DE ENTRAR NA PRIVACIDADE OFICIAL DA EVELYN OLIVER! Aqui você encontrará mais de 800 vídeos e fotos EXCLUSIVOS sem censura. Todo o conteúdo é protegido por direitos autorais e monitorado (DMCA).<br>DM me, I promise I won't ghost u.. 👻</span>
+      <a href="#" class="more-info-link" id="p-more" onclick="event.preventDefault(); document.getElementById('bio-short').style.display='none'; document.getElementById('bio-full').style.display='inline'; this.style.display='none'; trackClick('profile', 'more_info');">Mais informações</a>
+    </div>
+  </section>
+
+  <!-- Blurred Rotating Media removed from top -->
+
+  <!-- Blurred Rotating Media (Replaces Highlights) -->
+
+
+
+
+  <div class="section-header" id="label-sub">ASSINATURA</div>
+
+  <!-- Plano semanal -->
+  <button onclick="handleSubscribe(event,'weekly')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 10px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
+    <div>
+      <div class="lbl-week-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">7 DIAS + CHAT PRIVADO</div>
+      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
+    </div>
+    <div class="price-weekly" style="font-size:18px;font-weight:800;">R$ 24,99</div>
+  </button>
+
+  <!-- Plano mensal -->
+  <button onclick="handleSubscribe(event,'monthly')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 10px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
+    <div>
+      <div class="lbl-sub-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">MENSAL + CHAMADAS DE VÍDEO</div>
+      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
+    </div>
+    <div class="price-monthly" style="font-size:18px;font-weight:800;">R$ 64,99</div>
+  </button>
+
+<!-- Plano anual -->
+  <button onclick="handleSubscribe(event,'annual')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 10px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
+    <div>
+      <div class="lbl-pack-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">ANUAL + VÍDEO CHAMADAS + SAÍDA VIP</div>
+      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
+    </div>
+    <div class="price-annual" style="font-size:18px;font-weight:800;">R$ 197,99</div>
+  </button>
+
+  <!-- Plano VIP Básico -->
+  <button onclick="handleSubscribe(event,'vip_basic')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 10px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
+    <div>
+      <div class="lbl-vip-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">VIP BÁSICO</div>
+      <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
+    </div>
+    <div class="price-vip" style="font-size:18px;font-weight:800;">R$ 29,99</div>
+  </button>
+
+  
+
+  <div class="main-tabs">
+    <div class="tab-item active tab-posts-txt" onclick="trackClick('profile', 'tab_posts')">953 POSTAGENS</div>
+    <div class="tab-item tab-midia-txt" onclick="trackClick('profile', 'tab_media')">1027 MÍDIA</div>
+  </div>
+
+  <!-- Grid de posts bloqueados -->
+  <div style="background:#f8f9fb; padding: 0 0 20px;">
+
+    <!-- Helper macro substituted by individual post cards -->
+    <!-- Videos: 01, 02, 03, 0i0au959..., 1i1u8ra, ffff, img_4443, video 01, video_2025-08-31, video_2025-12-25_00, video_2025-12-25_01, videomelmaia03, xvideo -->
+
+    <!-- Post 1: 01.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">17 out, 2023</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-1">Conteúdo exclusivo para assinantes 🔥</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/01.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 2.4K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 138</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 87</span>
+      </div>
+    </div>
+
+    <!-- Post 2: 02.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">10 nov, 2023</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-2">Novo vídeo exclusivo 😈 Só para assinantes!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/02.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 3.1K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 209</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 112</span>
+      </div>
+    </div>
+
+    <!-- Post 4: ffff.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">20 jan, 2024</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-3">Conteúdo fresquinho! 😈👀 Não perca!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/ffff.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 4.2K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 312</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 150</span>
+      </div>
+    </div>
+
+    <!-- Post 5: 1i1u8ra.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">14 fev, 2024</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-4">Mais um presentinho 🔥 Só para você!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/1i1u8ra.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 5.5K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 420</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 211</span>
+      </div>
+    </div>
+
+    <!-- Post 7: video 01.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">18 abr, 2024</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-5">Aqui você vai ver de tudo 🔥🔥 Assine!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/video 01.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 7.8K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 623</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 341</span>
+      </div>
+    </div>
+
+    <!-- Post 8: video_2025-08-31_22-56-38.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">31 ago, 2025</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-6">Recém saído 🔥 Só para quem é assinante!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/video_2025-08-31_22-56-38.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 9.1K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 788</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 412</span>
+      </div>
+    </div>
+
+    <!-- Post 10: video_2025-12-25_01-39-49.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">25 dez, 2025</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-7">Última do dia ✨ Você não pode perder!</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/video_2025-12-25_01-39-49.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 8.7K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 714</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 389</span>
+      </div>
+    </div>
+
+    <!-- Post 12: 0i0au959gnoe5x7w8vjpo_source.mp4 -->
+    <div class="post-card">
+      <div class="post-header">
+        <img src="assets/media/perfil.jpg" class="post-avatar" alt="avatar">
+        <div class="post-info">
+          <div class="post-author">Evelyn Oliver 💎 <svg width="13" height="13" viewBox="0 0 24 24" fill="#00bfff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg></div>
+          <div class="post-date">20 jan, 2026</div>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+      <div class="post-text" id="post-text-8">Novo conteúdo imperdível 😈🔥</div>
+      <div class="post-media">
+        <video class="media-blur"  src="assets/media/0i0au959gnoe5x7w8vjpo_source.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        <div class="lock-overlay">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-size:13px;font-weight:700;margin-top:8px">Assine para ver</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;padding:12px 0;color:#8a96a3;font-size:13px;">
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 14.9K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 1.5K</span>
+        <span style="display:flex;align-items:center;gap:5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 742</span>
+      </div>
+    </div>
+
+    <!-- Post 2 -->
+
+    <!-- Post 4 -->
+
+    <!-- Post 5 -->
+
+    <!-- Botão central de assinatura -->
+    <div style="padding: 20px 15px 10px; text-align:center;">
+      <div style="color:#8a96a3;font-size:13px;margin-bottom:15px;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1d9e6" stroke-width="1.5" style="display:block;margin:0 auto 10px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span id="bs-main">Assine para desbloquear 953 publicações</span>
+      </div>
+      <button onclick="handleSubscribe(event,'monthly')" class="btn-subscribe-locked" id="btn-sub-lock2" style="display:block;width:100%;text-align:center;cursor:pointer;">ASSINE PARA VER AS PUBLICAÇÕES</button>
+    </div>
+  </div>
+
+  <!-- Espaço para a barra de navegação não cobrir conteúdo -->
+  <div style="height:60px;"></div>
+
+  <!-- Barra de navegação inferior estilo OnlyFans -->
+  <nav style="
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    border-top: 1px solid #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  ">
+    <!-- Ícone Home -->
+    <button onclick="trackClick('profile','nav_home')" style="background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#242529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </button>
+
+    <!-- Ícone três pontos (mais opções) -->
+    <button onclick="trackClick('profile','nav_more')" style="background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;align-items:center;gap:2px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#242529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Profile Photo Modal -->
+  <div id="profileModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img src="assets/media/perfil.jpg" class="modal-content">
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://icjaadpiwzhyoccgdejl.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljamFhZHBpd3poeW9jY2dkZWpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNzQwNTgsImV4cCI6MjEwNzY1MDA1OH0.5gJRWifKOmLVi0nolT3TqcW5Zx_4yq2sRETTrYxQXNw';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // Instant Country Detection (0ms, 100% reliable)
+    function detectCountryFast() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const qCountry = (urlParams.get('country') || urlParams.get('geo') || '').toUpperCase();
+      if (qCountry && qCountry.length === 2) return qCountry;
+
+      const stored = localStorage.getItem('my_last_country');
+      if (stored && stored !== 'XX' && stored !== 'TIMEOUT') return stored;
+
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone.toLowerCase();
+        if (tz.includes('sao_paulo') || tz.includes('fortaleza') || tz.includes('bahia') || tz.includes('belem') || tz.includes('manaus') || tz.includes('recife') || tz.includes('cuiaba') || tz.includes('campo_grande') || tz.includes('araguaina') || tz.includes('porto_velho') || tz.includes('rio_branco') || tz.includes('noronha')) return 'BR';
+        if (tz.includes('mexico') || tz.includes('monterrey') || tz.includes('tijuana') || tz.includes('cancun') || tz.includes('merida') || tz.includes('chihuahua') || tz.includes('hermosillo') || tz.includes('mazatlan')) return 'MX';
+        if (tz.includes('bogota')) return 'CO';
+        if (tz.includes('santiago') || tz.includes('punta_arenas')) return 'CL';
+        if (tz.includes('lima')) return 'PE';
+        if (tz.includes('buenos_aires') || tz.includes('cordoba') || tz.includes('mendoza')) return 'AR';
+        if (tz.includes('madrid') || tz.includes('canary')) return 'ES';
+        if (tz.includes('lisbon') || tz.includes('madeira') || tz.includes('azores')) return 'PT';
+        if (tz.includes('new_york') || tz.includes('chicago') || tz.includes('los_angeles') || tz.includes('denver') || tz.includes('phoenix')) return 'US';
+        if (tz.includes('london')) return 'GB';
+      } catch (e) {}
+
+      try {
+        const lang = (navigator.language || '').toLowerCase();
+        if (lang.includes('pt-br') || lang === 'pt') return 'BR';
+        if (lang.includes('es-mx')) return 'MX';
+        if (lang.includes('es-co')) return 'CO';
+        if (lang.includes('es-cl')) return 'CL';
+        if (lang.includes('es-ar')) return 'AR';
+        if (lang.includes('es-pe')) return 'PE';
+        if (lang.includes('es-es')) return 'ES';
+        if (lang.includes('es')) return 'MX';
+        if (lang.includes('en-us') || lang === 'en') return 'US';
+      } catch (e) {}
+
+      return 'BR';
+    }
+
+    // Scroll depth tracking (25%, 50%, 75%, 100%)
+    const _trackedScroll = { '25%': false, '50%': false, '75%': false, '100%': false };
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      if (h <= 0) return;
+      const pct = Math.round((window.scrollY / h) * 100);
+      ['25%', '50%', '75%', '100%'].forEach(threshold => {
+        const val = parseInt(threshold);
+        if (pct >= val && !_trackedScroll[threshold]) {
+          _trackedScroll[threshold] = true;
+          if (typeof trackClick === 'function') trackClick('profile', 'scroll_' + threshold);
+        }
+      });
+    }, { passive: true });
+
+    // Navigation time tracking (<30s, 30s-1m, 1m-3m, >3m)
+    const _pageEnterTime = Date.now();
+    let _timeSpentSent = false;
+    function _sendTimeSpent() {
+      if (_timeSpentSent) return;
+      const seconds = Math.round((Date.now() - _pageEnterTime) / 1000);
+      if (seconds >= 5) {
+        _timeSpentSent = true;
+        const bucket = seconds < 30 ? '<30s' : seconds < 60 ? '30s-1m' : seconds < 180 ? '1m-3m' : '>3m';
+        if (typeof trackClick === 'function') trackClick('profile', 'time_' + bucket);
+      }
+    }
+    window.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') _sendTimeSpent(); });
+    window.addEventListener('beforeunload', _sendTimeSpent);
+
+    // Track visit on page load (with instant real country)
+    (async () => {
+      try {
+        let userId = localStorage.getItem('my_supabase_user_id');
+        if (!userId) {
+          const { data, error } = await supabaseClient
+            .from('analytics_users')
+            .insert([{}])
+            .select('id')
+            .single();
+          if (!error && data) {
+            userId = data.id;
+            localStorage.setItem('my_supabase_user_id', userId);
+          } else {
+            userId = 'user_' + Date.now();
+          }
+        }
+        const userLang = localStorage.getItem('preferredLang') || (navigator.language || 'pt').split('-')[0];
+        const userCountry = detectCountryFast();
+        localStorage.setItem('my_last_country', userCountry);
+        
+        await supabaseClient.from('analytics_events').insert([{
+          user_id: String(userId),
+          event_type: 'visit',
+          page: 'profile',
+          country: userCountry,
+          lang: userLang
+        }]);
+        console.log('✅ Visit tracked: profile (' + userCountry + ')');
+      } catch (e) { console.error('Visit track error:', e); }
+    })();
+
+    // Funções de tracking DEVEM vir primeiro
+    // Funções de tracking DEVEM vir primeiro
+    function handleClick(event, page, button, url) {
+      event.preventDefault();
+
+      // Visual feedback
+      const target = event.currentTarget || event.target.closest('a');
+      if (target) {
+        target.style.opacity = '0.7';
+        target.style.pointerEvents = 'none';
+        // Optional: Change text if strictly needed, but opacity is safer for various button layouts
+      }
+
+      (async () => {
+        try {
+          const timeout = new Promise(resolve => setTimeout(resolve, 1200)); // Wait up to 1.2s
+          const tracking = trackClick(page, button);
+          await Promise.race([tracking, timeout]);
+        } catch (e) {
+          console.error("Tracking flow error:", e);
+        }
+        window.location.href = url;
+      })();
+
+      return false;
+    }
+
+    // Obsolete local tracking functions removed in favor of Supabase integration below
+
+
+    const translations = {
+      pt: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Curtir',
+        seen: 'Online agora',
+        moreInfo: 'Mais informações',
+        bio: 'Evelyn Oliver 💎<br>Vem ver o que eu não posto no Instagram 😈<br>Conteúdo exclusivo todos os dias 🔥<br>👇 Assine agora e tenha acesso total!',
+        hl1: 'Destaques', hl2: 'Itália', hl3: 'Gostosa', hl4: 'Gata 🤣', hl5: 'Sol',
+        labelSub: 'ASSINATURA',
+        lblWeekBtn: '7 DIAS + CHAT PRIVADO',
+        priceWeekly: 'R$ 24,99',
+        lblSubBtn: 'MENSAL + CHAMADAS DE VÍDEO',
+        priceMonthly: 'R$ 64,99',
+priceAnnual: 'R$ 197,99',
+        lblVipBtn: 'VIP BÁSICO',
+        priceVip: 'R$ 29,99',
+        btnSubTxt: 'ACESSAR VIA TELEGRAM',
+        labelPacks: 'PACOTES DE ASSINATURA',
+        lblPackBtn: 'ANUAL + VÍDEO CHAMADAS + SAÍDA VIP',
+        btnSubLock: 'INSCREVE-TE PARA VER AS PUBLICAÇÕES DO UTILIZADOR',
+        tabPosts: '953 POSTAGENS',
+        tabMidia: '1027 MÍDIA',
+        labelRecente: 'RECENTE',
+        postDate: '17 out, 2023',
+        postContent: 'Confira os novos conteúdos exclusivos 😈',
+
+        post1: 'Conteúdo exclusivo para assinantes 🔥',
+        post2: 'Novo vídeo exclusivo 😈 Só para assinantes!',
+        post3: 'Conteúdo fresquinho! 😈👀 Não perca!',
+        post4: 'Mais um presentinho 🔥 Só para você!',
+        post5: 'Aqui você vai ver de tudo 🔥🔥 Assine!',
+        post6: 'Recém saído 🔥 Só para quem é assinante!',
+        post7: 'Última do dia ✨ Você não pode perder!',
+        post8: 'Novo conteúdo imperdível 😈🔥',
+
+      },
+      en: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Like',
+        seen: 'Online now',
+        moreInfo: 'More information',
+        bio: 'Evelyn Oliver 💎<br>See what I don\'t post on Instagram 😈<br>Exclusive content every day 🔥<br>👇 Subscribe now for full access!',
+        hl1: 'Highlights', hl2: 'Italy', hl3: 'Tasty', hl4: 'Hot 🤣', hl5: 'Sun',
+        labelSub: 'SUBSCRIPTION',
+        lblWeekBtn: '7 DAYS + PRIVATE CHAT',
+        priceWeekly: '$ 14.99',
+        lblSubBtn: 'MONTHLY + VIDEO CALLS',
+        priceMonthly: '$ 44.99',
+priceAnnual: '$ 124.99',
+        lblVipBtn: 'VIP BASIC',
+        priceVip: '$ 5.99',
+        btnSubTxt: 'ACCESS VIA TELEGRAM',
+        labelPacks: 'SUBSCRIPTION PACKAGES',
+        lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
+        btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
+        tabPosts: '953 POSTS',
+        tabMidia: '1027 MEDIA',
+        labelRecente: 'RECENT',
+        postDate: 'Oct 17, 2023',
+        postContent: 'Check out the new exclusive content 😈',
+
+        post1: 'Exclusive content for subscribers 🔥',
+        post2: 'New exclusive video 😈 For subscribers only!',
+        post3: 'Fresh content! 😈👀 Don\'t miss out!',
+        post4: 'Another little gift 🔥 Just for you!',
+        post5: 'Here you will see everything 🔥🔥 Subscribe!',
+        post6: 'Fresh out 🔥 Only for subscribers!',
+        post7: 'Last one of the day ✨ You can\'t miss this!',
+        post8: 'New unmissable content 😈🔥',
+
+      },
+      es: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Me gusta',
+        seen: 'En línea ahora',
+        moreInfo: 'Más información',
+        bio: 'Evelyn Oliver 💎<br>Mira lo que no publico en Instagram 😈<br>Contenido exclusivo todos los días 🔥<br>👇 ¡Suscríbete ahora para acceso total!',
+        hl1: 'Destacados', hl2: 'Italia', hl3: 'Sabrosa', hl4: 'Gata 🤣', hl5: 'Sol',
+        labelSub: 'SUSCRIPCIÓN',
+        lblWeekBtn: '7 DÍAS + CHAT PRIVADO',
+        priceWeekly: '€ 14.99',
+        lblSubBtn: 'MENSUAL + VIDEOLLAMADAS',
+        priceMonthly: '€ 44.99',
+priceAnnual: '€ 124.99',
+        lblVipBtn: 'VIP BÁSICO',
+        priceVip: '€ 5.99',
+        btnSubTxt: 'ACCEDER VÍA TELEGRAM',
+        labelPacks: 'PAQUETES DE SUSCRIPCIÓN',
+        lblPackBtn: 'ANUAL + VIDEOLLAMADAS + SALIDA VIP',
+        btnSubLock: 'SUSCRÍBETE PARA VER LAS PUBLICACIONES DEL USUARIO',
+        tabPosts: '953 PUBLICACIONES',
+        tabMidia: '1027 MEDIA',
+        labelRecente: 'RECIENTE',
+        postDate: '17 oct, 2023',
+        postContent: 'Mira los nuevos contenidos exclusivos 😈',
+
+        post1: 'Contenido exclusivo para suscriptores 🔥',
+        post2: '¡Nuevo video exclusivo 😈 Solo para suscriptores!',
+        post3: '¡Contenido fresquito! 😈👀 ¡No te lo pierdas!',
+        post4: 'Un regalito más 🔥 ¡Solo para ti!',
+        post5: 'Aquí verás de todo 🔥🔥 ¡Suscríbete!',
+        post6: '¡Recién salido 🔥 Solo para suscriptores!',
+        post7: '¡El último del día ✨ No te lo puedes perder!',
+        post8: 'Nuevo contenido imperdible 😈🔥',
+
+      },
+      fr: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'J’aime',
+        seen: 'En ligne maintenant',
+        moreInfo: 'Plus d\'informations',
+        bio: 'Evelyn Oliver 💎<br>Découvrez ce que je ne poste pas sur Instagram 😈<br>Contenu exclusif chaque jour 🔥<br>👇 Abonnez-vous maintenant pour un accès total!',
+        hl1: 'Points forts', hl2: 'Italie', hl3: 'Savoureuse', hl4: 'Belle 🤣', hl5: 'Soleil',
+        labelSub: 'ABONNEMENT',
+        lblWeekBtn: '7 JOURS + CHAT PRIVÉ',
+        priceWeekly: '14.99€',
+        lblSubBtn: 'MENSUEL + APPELS VIDÉO',
+        priceMonthly: '44.99€',
+priceAnnual: '124.99€',
+        lblVipBtn: 'VIP BASIQUE',
+        priceVip: '5.99€',
+        btnSubTxt: 'ACCÉDER VIA TELEGRAM',
+        labelPacks: 'FORFAITS D\'ABONNEMENT',
+        lblPackBtn: 'ANNUEL + APPELS VIDÉO + SORTIE VIP',
+        btnSubLock: 'ABONNEZ-VOUS POUR VOIR LES PUBLICATIONS DE L\'UTILISATEUR',
+        tabPosts: '953 POSTS',
+        tabMidia: '1027 MÉDIAS',
+        labelRecente: 'RÉCENT',
+        postDate: '17 oct. 2023',
+        postContent: 'Découvrez les nouveaux contenus exclusifs 😈',
+
+        post1: 'Contenu exclusif pour les abonnés 🔥',
+        post2: 'Nouvelle vidéo exclusive 😈 Uniquement pour les abonnés !',
+        post3: 'Contenu tout frais ! 😈👀 À ne pas manquer !',
+        post4: 'Un petit cadeau de plus 🔥 Rien que pour toi !',
+        post5: 'Ici tu verras de tout 🔥🔥 Abonne-toi !',
+        post6: 'Tout juste sorti 🔥 Uniquement pour ceux qui sont abonnés !',
+        post7: 'Le dernier de la journée ✨ Tu ne peux pas rater ça !',
+        post8: 'Nouveau contenu incontournable 😈🔥',
+
+      },
+      gb: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Like',
+        seen: 'Online now',
+        moreInfo: 'More information',
+        bio: 'Evelyn Oliver 💎<br>See what I don\'t post on Instagram 😈<br>Exclusive content every day 🔥<br>👇 Subscribe now for full access!',
+        hl1: 'Highlights', hl2: 'Italy', hl3: 'Tasty', hl4: 'Hot 🤣', hl5: 'Sun',
+        labelSub: 'SUBSCRIPTION',
+        lblWeekBtn: '7 DAYS + PRIVATE CHAT',
+        priceWeekly: '£14.99',
+        lblSubBtn: 'MONTHLY + VIDEO CALLS',
+        priceMonthly: '£44.99',
+priceAnnual: '£124.99',
+        lblVipBtn: 'VIP BASIC',
+        priceVip: '£5.99',
+        btnSubTxt: 'ACCESS VIA TELEGRAM',
+        labelPacks: 'SUBSCRIPTION PACKAGES',
+        lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
+        btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
+        tabPosts: '953 POSTS',
+        tabMidia: '1027 MEDIA',
+        labelRecente: 'RECENT',
+        postDate: 'Oct 17, 2023',
+        postContent: 'Check out the new exclusive content 😈'
+      },
+      it: {
+        hName: 'Evelyn Oliver 💎',
+        btnLike: 'Mi piace',
+        seen: 'Online ora',
+        moreInfo: 'Più informazioni',
+        bio: 'Evelyn Oliver 💎<br>Guarda cosa non pubblico su Instagram 😈<br>Contenuti esclusivi ogni giorno 🔥<br>👇 Abbonati ora per l\'accesso totale!',
+        hl1: 'In evidenza', hl2: 'Italia', hl3: 'Sexy', hl4: 'Bella 🤣', hl5: 'Sole',
+        labelSub: 'ABBONAMENTO',
+        lblWeekBtn: '7 GIORNI + CHAT PRIVATA',
+        priceWeekly: '€ 14.99',
+        lblSubBtn: 'MENSILE + VIDEOCHIAMATE',
+        priceMonthly: '€ 44.99',
+priceAnnual: '€ 124.99',
+        lblVipBtn: 'VIP BASE',
+        priceVip: '€ 5.99',
+        btnSubTxt: 'ACCEDI TRAMITE TELEGRAM',
+        labelPacks: 'PACCHETTI ABBONAMENTO',
+        lblPackBtn: 'ANNUALE + VIDEOCHIAMATE + USCITA VIP',
+        btnSubLock: 'ABBONATI PER VEDERE I POST DELL\'UTENTE',
+        tabPosts: '953 POST',
+        tabMidia: '1027 MEDIA',
+        labelRecente: 'RECENTE',
+        postDate: '17 ott, 2023',
+        postContent: 'Scopri i nuovi contenuti esclusivi 😈',
+
+        post1: 'Contenuto esclusivo per gli abbonati 🔥',
+        post2: 'Nuovo video esclusivo 😈 Solo per gli abbonati!',
+        post3: 'Contenuto freschissimo! 😈👀 Non perderlo!',
+        post4: 'Un altro regalino 🔥 Solo per te!',
+        post5: 'Qui vedrai di tutto 🔥🔥 Abbonati!',
+        post6: 'Appena uscito 🔥 Solo per chi è abbonato!',
+        post7: 'L\'ultimo della giornata ✨ Non puoi perderlo!',
+        post8: 'Nuovo contenuto imperdibile 😈🔥',
+
+      }
+    };
+
+    function changeLanguage(lang) {
+      const t = translations[lang] || translations['en'];
+      try {
+        document.getElementById('h-name').innerHTML = t.hName + ' <svg class="svg-verified" style="color: #00bfff" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg>';
+        document.getElementById('h-posts-cnt').innerText = '812';
+        document.getElementById('h-vids-cnt').innerText = '134';
+        document.getElementById('h-likes-cnt').innerText = '354K';
+        if (document.getElementById('btn-like')) document.getElementById('btn-like').innerText = t.btnLike;
+        document.getElementById('p-bio').innerHTML = t.bio;
+        document.getElementById('p-seen').innerText = t.seen;
+        document.getElementById('label-sub').innerText = t.labelSub;
+        document.querySelectorAll('.lbl-week-btn').forEach(el => el.innerText = t.lblWeekBtn);
+        document.querySelectorAll('.btn-sub-txt').forEach(el => el.innerText = t.btnSubTxt);
+        document.querySelectorAll('.lbl-sub-btn').forEach(el => el.innerText = t.lblSubBtn);
+        if (document.getElementById('label-packs')) document.getElementById('label-packs').innerText = t.labelPacks;
+        document.querySelectorAll('.lbl-pack-btn').forEach(el => el.innerText = t.lblPackBtn);
+        document.querySelectorAll('.lbl-vip-btn').forEach(el => el.innerText = t.lblVipBtn);
+        document.querySelectorAll('.tab-posts-txt').forEach(el => el.innerText = t.tabPosts);
+        document.querySelectorAll('.tab-midia-txt').forEach(el => el.innerText = t.tabMidia);
+        document.querySelectorAll('#btn-sub-lock, #btn-sub-lock2').forEach(el => el.innerText = t.btnSubLock);
+
+        for(let i=1; i<=8; i++) {
+            if(document.getElementById('post-text-' + i) && t['post'+i]) {
+                document.getElementById('post-text-' + i).innerText = t['post'+i];
+            }
+        }
+
+      } catch(e) { console.warn('Translation error:', e); }
+      localStorage.setItem('preferredLang', lang);
+    }
+
+    // ============================================================
+    // PAYMENT INTEGRATION
+    // BRL, MXN, USD, COP, CLP → XPag (PIX / SPEI / Nequi / USDT / Transferencia)
+    // EUR, GBP → Telegram VIP
+    // ============================================================
+    const TELEGRAM_URL     = 'https://t.me/Evelynoliver_bot';
+    const XPAG_FUNCTION_URL = '/.netlify/functions/xpag-cashin';
+
+    // Planos de preço por país (label exibido nos botões)
+    // ============================================================
+    // LEAD CAPTURE MODAL — shown BEFORE checkout
+    // Multilingual, clean and non-intrusive
+    // ============================================================
+    const LEAD_TRANSLATIONS = {
+      pt: {
+        title: '🎉 Pagamento Realizado! 💎',
+        subtitle: 'Para onde enviamos seu link de acesso VIP exclusivo?',
+        namePlaceholder: 'Seu nome',
+        phonePlaceholder: 'Seu WhatsApp (ex: +55 11 99999-9999)',
+        btnText: '🔓 Liberar Meu Acesso VIP no WhatsApp →',
+        disclaimer: 'Suas informações são privadas e seguras.',
+        nameRequired: 'Por favor, insira seu nome.',
+        phoneRequired: 'Por favor, insira seu WhatsApp.'
+      },
+      en: {
+        title: 'Almost there! 💌',
+        subtitle: 'Evelyn wants to get in touch with you',
+        namePlaceholder: 'Your name',
+        phonePlaceholder: 'Your WhatsApp (e.g. +1 555 1234567)',
+        btnText: 'Continue to payment →',
+        disclaimer: 'Your information is private and secure.',
+        nameRequired: 'Please enter your name.',
+        phoneRequired: 'Please enter your WhatsApp.'
+      },
+      es: {
+        title: '¡Casi listo! 💌',
+        subtitle: 'Evelyn quiere ponerse en contacto contigo',
+        namePlaceholder: 'Tu nombre',
+        phonePlaceholder: 'Tu WhatsApp (ej: +52 55 1234 5678)',
+        btnText: 'Continuar al pago →',
+        disclaimer: 'Tu información es privada y segura.',
+        nameRequired: 'Por favor ingresa tu nombre.',
+        phoneRequired: 'Por favor ingresa tu WhatsApp.'
+      },
+      fr: {
+        title: 'Presque là ! 💌',
+        subtitle: 'Evelyn veut vous contacter',
+        namePlaceholder: 'Votre prénom',
+        phonePlaceholder: 'Votre WhatsApp (ex : +33 6 12 34 56 78)',
+        btnText: 'Continuer vers le paiement →',
+        disclaimer: 'Vos informations sont privées et sécurisées.',
+        nameRequired: 'Veuillez entrer votre prénom.',
+        phoneRequired: 'Veuillez entrer votre WhatsApp.'
+      },
+      it: {
+        title: 'Quasi fatto! 💌',
+        subtitle: 'Evelyn vuole mettersi in contatto con te',
+        namePlaceholder: 'Il tuo nome',
+        phonePlaceholder: 'Il tuo WhatsApp (es: +39 333 123 4567)',
+        btnText: 'Continua al pagamento →',
+        disclaimer: 'Le tue informazioni sono private e sicure.',
+        nameRequired: 'Per favore inserisci il tuo nome.',
+        phoneRequired: 'Per favore inserisci il tuo WhatsApp.'
+      },
+      gb: {
+        title: 'Almost there! 💌',
+        subtitle: 'Evelyn wants to get in touch with you',
+        namePlaceholder: 'Your name',
+        phonePlaceholder: 'Your WhatsApp (e.g. +44 7911 123456)',
+        btnText: 'Continue to payment →',
+        disclaimer: 'Your information is private and secure.',
+        nameRequired: 'Please enter your name.',
+        phoneRequired: 'Please enter your WhatsApp.'
+      }
+    };
+
+    let _pendingLeadPlan = null;
+
+    function injectLeadModal() {
+      if (document.getElementById('lead-modal')) return;
+      document.body.insertAdjacentHTML('beforeend', `
+        <div id="lead-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);">
+          <div style="background:#fff;border-radius:24px;padding:32px 24px 28px;max-width:360px;width:100%;position:relative;box-shadow:0 24px 60px rgba(0,0,0,0.25);animation:leadSlideIn 0.35s cubic-bezier(0.34,1.56,0.64,1);">
+            <button onclick="document.getElementById('lead-modal').style.display='none'" style="position:absolute;top:14px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#ccc;line-height:1;">×</button>
+
+            <!-- Avatar -->
+            <div style="display:flex;justify-content:center;margin-bottom:16px;">
+              <div style="width:64px;height:64px;border-radius:50%;overflow:hidden;border:3px solid #00bfff;box-shadow:0 0 16px rgba(0,191,255,0.4);">
+                <img src="assets/media/perfil.jpg" style="width:100%;height:100%;object-fit:cover;" alt="Evelyn">
+              </div>
+            </div>
+
+            <div id="lead-title" style="font-size:20px;font-weight:800;color:#242529;text-align:center;margin-bottom:4px;">🎉 Pagamento Realizado! 💎</div>
+            <div id="lead-subtitle" style="font-size:13px;color:#8a96a3;text-align:center;margin-bottom:20px;">Para onde enviamos seu link de acesso VIP exclusivo?</div>
+
+            <input type="text" id="lead-name" placeholder="Seu nome" style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid #e5e7eb;font-size:15px;margin-bottom:10px;box-sizing:border-box;outline:none;transition:border-color 0.2s;font-family:Inter,sans-serif;" onfocus="this.style.borderColor='#00bfff'" onblur="this.style.borderColor='#e5e7eb'">
+            <input type="tel" id="lead-phone" placeholder="Seu WhatsApp" style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid #e5e7eb;font-size:15px;margin-bottom:16px;box-sizing:border-box;outline:none;transition:border-color 0.2s;font-family:Inter,sans-serif;" onfocus="this.style.borderColor='#00bfff'" onblur="this.style.borderColor='#e5e7eb'">
+
+            <button id="lead-btn" onclick="submitLead()" style="width:100%;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;transition:background 0.2s;font-family:Inter,sans-serif;">🔓 Liberar Meu Acesso VIP no WhatsApp →</button>
+            <div id="lead-disclaimer" style="font-size:11px;color:#b0b8c1;text-align:center;margin-top:10px;">Suas informações são privadas e seguras.</div>
+          </div>
+        </div>
+        <style>@keyframes leadSlideIn{from{opacity:0;transform:translateY(30px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}</style>
+      `);
+    }
+
+    function updateLeadModalLang() {
+      const lang = localStorage.getItem('preferredLang') || 'en';
+      const t = LEAD_TRANSLATIONS[lang] || LEAD_TRANSLATIONS['en'];
+      const title = document.getElementById('lead-title');
+      const subtitle = document.getElementById('lead-subtitle');
+      const nameInput = document.getElementById('lead-name');
+      const phoneInput = document.getElementById('lead-phone');
+      const btn = document.getElementById('lead-btn');
+      const disclaimer = document.getElementById('lead-disclaimer');
+      if (title) title.textContent = t.title;
+      if (subtitle) subtitle.textContent = t.subtitle;
+      if (nameInput) nameInput.placeholder = t.namePlaceholder;
+      if (phoneInput) phoneInput.placeholder = t.phonePlaceholder;
+      if (btn) btn.textContent = t.btnText;
+      if (disclaimer) disclaimer.textContent = t.disclaimer;
+    }
+
+    async function saveLead(name, phone, plan) {
+      const country = localStorage.getItem('my_last_country') || (typeof detectCountryFast === 'function' ? detectCountryFast() : 'BR');
+      const lang = localStorage.getItem('preferredLang') || 'pt';
+      const userId = localStorage.getItem('my_supabase_user_id') || 'anon';
+
+      try {
+        await supabaseClient.from('leads').insert([{
+          name: name,
+          whatsapp: phone,
+          plan: plan,
+          country: country,
+          lang: lang,
+          user_id: String(userId)
+        }]);
+        console.log('✅ Lead salvo na tabela leads:', name, phone, plan);
+      } catch (e) {
+        console.warn('Erro ao salvar em leads:', e);
+      }
+
+      try {
+        await supabaseClient.from('analytics_events').insert([{
+          user_id: String(userId),
+          event_type: 'lead',
+          page: 'profile',
+          item: plan + ' | ' + name + ' | ' + phone,
+          country: country,
+          lang: lang
+        }]);
+        console.log('✅ Lead registrado em analytics_events');
+      } catch (e) {
+        console.warn('Erro ao salvar lead em events:', e);
+      }
+
+      try {
+        localStorage.setItem('last_lead_name', name);
+        localStorage.setItem('last_lead_phone', phone);
+      } catch (e) {}
+    }
+
+    async function submitLead() {
+      const lang = localStorage.getItem('preferredLang') || 'en';
+      const t = LEAD_TRANSLATIONS[lang] || LEAD_TRANSLATIONS['en'];
+      const name = document.getElementById('lead-name').value.trim();
+      const phone = document.getElementById('lead-phone').value.trim();
+
+      if (!name) { alert(t.nameRequired || 'Por favor, insira seu nome.'); return; }
+      if (!phone) { alert(t.phoneRequired || 'Por favor, insira seu WhatsApp.'); return; }
+
+      const plan = _pendingLeadPlan || _pendingPlan || 'weekly';
+
+      // Salva lead com segurança
+      await saveLead(name, phone, plan);
+
+      // Oculta modal
+      document.getElementById('lead-modal').style.display = 'none';
+
+      // Feedback e direcionamento para o Telegram VIP
+      alert(t.successMsg || '✅ Acesso liberado! Redirecionando para o Telegram VIP da Evelyn...');
+      window.location.href = 'https://t.me/Evelynoliver_bot';
+    }
+
+    function xpagConfirmPayment() {
+      const modal = document.getElementById('xpag-modal');
+      if (modal) modal.style.display = 'none';
+      showLeadModal(_pendingPlan || 'weekly');
+    }
+
+    function showLeadModal(plan) {
+      injectLeadModal();
+      _pendingLeadPlan = plan;
+      document.getElementById('lead-modal').style.display = 'flex';
+      updateLeadModalLang();
+      setTimeout(() => {
+        const nameInput = document.getElementById('lead-name');
+        if (nameInput) nameInput.focus();
+      }, 350);
+    }
+
+    // ---- Modal de Pagamento XPag (SPEI/CLABE) ----
+    function injectPaymentModal() {
+      if (document.getElementById('xpag-modal')) return;
+      document.body.insertAdjacentHTML('beforeend', `
+        <div id="xpag-modal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.88);align-items:center;justify-content:center;padding:20px;">
+          <div style="background:#fff;border-radius:20px;padding:28px 22px 22px;max-width:390px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+            <button onclick="document.getElementById('xpag-modal').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#bbb;line-height:1;">&times;</button>
+
+            <!-- Header -->
+            <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              <div id="xpag-modal-title" style="font-size:16px;font-weight:800;color:#242529;">Pagamento SPEI</div>
+            </div>
+            <div id="xpag-modal-subtitle" style="font-size:12px;color:#8a96a3;margin-bottom:18px;"></div>
+
+            <!-- Spinner / Conteúdo -->
+            <div id="xpag-modal-body" style="min-height:160px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
+              <div id="xpag-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:xpagSpin 0.8s linear infinite;"></div>
+              <div style="color:#8a96a3;font-size:13px;">Conectando...</div>
+            </div>
+
+            <!-- Formulário Telefone (Nequi - COP) -->
+            <div id="xpag-phone-area" style="display:none;margin-top:10px;text-align:left;">
+              <div style="color:#333;font-size:13px;margin-bottom:12px;">Para pagos en Colombia (Nequi), necesitamos tu número de celular registrado:</div>
+              <input type="text" id="xpag-phone-input" placeholder="Ej: 3102345678" style="width:100%;padding:14px;border-radius:12px;border:2px solid #eee;font-size:15px;margin-bottom:14px;box-sizing:border-box;">
+              <button onclick="submitXPagPhone()" id="xpag-phone-btn" style="background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 0;font-size:14px;font-weight:700;cursor:pointer;width:100%;transition:background 0.2s;">
+                Continuar al Pago
+              </button>
+            </div>
+
+            <!-- Dados de Pagamento (oculto até carregar) -->
+            <div id="xpag-payment-area" style="display:none;margin-top:6px;text-align:left;">
+              <div id="xpag-sandbox-badge" style="display:none;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:600;margin-bottom:12px;text-align:center;">
+                ⚠️ MODO SANDBOX — transferência de teste, não movimenta dinheiro real
+              </div>
+
+              <!-- Beneficiary / Bank Info -->
+              <div id="xpag-bank-info" style="display:none;background:#f8f9fb;border-radius:12px;padding:14px 16px;font-size:13px;color:#333;line-height:2;margin-bottom:10px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:8px;">
+                  <span style="color:#8a96a3;font-size:11px;font-weight:600;text-transform:uppercase;">Banco</span>
+                  <span id="xpag-bank-name" style="font-weight:700;font-size:13px;"></span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="color:#8a96a3;font-size:11px;font-weight:600;text-transform:uppercase;">Beneficiário</span>
+                  <span id="xpag-beneficiary" style="font-weight:700;font-size:13px;"></span>
+                </div>
+              </div>
+
+              <!-- QR Code (for PIX/USDT) -->
+              <div id="xpag-qr-container" style="display:none;text-align:center;margin-bottom:10px;">
+                <img id="xpag-qr-img" src="" alt="QR Code" style="width:180px;height:180px;border-radius:12px;border:2px solid #eee;padding:4px;">
+              </div>
+
+              <div style="background:#f8f9fb;border-radius:12px;padding:14px 16px;font-size:13px;color:#333;line-height:2;">
+                <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:8px;">
+                  <span style="color:#8a96a3;font-size:11px;font-weight:600;text-transform:uppercase;">Valor</span>
+                  <span id="xpag-amount" style="font-weight:800;font-size:15px;color:#00bfff;"></span>
+                </div>
+                <div>
+                  <span id="xpag-code-label" style="color:#8a96a3;font-size:11px;font-weight:600;text-transform:uppercase;display:block;margin-bottom:4px;">Código</span>
+                  <div id="xpag-code-value" style="font-family:monospace;font-size:14px;font-weight:700;color:#242529;letter-spacing:1px;word-break:break-all;padding:8px;background:#fff;border:2px solid #00bfff;border-radius:8px;text-align:center;max-height:80px;overflow-y:auto;"></div>
+                </div>
+              </div>
+              <button onclick="xpagCopyCode()" id="xpag-copy-btn" style="margin-top:10px;background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 0;font-size:14px;font-weight:700;cursor:pointer;width:100%;transition:background 0.2s;">
+                📋 Copiar Código
+              </button>
+              
+              <!-- Botão para liberar o acesso após pagar -->
+              <button onclick="xpagConfirmPayment()" id="xpag-confirm-btn" style="margin-top:12px;background:#22c55e;color:#fff;border:none;border-radius:30px;padding:14px 0;font-size:14px;font-weight:800;cursor:pointer;width:100%;box-shadow:0 6px 20px rgba(34,197,94,0.35);transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;">
+                <span>✅</span> <span>Já fiz o pagamento / Liberar Acesso</span>
+              </button>
+              <div style="font-size:11px;color:#aaa;margin-top:10px;line-height:1.5;text-align:center;">
+                Após o pagamento, você receberá o acesso via Telegram<br>
+                <a href="https://t.me/Evelynoliver_bot" target="_blank" style="color:#00bfff;text-decoration:none;font-weight:600;">→ Ir para o Telegram</a>
+              </div>
+            </div>
+
+            <!-- Erro -->
+            <div id="xpag-error-area" style="display:none;margin-top:8px;">
+              <div id="xpag-error-msg" style="color:#dc2626;font-size:13px;margin-bottom:14px;"></div>
+              <button onclick="window.open('https://t.me/Evelynoliver_bot','_blank')" style="background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">
+                Continuar no Telegram
+              </button>
+            </div>
+          </div>
+        </div>
+        <style>@keyframes xpagSpin{to{transform:rotate(360deg)}}</style>
+      `);
+    }
+
+    let _xpagCode = '';
+    let _xpagCurrency = '';
+    let _pendingPlan = '';
+
+    function xpagCopyCode() {
+      const btn = document.getElementById('xpag-copy-btn');
+      navigator.clipboard.writeText(_xpagCode).then(() => {
+        if (btn) { btn.textContent = '✅ Copiado!'; setTimeout(() => { btn.textContent = '📋 Copiar Código'; }, 2500); }
+      }).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = _xpagCode;
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (btn) { btn.textContent = '✅ Copiado!'; setTimeout(() => { btn.textContent = '📋 Copiar Código'; }, 2500); }
+      });
+    }
+
+    function _xpagSetLoading() {
+      document.getElementById('xpag-modal-title').textContent = 'Gerando Pagamento...';
+      document.getElementById('xpag-modal-subtitle').textContent = '';
+      document.getElementById('xpag-modal-body').style.display = 'flex';
+      document.getElementById('xpag-modal-body').innerHTML = '<div id="xpag-spinner" style="width:44px;height:44px;border:4px solid #e5e7eb;border-top-color:#00bfff;border-radius:50%;animation:xpagSpin 0.8s linear infinite;"></div><div style="color:#8a96a3;font-size:13px;">Conectando...</div>';
+      document.getElementById('xpag-payment-area').style.display = 'none';
+      document.getElementById('xpag-phone-area').style.display = 'none';
+      document.getElementById('xpag-error-area').style.display = 'none';
+    }
+    
+    function _xpagAskPhone(plan) {
+      _pendingPlan = plan;
+      document.getElementById('xpag-modal-title').textContent = 'Pago Nequi (Colombia)';
+      document.getElementById('xpag-modal-subtitle').textContent = 'Se enviará una notificación a tu celular';
+      document.getElementById('xpag-modal-body').style.display = 'none';
+      document.getElementById('xpag-payment-area').style.display = 'none';
+      document.getElementById('xpag-error-area').style.display = 'none';
+      
+      const phoneInput = document.getElementById('xpag-phone-input');
+      phoneInput.value = '';
+      document.getElementById('xpag-phone-area').style.display = 'block';
+    }
+
+    async function submitXPagPhone() {
+      const phone = document.getElementById('xpag-phone-input').value.trim();
+      if (!phone || phone.length < 10) {
+        alert("Por favor, ingresa un celular Nequi válido de 10 dígitos.");
+        return;
+      }
+      
+      _xpagSetLoading();
+      try {
+        const data = await createXPagCharge(_pendingPlan, 'COP', phone);
+        if (data.ok) {
+          _xpagShowPayment(data);
+        } else {
+          _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
+        }
+      } catch (e) {
+        console.error('[XPag] Error:', e);
+        _xpagShowError('Erro de conexão. Tente novamente.');
+      }
+    }
+
+    function _xpagShowPayment(data) {
+      document.getElementById('xpag-modal-body').style.display = 'none';
+      document.getElementById('xpag-error-area').style.display = 'none';
+
+      // Test mode badge
+      const badge = document.getElementById('xpag-sandbox-badge');
+      if (data.test_mode) badge.style.display = 'block'; else badge.style.display = 'none';
+
+      _xpagCurrency = data.currency;
+      let title, subtitle, label, codeValue, symbol;
+
+      if (_xpagCurrency === 'BRL') {
+        title = 'Pagamento via PIX'; subtitle = 'Abra seu app do banco e pague via PIX Copia e Cola ou QR Code';
+        label = 'PIX Copia e Cola'; codeValue = data.qr_code; symbol = 'R$ ';
+      } else if (_xpagCurrency === 'MXN') {
+        title = 'Pagar por SPEI'; subtitle = 'Realiza la transferencia desde tu app bancaria';
+        label = 'CLABE Interbancaria'; codeValue = data.clabe; symbol = 'MX$ ';
+      } else if (_xpagCurrency === 'USD') {
+        title = 'Pay with Crypto (USDT)'; subtitle = 'Send USDT (TRC20/ERC20) to the address below';
+        label = 'USDT Wallet Address'; codeValue = data.qr_code; symbol = '$ ';
+      } else if (_xpagCurrency === 'CLP') {
+        title = 'Pagar con Transferencia (Chile)'; subtitle = 'Realiza la transferencia desde tu app bancaria';
+        label = 'Código de Pago'; codeValue = data.qr_code || data.clabe || data.checkout_url || ''; symbol = 'CL$ ';
+      } else if (_xpagCurrency === 'COP') {
+        if (data.checkout_url) {
+          title = 'Pagar por Banco Colombiano'; subtitle = 'Haz clic en el botón de abajo para ir al checkout seguro';
+          label = 'Enlace de Pago'; 
+          codeValue = data.checkout_url; 
+          symbol = 'CO$ ';
+        } else {
+          title = 'Pago Colombia'; subtitle = '';
+          label = 'Referencia'; codeValue = data.transaction_id || ''; symbol = 'CO$ ';
+        }
+      }
+
+      document.getElementById('xpag-modal-title').textContent = title;
+      document.getElementById('xpag-modal-subtitle').textContent = subtitle;
+      document.getElementById('xpag-code-label').textContent = label;
+      
+      if (data.checkout_url) {
+         document.getElementById('xpag-code-value').textContent = "PAGO BANCARIO SEGURO";
+         const btn = document.getElementById('xpag-copy-btn');
+         btn.style.display = 'block';
+         btn.textContent = '🔗 Ir a Pagar';
+         btn.onclick = function() { window.open(data.checkout_url, '_blank'); };
+      } else {
+         document.getElementById('xpag-code-value').textContent = codeValue || "PAGO PENDIENTE";
+         const btn = document.getElementById('xpag-copy-btn');
+         if (codeValue) {
+           btn.style.display = 'block';
+           btn.textContent = '📋 Copiar Código';
+           btn.onclick = xpagCopyCode;
+           _xpagCode = codeValue;
+         } else {
+           btn.style.display = 'none';
+         }
+      }
+
+      const formattedAmount = (_xpagCurrency === 'CLP' || _xpagCurrency === 'COP')
+        ? Math.round(Number(data.amount) || 0).toLocaleString('es-CL')
+        : (Number(data.amount) || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+      document.getElementById('xpag-amount').textContent = symbol + formattedAmount;
+
+      if (_xpagCurrency === 'MXN') {
+        document.getElementById('xpag-bank-info').style.display = 'block';
+        document.getElementById('xpag-bank-name').textContent = data.bank_name || 'STP';
+        document.getElementById('xpag-beneficiary').textContent = data.beneficiary || 'Zypher';
+        document.getElementById('xpag-qr-container').style.display = 'none';
+      } else {
+        document.getElementById('xpag-bank-info').style.display = 'none';
+        if (data.qr_url) {
+          document.getElementById('xpag-qr-img').src = data.qr_url;
+          document.getElementById('xpag-qr-container').style.display = 'block';
+        } else {
+          document.getElementById('xpag-qr-container').style.display = 'none';
+        }
+      }
+
+      document.getElementById('xpag-payment-area').style.display = 'block';
+    }
+
+    function _xpagShowError(msg) {
+      document.getElementById('xpag-modal-title').textContent = 'Erro ao gerar pagamento';
+      document.getElementById('xpag-modal-subtitle').textContent = '';
+      document.getElementById('xpag-modal-body').style.display = 'none';
+      document.getElementById('xpag-payment-area').style.display = 'none';
+      document.getElementById('xpag-phone-area').style.display = 'none';
+      document.getElementById('xpag-error-msg').textContent = msg || 'Tente novamente ou use o Telegram.';
+      document.getElementById('xpag-error-area').style.display = 'block';
+    }
+
+    async function createXPagCharge(planKey, currencyKey, payerPhone = null) {
+      const externalId = currencyKey + '-' + planKey.toUpperCase() + '-' + Date.now();
+      const payload = { plan: planKey, currency: currencyKey, external_id: externalId };
+      if (payerPhone) payload.payer_phone = payerPhone;
+      
+      const res = await fetch(XPAG_FUNCTION_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Erro HTTP ' + res.status);
+      }
+      return await res.json();
+    }
+
+    // ============================================================
+    // CHECKOUT MODAL → TELEGRAM @evelyn_oliver_019
+    // Shows plan details + redirects to Telegram with pre-filled msg
+    // ============================================================
+    const CHECKOUT_PLAN_DETAILS = {
+      weekly: {
+        name: { pt: '7 Dias + Chat Privado', en: '7 Days + Private Chat', es: '7 Días + Chat Privado', fr: '7 Jours + Chat Privé', it: '7 Giorni + Chat Privata', gb: '7 Days + Private Chat' },
+        benefits: {
+          pt: ['✅ Acesso total por 7 dias', '✅ Chat privado direto', '✅ +800 fotos e vídeos exclusivos', '✅ Conteúdo sem censura'],
+          en: ['✅ Full access for 7 days', '✅ Direct private chat', '✅ +800 exclusive photos & videos', '✅ Uncensored content'],
+          es: ['✅ Acceso total por 7 días', '✅ Chat privado directo', '✅ +800 fotos y videos exclusivos', '✅ Contenido sin censura'],
+          fr: ['✅ Accès total pendant 7 jours', '✅ Chat privé direct', '✅ +800 photos et vidéos exclusives', '✅ Contenu sans censure'],
+          it: ['✅ Accesso totale per 7 giorni', '✅ Chat privata diretta', '✅ +800 foto e video esclusivi', '✅ Contenuto senza censura'],
+          gb: ['✅ Full access for 7 days', '✅ Direct private chat', '✅ +800 exclusive photos & videos', '✅ Uncensored content']
+        },
+        badge: '🔥'
+      },
+      monthly: {
+        name: { pt: 'Mensal + Chamadas de Vídeo', en: 'Monthly + Video Calls', es: 'Mensual + Videollamadas', fr: 'Mensuel + Appels Vidéo', it: 'Mensile + Videochiamate', gb: 'Monthly + Video Calls' },
+        benefits: {
+          pt: ['✅ Acesso total por 30 dias', '✅ Chat privado + chamadas de vídeo', '✅ +800 fotos e vídeos exclusivos', '✅ Conteúdo sem censura', '✅ Conteúdo novo diário'],
+          en: ['✅ Full access for 30 days', '✅ Private chat + video calls', '✅ +800 exclusive photos & videos', '✅ Uncensored content', '✅ New daily content'],
+          es: ['✅ Acceso total por 30 días', '✅ Chat privado + videollamadas', '✅ +800 fotos y videos exclusivos', '✅ Contenido sin censura', '✅ Contenido nuevo diario'],
+          fr: ['✅ Accès total pendant 30 jours', '✅ Chat privé + appels vidéo', '✅ +800 photos et vidéos exclusives', '✅ Contenu sans censure', '✅ Nouveau contenu quotidien'],
+          it: ['✅ Accesso totale per 30 giorni', '✅ Chat privata + videochiamate', '✅ +800 foto e video esclusivi', '✅ Contenuto senza censura', '✅ Nuovo contenuto giornaliero'],
+          gb: ['✅ Full access for 30 days', '✅ Private chat + video calls', '✅ +800 exclusive photos & videos', '✅ Uncensored content', '✅ New daily content']
+        },
+        badge: '⭐'
+      },
+      annual: {
+        name: { pt: 'Anual + Vídeo Chamadas + Saída VIP', en: 'Yearly + Video Calls + VIP Exit', es: 'Anual + Videollamadas + Salida VIP', fr: 'Annuel + Appels Vidéo + Sortie VIP', it: 'Annuale + Videochiamate + Uscita VIP', gb: 'Yearly + Video Calls + VIP Exit' },
+        benefits: {
+          pt: ['✅ Acesso total por 365 dias', '✅ Chat privado + chamadas de vídeo', '✅ +800 fotos e vídeos exclusivos', '✅ Saída VIP exclusiva', '✅ Prioridade em conteúdos novos', '✅ Economia de até 75%'],
+          en: ['✅ Full access for 365 days', '✅ Private chat + video calls', '✅ +800 exclusive photos & videos', '✅ Exclusive VIP exit', '✅ Priority on new content', '✅ Save up to 75%'],
+          es: ['✅ Acceso total por 365 días', '✅ Chat privado + videollamadas', '✅ +800 fotos y videos exclusivos', '✅ Salida VIP exclusiva', '✅ Prioridad en contenido nuevo', '✅ Ahorra hasta 75%'],
+          fr: ['✅ Accès total pendant 365 jours', '✅ Chat privé + appels vidéo', '✅ +800 photos et vidéos exclusives', '✅ Sortie VIP exclusive', '✅ Priorité sur les nouveaux contenus', "✅ Économisez jusqu'à 75%"],
+          it: ['✅ Accesso totale per 365 giorni', '✅ Chat privata + videochiamate', '✅ +800 foto e video esclusivi', '✅ Uscita VIP esclusiva', '✅ Priorità sui nuovi contenuti', '✅ Risparmia fino al 75%'],
+          gb: ['✅ Full access for 365 days', '✅ Private chat + video calls', '✅ +800 exclusive photos & videos', '✅ Exclusive VIP exit', '✅ Priority on new content', '✅ Save up to 75%']
+        },
+        badge: '👑'
+      },
+      vip_basic: {
+        name: { pt: 'VIP Básico', en: 'VIP Basic', es: 'VIP Básico', fr: 'VIP Basique', it: 'VIP Base', gb: 'VIP Basic' },
+        benefits: {
+          pt: ['✅ Acesso VIP imediato', '✅ Chat privado direto', '✅ Conteúdo exclusivo desbloqueado', '✅ Suporte prioritário'],
+          en: ['✅ Immediate VIP access', '✅ Direct private chat', '✅ Exclusive content unlocked', '✅ Priority support'],
+          es: ['✅ Acceso VIP inmediato', '✅ Chat privado directo', '✅ Contenido exclusivo desbloqueado', '✅ Soporte prioritario'],
+          fr: ['✅ Accès VIP immédiat', '✅ Chat privé direct', '✅ Contenu exclusif débloqué', '✅ Support prioritaire'],
+          it: ['✅ Accesso VIP immediato', '✅ Chat privata diretta', '✅ Contenuto esclusivo sbloccato', '✅ Supporto prioritario'],
+          gb: ['✅ Immediate VIP access', '✅ Direct private chat', '✅ Exclusive content unlocked', '✅ Priority support']
+        },
+        badge: '💎'
+      }
+    };
+
+    const CHECKOUT_LABELS = {
+      pt: { title: 'Finalizar Pedido', plan: 'Plano', total: 'Total', btn: '💬 Finalizar Pedido via Telegram', secure: '🔒 Pagamento seguro e privado', guarantee: '✅ Acesso liberado em até 5 minutos', support: '💬 Suporte direto pelo Telegram' },
+      en: { title: 'Complete Order', plan: 'Plan', total: 'Total', btn: '💬 Complete Order via Telegram', secure: '🔒 Secure and private payment', guarantee: '✅ Access granted within 5 minutes', support: '💬 Direct support via Telegram' },
+      es: { title: 'Finalizar Pedido', plan: 'Plan', total: 'Total', btn: '💬 Finalizar Pedido vía Telegram', secure: '🔒 Pago seguro y privado', guarantee: '✅ Acceso liberado en hasta 5 minutos', support: '💬 Soporte directo por Telegram' },
+      fr: { title: 'Finaliser la Commande', plan: 'Forfait', total: 'Total', btn: '💬 Finaliser via Telegram', secure: '🔒 Paiement sécurisé et privé', guarantee: '✅ Accès accordé en 5 minutes', support: '💬 Support direct via Telegram' },
+      it: { title: "Completa l'Ordine", plan: 'Piano', total: 'Totale', btn: '💬 Completa Ordine via Telegram', secure: '🔒 Pagamento sicuro e privato', guarantee: '✅ Accesso concesso entro 5 minuti', support: '💬 Supporto diretto via Telegram' },
+      gb: { title: 'Complete Order', plan: 'Plan', total: 'Total', btn: '💬 Complete Order via Telegram', secure: '🔒 Secure and private payment', guarantee: '✅ Access granted within 5 minutes', support: '💬 Direct support via Telegram' }
+    };
+
+    
+    const TELEGRAM_MESSAGES = {
+      pt: {
+        order: 'PEDIDO - Evelyn Oliver',
+        plan: 'Plano',
+        value: 'Valor',
+        want: 'Quero assinar e ter acesso ao conteúdo exclusivo!',
+        waiting: 'Aguardando instruções para pagamento...'
+      },
+      en: {
+        order: 'ORDER - Evelyn Oliver',
+        plan: 'Plan',
+        value: 'Total',
+        want: 'I want to subscribe and get access to exclusive content!',
+        waiting: 'Waiting for payment instructions...'
+      },
+      es: {
+        order: 'PEDIDO - Evelyn Oliver',
+        plan: 'Plan',
+        value: 'Total',
+        want: '¡Quiero suscribirme y tener acceso al contenido exclusivo!',
+        waiting: 'Esperando instrucciones para el pago...'
+      },
+      fr: {
+        order: 'COMMANDE - Evelyn Oliver',
+        plan: 'Forfait',
+        value: 'Total',
+        want: 'Je souhaite m\'abonner et accéder au contenu exclusif !',
+        waiting: 'En attente des instructions de paiement...'
+      },
+      it: {
+        order: 'ORDINE - Evelyn Oliver',
+        plan: 'Piano',
+        value: 'Totale',
+        want: 'Voglio abbonarmi e avere accesso ai contenuti esclusivi!',
+        waiting: 'In attesa delle istruzioni per il pagamento...'
+      },
+      gb: {
+        order: 'ORDER - Evelyn Oliver',
+        plan: 'Plan',
+        value: 'Total',
+        want: 'I want to subscribe and get access to exclusive content!',
+        waiting: 'Waiting for payment instructions...'
+      }
+    };
+
+    function showCheckoutModal(plan) {
+      const lang = localStorage.getItem('preferredLang') || 'pt';
+      const country = localStorage.getItem('my_last_country') || 'BR';
+      const plansLocal = getPlanForCountry(country);
+      const planData = plansLocal ? plansLocal[plan] : null;
+      const price = planData ? planData.label : '---';
+      const details = CHECKOUT_PLAN_DETAILS[plan];
+      const labels = CHECKOUT_LABELS[lang] || CHECKOUT_LABELS['en'];
+      const planName = details ? (details.name[lang] || details.name['en']) : plan;
+      const benefits = details ? (details.benefits[lang] || details.benefits['en']) : [];
+      const badge = details ? details.badge : '🔥';
+
+      // Remove existing modal if present
+      const existing = document.getElementById('checkout-modal');
+      if (existing) existing.remove();
+
+      const benefitsHTML = benefits.map(b => '<div style="font-size:13px;color:#333;padding:7px 0;border-bottom:1px solid #f5f5f5;line-height:1.4;">' + b + '</div>').join('');
+
+      const modalHTML = ''
+      + '<div id="checkout-modal" style="display:flex;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:checkoutFadeIn 0.3s ease;">'
+      + '<div style="background:#fff;border-radius:24px;max-width:400px;width:100%;position:relative;box-shadow:0 24px 80px rgba(0,0,0,0.35);animation:checkoutSlideIn 0.4s cubic-bezier(0.34,1.56,0.64,1);overflow:hidden;max-height:90vh;overflow-y:auto;">'
+
+      // Header
+      + '<div style="background:linear-gradient(135deg,#00aff0 0%,#0088cc 50%,#006aa8 100%);padding:24px 24px 20px;text-align:center;position:relative;overflow:hidden;">'
+      + '<div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,0.15) 0%,transparent 60%);pointer-events:none;"></div>'
+      + '<button onclick="document.getElementById(\'checkout-modal\').remove()" style="position:absolute;top:12px;right:16px;background:rgba(255,255,255,0.2);border:none;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;color:#fff;line-height:1;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:background 0.2s;">✕</button>'
+
+      // Avatar
+      + '<div style="display:flex;justify-content:center;margin-bottom:12px;">'
+      + '<div style="width:60px;height:60px;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,0.6);box-shadow:0 4px 20px rgba(0,0,0,0.2);">'
+      + '<img src="assets/media/perfil.jpg" style="width:100%;height:100%;object-fit:cover;" alt="Evelyn">'
+      + '</div></div>'
+      + '<div style="font-size:20px;font-weight:800;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.2);">' + labels.title + '</div>'
+      + '<div style="font-size:12px;color:rgba(255,255,255,0.85);margin-top:4px;">Evelyn Oliver ✓</div>'
+      + '</div>'
+
+      // Body
+      + '<div style="padding:20px 24px 24px;">'
+
+      // Plan Card
+      + '<div style="background:linear-gradient(135deg,#f8fbff 0%,#f0f7ff 100%);border:1.5px solid #e0efff;border-radius:16px;padding:16px 18px;margin-bottom:16px;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;">'
+      + '<div style="display:flex;align-items:center;gap:8px;">'
+      + '<span style="font-size:24px;">' + badge + '</span>'
+      + '<div>'
+      + '<div style="font-size:10px;font-weight:700;color:#8a96a3;text-transform:uppercase;letter-spacing:0.5px;">' + labels.plan + '</div>'
+      + '<div style="font-size:15px;font-weight:800;color:#242529;">' + planName + '</div>'
+      + '</div></div>'
+      + '<div style="text-align:right;">'
+      + '<div style="font-size:10px;font-weight:700;color:#8a96a3;text-transform:uppercase;letter-spacing:0.5px;">' + labels.total + '</div>'
+      + '<div style="font-size:22px;font-weight:800;color:#00aff0;">' + price + '</div>'
+      + '</div></div></div>'
+
+      // Benefits
+      + '<div style="margin-bottom:20px;">' + benefitsHTML + '</div>'
+
+      // Telegram Button
+      + '<button id="checkout-telegram-btn" onclick="sendToTelegram(\'' + plan + '\')" style="width:100%;background:linear-gradient(135deg,#00aff0 0%,#0088cc 100%);color:#fff;border:none;border-radius:30px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;transition:all 0.3s;box-shadow:0 8px 30px rgba(0,175,240,0.4);display:flex;align-items:center;justify-content:center;gap:10px;font-family:Inter,sans-serif;animation:checkoutPulse 2s infinite;">'
+      + '<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>'
+      + labels.btn
+      + '</button>'
+
+      // Trust Badges
+      + '<div style="margin-top:16px;display:flex;flex-direction:column;gap:6px;">'
+      + '<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8a96a3;">' + labels.secure + '</div>'
+      + '<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8a96a3;">' + labels.guarantee + '</div>'
+      + '<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#8a96a3;">' + labels.support + '</div>'
+      + '</div>'
+
+      + '</div></div></div>'
+      + '<style>'
+      + '@keyframes checkoutFadeIn{from{opacity:0}to{opacity:1}}'
+      + '@keyframes checkoutSlideIn{from{opacity:0;transform:translateY(40px) scale(0.92)}to{opacity:1;transform:translateY(0) scale(1)}}'
+      + '@keyframes checkoutPulse{0%{box-shadow:0 8px 30px rgba(0,175,240,0.4);transform:scale(1)}50%{box-shadow:0 12px 40px rgba(0,175,240,0.6);transform:scale(1.02)}100%{box-shadow:0 8px 30px rgba(0,175,240,0.4);transform:scale(1)}}'
+      + '</style>';
+
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+      // Close on backdrop click
+      document.getElementById('checkout-modal').addEventListener('click', function(e) {
+        if (e.target === this) this.remove();
+      });
+    }
+
+    function sendToTelegram(plan) {
+      const lang = localStorage.getItem('preferredLang') || 'pt';
+      const country = localStorage.getItem('my_last_country') || 'BR';
+      const plansLocal = getPlanForCountry(country);
+      const planData = plansLocal ? plansLocal[plan] : null;
+      const price = planData ? planData.label : '---';
+      const details = CHECKOUT_PLAN_DETAILS[plan];
+      const planName = details ? (details.name[lang] || details.name['en']) : plan;
+
+      // Build pre-filled Telegram message (multilingual)
+      const tMsg = (TELEGRAM_MESSAGES[lang] || TELEGRAM_MESSAGES['en']);
+      var msg = '🔐 ' + tMsg.order + '\n\n';
+      msg += '📋 ' + tMsg.plan + ': ' + planName + '\n';
+      msg += '💰 ' + tMsg.value + ': ' + price + '\n\n';
+      msg += '✅ ' + tMsg.want + '\n\n';
+      msg += '⏳ ' + tMsg.waiting;
+
+      var telegramURL = 'https://t.me/evelyn_oliver_019?text=' + encodeURIComponent(msg);
+
+      // Track the click
+      trackClick('profile', 'checkout_telegram_' + plan);
+
+      // Save checkout attempt to Supabase
+      try {
+        var userId = localStorage.getItem('my_supabase_user_id') || 'anon';
+        supabaseClient.from('analytics_events').insert([{
+          user_id: String(userId),
+          event_type: 'checkout_telegram',
+          page: 'profile_pv',
+          item: plan + ' | ' + price,
+          country: country,
+          lang: lang
+        }]);
+      } catch(e) { console.warn('Track error:', e); }
+
+      // Redirect to Telegram
+      window.open(telegramURL, '_blank');
+    }
+
+    async function handleSubscribe(event, plan) {
+      if (event) event.preventDefault();
+      var btn = event ? event.currentTarget : null;
+      if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
+      setTimeout(function() { if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; } }, 1500);
+
+      _pendingPlan = plan;
+      _pendingLeadPlan = plan;
+
+      // Track plan click
+      trackClick('profile_pv', plan);
+
+      // Show checkout modal instead of payment gateway
+      showCheckoutModal(plan);
+
+      if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+    }
+
+    // ============================================================
+    const GLOBAL_PLANS = {
+      BR: {
+        weekly:    { amount: 999,    currency: 'BRL', label: 'R$ 9,99' },
+        monthly:   { amount: 6499,   currency: 'BRL', label: 'R$ 64,99' },
+        annual:    { amount: 19799,  currency: 'BRL', label: 'R$ 197,99' },
+        vip_basic: { amount: 2999,   currency: 'BRL', label: 'R$ 29,99' },
+      },
+      MX: {
+        weekly:    { amount: 5500,   currency: 'MXN', label: 'MX$ 55.00' },
+        monthly:   { amount: 13900,  currency: 'MXN', label: 'MX$ 139.00' },
+        annual:    { amount: 41900,  currency: 'MXN', label: 'MX$ 419.00' },
+        vip_basic: { amount: 8300,   currency: 'MXN', label: 'MX$ 83.00' },
+      },
+      COP: {
+        weekly:    { amount: 41900,  currency: 'COP', label: 'CO$ 41,900' },
+        monthly:   { amount: 132900, currency: 'COP', label: 'CO$ 132,900' },
+        annual:    { amount: 349900, currency: 'COP', label: 'CO$ 349,900' },
+        vip_basic: { amount: 55900,  currency: 'COP', label: 'CO$ 55,900' },
+      },
+      USD: {
+        weekly:    { amount: 1499,   currency: 'USD', label: '$ 14.99' },
+        monthly:   { amount: 4499,   currency: 'USD', label: '$ 44.99' },
+        annual:    { amount: 12499,  currency: 'USD', label: '$ 124.99' },
+        vip_basic: { amount: 599,    currency: 'USD', label: '$ 5.99' },
+      },
+      EUR: {
+        weekly:    { amount: 1499,   currency: 'EUR', label: '€ 14.99' },
+        monthly:   { amount: 4499,   currency: 'EUR', label: '€ 44.99' },
+        annual:    { amount: 12499,  currency: 'EUR', label: '€ 124.99' },
+        vip_basic: { amount: 599,    currency: 'EUR', label: '€ 5.99' },
+      },
+      GBP: {
+        weekly:    { amount: 1499,   currency: 'GBP', label: '£ 14.99' },
+        monthly:   { amount: 4499,   currency: 'GBP', label: '£ 44.99' },
+        annual:    { amount: 12499,  currency: 'GBP', label: '£ 124.99' },
+        vip_basic: { amount: 599,    currency: 'GBP', label: '£ 5.99' },
+      },
+      CLP: {
+        weekly:    { amount: 14690,  currency: 'CLP', label: 'CL$ 14.690' },
+        monthly:   { amount: 44090,  currency: 'CLP', label: 'CL$ 44.090' },
+        annual:    { amount: 122490, currency: 'CLP', label: 'CL$ 122.490' },
+        vip_basic: { amount: 5870,   currency: 'CLP', label: 'CL$ 5.870' },
+      }
+    };
+
+    function getPlanForCountry(country) {
+      if (country === 'BR') return GLOBAL_PLANS.BR;
+      if (country === 'MX') return GLOBAL_PLANS.MX;
+      if (country === 'CO') return GLOBAL_PLANS.COP;
+      if (country === 'CL') return GLOBAL_PLANS.CLP;
+      const eurCountries = ['PT', 'ES', 'FR', 'IT', 'DE', 'NL', 'BE', 'AT', 'GR', 'IE', 'FI'];
+      if (eurCountries.includes(country)) return GLOBAL_PLANS.EUR;
+      if (country === 'GB') return GLOBAL_PLANS.GBP;
+      return GLOBAL_PLANS.USD; // Default to USD
+    }
+
+    async function detectAndSet() {
+      const browserLang = (navigator.language || '').split('-')[0];
+      const initialLang = translations[browserLang] ? browserLang : 'en';
+      changeLanguage(initialLang);
+
+      const geoApis = ['https://ipapi.co/json/', 'https://ipinfo.io/json', 'https://freeipapi.com/api/json'];
+      let detectedCountry = 'BR';
+      let detectedLang = initialLang;
+
+      const timeout = new Promise(resolve => setTimeout(() => resolve('TIMEOUT'), 2500));
+
+      const ipCheck = (async () => {
+        for (const api of geoApis) {
+          try {
+            const res = await fetch(api);
+            const data = await res.json();
+            const country = data.country_code || data.countryCode || data.country;
+            if (country) return country;
+          } catch (e) {
+            console.warn('Geo API failed:', api);
+          }
+        }
+        return 'XX';
+      })();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const overrideCountry = (urlParams.get('country') || urlParams.get('geo') || '').toUpperCase();
+
+      const finalCountry = overrideCountry || await Promise.race([ipCheck, timeout]);
+
+      const countryMap = {
+        // Portuguese
+        'BR': 'pt', 'PT': 'pt', 'AO': 'pt', 'MZ': 'pt', 'CV': 'pt', 'GW': 'pt', 'ST': 'pt',
+        // Spanish
+        'MX': 'es', 'ES': 'es', 'AR': 'es', 'CO': 'es', 'CL': 'es', 'PE': 'es',
+        'VE': 'es', 'EC': 'es', 'BO': 'es', 'PY': 'es', 'UY': 'es', 'CR': 'es',
+        'PA': 'es', 'HN': 'es', 'GT': 'es', 'SV': 'es', 'NI': 'es', 'DO': 'es', 'CU': 'es',
+        // French
+        'FR': 'fr', 'BE': 'fr', 'LU': 'fr', 'MC': 'fr', 'SN': 'fr', 'CI': 'fr', 'ML': 'fr',
+        // British English (GBP)
+        'GB': 'gb', 'IE': 'gb',
+        // English (USD)
+        'US': 'en', 'AU': 'en', 'NZ': 'en', 'CA': 'en', 'ZA': 'en',
+        // Italian
+        'IT': 'it', 'SM': 'it', 'VA': 'it'
+      };
+
+      if (finalCountry === 'TIMEOUT' || finalCountry === 'XX') {
+        detectedCountry = 'BR';
+        detectedLang = initialLang;
+      } else {
+        detectedCountry = finalCountry;
+        detectedLang = countryMap[detectedCountry] || 'en';
+      }
+
+      // Update prices based on country
+      const plans = getPlanForCountry(detectedCountry);
+      if (plans) {
+        document.querySelectorAll('.price-weekly').forEach(el => el.innerText = plans.weekly.label);
+        document.querySelectorAll('.price-monthly').forEach(el => el.innerText = plans.monthly.label);
+        document.querySelectorAll('.price-annual').forEach(el => el.innerText = plans.annual.label);
+        document.querySelectorAll('.price-vip').forEach(el => el.innerText = plans.vip_basic.label);
+              } else {
+        // Non-IronPay countries (EUR/GBP) show Telegram button style  
+        const tgNote = document.createElement('div');
+        tgNote.style.cssText = 'font-size:11px;opacity:0.75;margin-top:3px;';
+        tgNote.textContent = '→ Telegram VIP';
+        document.querySelectorAll('.subscription-card').forEach(btn => {
+          if (!btn.querySelector('.tg-note')) {
+            const note = tgNote.cloneNode(true);
+            note.className = 'tg-note';
+            btn.querySelector('.btn-sub-txt').appendChild(note);
+          }
+        });
+      }
+
+      localStorage.setItem('my_last_country', detectedCountry);
+      changeLanguage(detectedLang);
+      // trackVisit called once inside detectAndSet to avoid duplicate
+      await trackVisit('profile', { country: detectedCountry, lang: detectedLang });
+    }
+
+    async function getUserId(currentCountry) {
+      let storedId = localStorage.getItem('my_supabase_user_id');
+
+      if (!storedId) {
+        try {
+          // Criar novo usuário no Supabase para ganhar o próximo ID da fila
+          const { data, error } = await supabaseClient
+            .from('analytics_users')
+            .insert([{}])
+            .select('id')
+            .single();
+
+          if (error) throw error;
+          storedId = data.id;
+          localStorage.setItem('my_supabase_user_id', storedId);
+          console.log("🆕 Novo ID Sequencial gerado no Supabase:", storedId);
+        } catch (e) {
+          console.error("Erro ao gerar ID no Supabase:", e);
+          // Fallback local se o banco falhar
+          storedId = Date.now();
+        }
+      }
+      return storedId;
+    }
+
+    async function trackClick(page, button) {
+      try {
+        let userId = localStorage.getItem('my_supabase_user_id');
+        if (!userId) {
+          userId = await getUserId();
+        }
+
+        const userLang = localStorage.getItem('preferredLang') || 'en';
+        const userCountry = localStorage.getItem('my_last_country') || 'BR';
+
+        const url = `${supabaseUrl}/rest/v1/analytics_events`;
+        const headers = {
+          'apikey': supabaseKey,
+          'Authorization': `Bearer ${supabaseKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        };
+
+        const body = JSON.stringify({
+          user_id: userId,
+          event_type: 'click',
+          page: page,
+          item: button,
+          country: userCountry,
+          lang: userLang
+        });
+
+return fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: body
+          }).then(res => {
+            if (!res.ok) throw new Error('Tracking failed: ' + res.statusText);
+            console.log(`✅ Click tracked: User ${userId} - ${page} → ${button}`);
+          });
+      } catch (e) {
+        console.error("Tracking error:", e);
+      }
+    }
+
+    function getUserCountry() {
+      // Helper no longer critical but kept for compatibility if needed elsewhere
+      try {
+        const metrics = JSON.parse(localStorage.getItem('crm_metrics') || '{}');
+        if (metrics.details && metrics.details.length > 0) {
+          return metrics.details[metrics.details.length - 1].country || 'XX';
+        }
+      } catch (e) { }
+      return 'XX';
+    }
+
+    async function trackVisit(page, details = {}) {
+      try {
+        if (details.country) {
+          localStorage.setItem('my_last_country', details.country);
+        }
+
+        const userId = await getUserId(details.country);
+
+        await supabaseClient.from('analytics_events').insert([{
+          user_id: userId,
+          event_type: 'visit',
+          page: page,
+          country: details.country || 'XX',
+          lang: details.lang || 'en'
+        }]);
+
+        console.log(`✅ Visit tracked to Supabase: User ${userId} - ${page}`);
+      } catch (e) {
+        console.error("Supabase visit error:", e);
+      }
+    }
+
+    function autoScrollCarousel() {
+      const containers = document.querySelectorAll('.media-carousel-container');
+      containers.forEach(container => {
+        const inner = container.querySelector('.media-carousel');
+        if (!inner) return;
+        const content = inner.innerHTML;
+        inner.innerHTML = content + content + content;
+        container.style.scrollBehavior = 'auto';
+        let scrollLeft = 0;
+        const speed = 0.4;
+        function animate() {
+          scrollLeft += speed;
+          const singleSetWidth = inner.scrollWidth / 3;
+          if (scrollLeft >= singleSetWidth) scrollLeft %= singleSetWidth;
+          container.scrollLeft = scrollLeft;
+          requestAnimationFrame(animate);
+        }
+        const items = inner.querySelectorAll('video, img');
+        let readyCount = 0;
+        const start = () => { readyCount++; if (readyCount >= items.length) setTimeout(animate, 500); };
+        if (items.length === 0) setTimeout(animate, 500);
+        else {
+          items.forEach(item => {
+            if (item.tagName === 'VIDEO') {
+              if (item.readyState >= 1) start();
+              else item.addEventListener('loadedmetadata', start);
+            } else {
+              if (item.complete) start();
+              else item.addEventListener('load', start);
+            }
+          });
+          setTimeout(() => { if (readyCount < items.length) animate(); }, 3000);
+        }
+      });
+    }
+
+    function setupProfileModal() {
+      const modal = document.getElementById('profileModal');
+      const img = document.querySelector('.profile-img-wrap');
+      const close = document.querySelector('.modal-close');
+      if (img) img.onclick = () => modal.style.display = 'flex';
+      if (close) close.onclick = () => modal.style.display = 'none';
+      window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; }
+    }
+
+    function hideSplashScreen() {
+      const splash = document.getElementById('splash-screen');
+      if (splash && !splash.classList.contains('fade-out')) {
+        splash.classList.add('fade-out');
+        setTimeout(() => { splash.style.display = 'none'; }, 500);
+      }
+    }
+
+    function initPage() {
+      setTimeout(hideSplashScreen, 1500);
+      try { detectAndSet(); } catch (e) { console.error('detectAndSet error:', e); }
+      try { autoScrollCarousel(); } catch (e) { console.error('autoScrollCarousel error:', e); }
+      try { setupProfileModal(); } catch (e) { console.error('setupProfileModal error:', e); }
+      const btnLike = document.getElementById('btn-like');
+      if (btnLike) {
+        btnLike.addEventListener('click', () => trackClick('profile', 'like'));
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+      initPage();
+    }
+    // Hard failsafe: guarantee splash is hidden after 2.5s
+    setTimeout(hideSplashScreen, 2500);
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+

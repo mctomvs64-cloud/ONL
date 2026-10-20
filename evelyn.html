@@ -1139,6 +1139,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    if (window.location.search.toLowerCase().includes('pv')) {
+      window.location.replace('/pv/evelyn.html' + window.location.search);
+    }
+
     const supabaseUrl = 'https://icjaadpiwzhyoccgdejl.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljamFhZHBpd3poeW9jY2dkZWpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNzQwNTgsImV4cCI6MjEwNzY1MDA1OH0.5gJRWifKOmLVi0nolT3TqcW5Zx_4yq2sRETTrYxQXNw';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);

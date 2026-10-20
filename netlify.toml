@@ -23,6 +23,36 @@ status = 200
 force = true
 
 [[redirects]]
+from = "/pv/evelyn"
+to = "/pv/evelyn.html"
+status = 200
+force = false
+
+[[redirects]]
+from = "/evelyn/pv"
+to = "/pv/evelyn.html"
+status = 200
+force = false
+
+[[redirects]]
+from = "/evelyn-pv"
+to = "/evelyn-pv.html"
+status = 200
+force = false
+
+[[redirects]]
+from = "/pv"
+to = "/pv/index.html"
+status = 200
+force = false
+
+[[redirects]]
+from = "/pv/"
+to = "/pv/index.html"
+status = 200
+force = false
+
+[[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200

@@ -439,6 +439,15 @@
       function handleClick(event, page, button, url) {
         event.preventDefault();
 
+        // Check if visitor is in PV mode
+        const isPv = window.location.pathname.startsWith('/pv') || 
+                     window.location.search.toLowerCase().includes('pv') ||
+                     sessionStorage.getItem('is_pv') === '1';
+        if (isPv && url === 'evelyn.html') {
+          url = '/pv/evelyn.html';
+          page = 'bridge_pv';
+        }
+
         // Visual feedback
         const target = event.currentTarget || event.target.closest('a');
         if (target) {
