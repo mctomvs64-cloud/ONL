@@ -851,7 +851,7 @@
 <!-- Plano anual -->
   <button onclick="handleSubscribe(event,'annual')" class="subscription-card" style="width:calc(100% - 30px);margin:0 15px 10px;display:flex;justify-content:space-between;align-items:center;background:#00aff0;border-radius:12px;padding:16px 18px;border:none;color:white;cursor:pointer;">
     <div>
-      <div class="lbl-pack-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">ANUAL + VÍDEO CHAMADAS + ENCONTRO AO VIVO</div>
+      <div class="lbl-pack-btn" style="font-size:13px;font-weight:700;letter-spacing:0.5px;opacity:0.9;">ANUAL + VÍDEO CHAMADAS + SAÍDA VIP</div>
       <div class="btn-sub-txt" style="font-size:16px;font-weight:800;margin-top:2px;">ASSINAR AGORA</div>
     </div>
     <div class="price-annual" style="font-size:18px;font-weight:800;">R$ 197,99</div>
@@ -1293,7 +1293,7 @@ priceAnnual: 'R$ 197,99',
         priceVip: 'R$ 29,99',
         btnSubTxt: 'ACESSAR VIA TELEGRAM',
         labelPacks: 'PACOTES DE ASSINATURA',
-        lblPackBtn: 'ANUAL + VÍDEO CHAMADAS + ENCONTRO AO VIVO',
+        lblPackBtn: 'ANUAL + VÍDEO CHAMADAS + SAÍDA VIP',
         btnSubLock: 'INSCREVE-TE PARA VER AS PUBLICAÇÕES DO UTILIZADOR',
         tabPosts: '953 POSTAGENS',
         tabMidia: '1027 MÍDIA',
@@ -1328,7 +1328,7 @@ priceAnnual: '$ 124.99',
         priceVip: '$ 5.99',
         btnSubTxt: 'ACCESS VIA TELEGRAM',
         labelPacks: 'SUBSCRIPTION PACKAGES',
-        lblPackBtn: 'YEARLY + VIDEO CALLS + LIVE MEETUP',
+        lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
         btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
         tabPosts: '953 POSTS',
         tabMidia: '1027 MEDIA',
@@ -1363,7 +1363,7 @@ priceAnnual: '€ 124.99',
         priceVip: '€ 5.99',
         btnSubTxt: 'ACCEDER VÍA TELEGRAM',
         labelPacks: 'PAQUETES DE SUSCRIPCIÓN',
-        lblPackBtn: 'ANUAL + VIDEOLLAMADAS + ENCUENTRO EN VIVO',
+        lblPackBtn: 'ANUAL + VIDEOLLAMADAS + SALIDA VIP',
         btnSubLock: 'SUSCRÍBETE PARA VER LAS PUBLICACIONES DEL USUARIO',
         tabPosts: '953 PUBLICACIONES',
         tabMidia: '1027 MEDIA',
@@ -1398,7 +1398,7 @@ priceAnnual: '124.99€',
         priceVip: '5.99€',
         btnSubTxt: 'ACCÉDER VIA TELEGRAM',
         labelPacks: 'FORFAITS D\'ABONNEMENT',
-        lblPackBtn: 'ANNUEL + APPELS VIDÉO + RENCONTRE EN DIRECT',
+        lblPackBtn: 'ANNUEL + APPELS VIDÉO + SORTIE VIP',
         btnSubLock: 'ABONNEZ-VOUS POUR VOIR LES PUBLICATIONS DE L\'UTILISATEUR',
         tabPosts: '953 POSTS',
         tabMidia: '1027 MÉDIAS',
@@ -1433,7 +1433,7 @@ priceAnnual: '£124.99',
         priceVip: '£5.99',
         btnSubTxt: 'ACCESS VIA TELEGRAM',
         labelPacks: 'SUBSCRIPTION PACKAGES',
-        lblPackBtn: 'YEARLY + VIDEO CALLS + LIVE MEETUP',
+        lblPackBtn: 'YEARLY + VIDEO CALLS + VIP EXIT',
         btnSubLock: 'SUBSCRIBE TO VIEW USER POSTS',
         tabPosts: '953 POSTS',
         tabMidia: '1027 MEDIA',
@@ -1458,7 +1458,7 @@ priceAnnual: '€ 124.99',
         priceVip: '€ 5.99',
         btnSubTxt: 'ACCEDI TRAMITE TELEGRAM',
         labelPacks: 'PACCHETTI ABBONAMENTO',
-        lblPackBtn: 'ANNUALE + VIDEOCHIAMATE + INCONTRO DAL VIVO',
+        lblPackBtn: 'ANNUALE + VIDEOCHIAMATE + USCITA VIP',
         btnSubLock: 'ABBONATI PER VEDERE I POST DELL\'UTENTE',
         tabPosts: '953 POST',
         tabMidia: '1027 MEDIA',
@@ -1514,7 +1514,7 @@ priceAnnual: '€ 124.99',
     // BRL, MXN, USD, COP, CLP → XPag (PIX / SPEI / Nequi / USDT / Transferencia)
     // EUR, GBP → Telegram VIP
     // ============================================================
-    const TELEGRAM_URL     = 'https://t.me/Evelynoliver19_bot';
+    const TELEGRAM_URL     = 'https://t.me/Evelynoliver_bot';
     const XPAG_FUNCTION_URL = '/.netlify/functions/xpag-cashin';
 
     // Planos de preço por país (label exibido nos botões)
@@ -1690,7 +1690,7 @@ priceAnnual: '€ 124.99',
 
       // Feedback e direcionamento para o Telegram VIP
       alert(t.successMsg || '✅ Acesso liberado! Redirecionando para o Telegram VIP da Evelyn...');
-      window.location.href = 'https://t.me/Evelynoliver19_bot';
+      window.location.href = 'https://t.me/Evelynoliver_bot';
     }
 
     function xpagConfirmPayment() {
@@ -1783,14 +1783,14 @@ priceAnnual: '€ 124.99',
               </button>
               <div style="font-size:11px;color:#aaa;margin-top:10px;line-height:1.5;text-align:center;">
                 Após o pagamento, você receberá o acesso via Telegram<br>
-                <a href="https://t.me/Evelynoliver19_bot" target="_blank" style="color:#00bfff;text-decoration:none;font-weight:600;">→ Ir para o Telegram</a>
+                <a href="https://t.me/Evelynoliver_bot" target="_blank" style="color:#00bfff;text-decoration:none;font-weight:600;">→ Ir para o Telegram</a>
               </div>
             </div>
 
             <!-- Erro -->
             <div id="xpag-error-area" style="display:none;margin-top:8px;">
               <div id="xpag-error-msg" style="color:#dc2626;font-size:13px;margin-bottom:14px;"></div>
-              <button onclick="window.open('https://t.me/Evelynoliver19_bot','_blank')" style="background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">
+              <button onclick="window.open('https://t.me/Evelynoliver_bot','_blank')" style="background:#00bfff;color:#fff;border:none;border-radius:30px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;width:100%;">
                 Continuar no Telegram
               </button>
             </div>
@@ -1969,7 +1969,7 @@ priceAnnual: '€ 124.99',
     }
 
     // ============================================================
-    // CHECKOUT MODAL → TELEGRAM @Evelynoliver19_bot
+    // CHECKOUT MODAL → TELEGRAM @evelyn_oliver_019
     // Shows plan details + redirects to Telegram with pre-filled msg
     // ============================================================
     const CHECKOUT_PLAN_DETAILS = {
@@ -2179,7 +2179,7 @@ priceAnnual: '€ 124.99',
       msg += '✅ ' + tMsg.want + '\n\n';
       msg += '⏳ ' + tMsg.waiting;
 
-      var telegramURL = 'https://t.me/Evelynoliver19_bot?text=' + encodeURIComponent(msg);
+      var telegramURL = 'https://t.me/evelyn_oliver_019?text=' + encodeURIComponent(msg);
 
       // Track the click
       trackClick('profile', 'checkout_telegram_' + plan);
@@ -2201,124 +2201,91 @@ priceAnnual: '€ 124.99',
       window.open(telegramURL, '_blank');
     }
 
-    
+    async function handleSubscribe(event, plan) {
+      if (event) event.preventDefault();
+      var btn = event ? event.currentTarget : null;
+      if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
+      setTimeout(function() { if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; } }, 1500);
+
+      _pendingPlan = plan;
+      _pendingLeadPlan = plan;
+
+      // Track plan click
+      trackClick('profile_pv', plan);
+
+      // Show checkout modal instead of payment gateway
+      showCheckoutModal(plan);
+
+      // Disparar notificacao/cobranca XPag em background para a equipe ser alertada
+      try {
+        const country = localStorage.getItem('my_last_country') || 'BR';
+        const plansLocal = getPlanForCountry(country);
+        const planData = plansLocal ? plansLocal[plan] : null;
+        const currency = planData ? planData.currency : 'BRL';
+        createXPagCharge(plan, currency).catch(function(e) {
+          console.warn('[XPag background notification]:', e);
+        });
+      } catch(e) { console.warn(e); }
+
+      if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+    }
+
     // ============================================================
-    // STRIPE OFFICIAL CATALOG — 4 Planos x 6 Moedas
-    // ============================================================
-    const STRIPE_CATALOG = {
-      vip_basic: {
-        BRL: { url: 'https://buy.stripe.com/5kQ8wQ75U6xV7rI9UagnK0p', label: 'R$ 19,90' },
-        USD: { url: 'https://buy.stripe.com/6oU28sai68G3eUa7M2gnK0q', label: '$ 5.99 USD' },
-        EUR: { url: 'https://buy.stripe.com/4gMeVefCq7BZ8vM9UagnK0r', label: '€ 5.99 EUR' },
-        MXN: { url: 'https://buy.stripe.com/7sYdRa3TIe0n8vM7M2gnK0s', label: '$ 119 MXN' },
-        COP: { url: 'https://buy.stripe.com/eVq7sMai6g8vcM26HYgnK0t', label: '$ 23.900 COP' },
-        CLP: { url: 'https://buy.stripe.com/aFa4gA2PE3lJcM26HYgnK0u', label: '$ 5.990 CLP' }
+    const GLOBAL_PLANS = {
+      BR: {
+        weekly:    { amount: 999,    currency: 'BRL', label: 'R$ 9,99' },
+        monthly:   { amount: 6499,   currency: 'BRL', label: 'R$ 64,99' },
+        annual:    { amount: 19799,  currency: 'BRL', label: 'R$ 197,99' },
+        vip_basic: { amount: 2999,   currency: 'BRL', label: 'R$ 29,99' },
       },
-      weekly: {
-        BRL: { url: 'https://buy.stripe.com/3cIeVefCq1dBeUa4zQgnK0v', label: 'R$ 49,90' },
-        USD: { url: 'https://buy.stripe.com/7sYfZifCqcWj6nE5DUgnK0w', label: '$ 14.99 USD' },
-        EUR: { url: 'https://buy.stripe.com/aFa00kcqe5tRdQ6eaqgnK0x', label: '€ 14.99 EUR' },
-        MXN: { url: 'https://buy.stripe.com/fZu7sM9e22hFfYec2ignK0y', label: '$ 299 MXN' },
-        COP: { url: 'https://buy.stripe.com/14AeVe9e2g8veUa4zQgnK0z', label: '$ 59.900 COP' },
-        CLP: { url: 'https://buy.stripe.com/bJe8wQ3TI2hF6nE0jAgnK0A', label: '$ 14.990 CLP' }
+      MX: {
+        weekly:    { amount: 5500,   currency: 'MXN', label: 'MX$ 55.00' },
+        monthly:   { amount: 13900,  currency: 'MXN', label: 'MX$ 139.00' },
+        annual:    { amount: 41900,  currency: 'MXN', label: 'MX$ 419.00' },
+        vip_basic: { amount: 8300,   currency: 'MXN', label: 'MX$ 83.00' },
       },
-      monthly: {
-        BRL: { url: 'https://buy.stripe.com/9B6aEY9e26xV6nEfeugnK0B', label: 'R$ 79,90' },
-        USD: { url: 'https://buy.stripe.com/00w14o9e23lJ9zQ8Q6gnK0C', label: '$ 39.99 USD' },
-        EUR: { url: 'https://buy.stripe.com/14A9AUduiaOb8vM2rIgnK0D', label: '€ 39.99 EUR' },
-        MXN: { url: 'https://buy.stripe.com/7sYbJ2fCq09xcM24zQgnK0E', label: '$ 799 MXN' },
-        COP: { url: 'https://buy.stripe.com/fZueVe2PEe0n13k9UagnK0F', label: '$ 159.900 COP' },
-        CLP: { url: 'https://buy.stripe.com/00weVeai61dBcM22rIgnK0G', label: '$ 39.990 CLP' }
+      COP: {
+        weekly:    { amount: 41900,  currency: 'COP', label: 'CO$ 41,900' },
+        monthly:   { amount: 132900, currency: 'COP', label: 'CO$ 132,900' },
+        annual:    { amount: 349900, currency: 'COP', label: 'CO$ 349,900' },
+        vip_basic: { amount: 55900,  currency: 'COP', label: 'CO$ 55,900' },
       },
-      annual: {
-        BRL: { url: 'https://buy.stripe.com/cNieVeai69K727o0jAgnK0H', label: 'R$ 149,90' },
-        USD: { url: 'https://buy.stripe.com/6oU4gA9e29K713k8Q6gnK0I', label: '$ 89.99 USD' },
-        EUR: { url: 'https://buy.stripe.com/dRmdRa89Y1dB8vM8Q6gnK0J', label: '€ 89.99 EUR' },
-        MXN: { url: 'https://buy.stripe.com/14A5kEai609x3bs3vMgnK0K', label: '$ 1,799 MXN' },
-        COP: { url: 'https://buy.stripe.com/00wcN69e2g8v8vM5DUgnK0L', label: '$ 359.900 COP' },
-        CLP: { url: 'https://buy.stripe.com/00wbJ2fCq5tR9zQeaqgnK0M', label: '$ 89.990 CLP' }
+      USD: {
+        weekly:    { amount: 1499,   currency: 'USD', label: '$ 14.99' },
+        monthly:   { amount: 4499,   currency: 'USD', label: '$ 44.99' },
+        annual:    { amount: 12499,  currency: 'USD', label: '$ 124.99' },
+        vip_basic: { amount: 599,    currency: 'USD', label: '$ 5.99' },
+      },
+      EUR: {
+        weekly:    { amount: 1499,   currency: 'EUR', label: '€ 14.99' },
+        monthly:   { amount: 4499,   currency: 'EUR', label: '€ 44.99' },
+        annual:    { amount: 12499,  currency: 'EUR', label: '€ 124.99' },
+        vip_basic: { amount: 599,    currency: 'EUR', label: '€ 5.99' },
+      },
+      GBP: {
+        weekly:    { amount: 1499,   currency: 'GBP', label: '£ 14.99' },
+        monthly:   { amount: 4499,   currency: 'GBP', label: '£ 44.99' },
+        annual:    { amount: 12499,  currency: 'GBP', label: '£ 124.99' },
+        vip_basic: { amount: 599,    currency: 'GBP', label: '£ 5.99' },
+      },
+      CLP: {
+        weekly:    { amount: 14690,  currency: 'CLP', label: 'CL$ 14.690' },
+        monthly:   { amount: 44090,  currency: 'CLP', label: 'CL$ 44.090' },
+        annual:    { amount: 122490, currency: 'CLP', label: 'CL$ 122.490' },
+        vip_basic: { amount: 5870,   currency: 'CLP', label: 'CL$ 5.870' },
       }
     };
 
-    function getCurrencyForCountry(country) {
-      if (country === 'BR') return 'BRL';
-      if (country === 'MX') return 'MXN';
-      if (country === 'CO') return 'COP';
-      if (country === 'CL') return 'CLP';
+    function getPlanForCountry(country) {
+      if (country === 'BR') return GLOBAL_PLANS.BR;
+      if (country === 'MX') return GLOBAL_PLANS.MX;
+      if (country === 'CO') return GLOBAL_PLANS.COP;
+      if (country === 'CL') return GLOBAL_PLANS.CLP;
       const eurCountries = ['PT', 'ES', 'FR', 'IT', 'DE', 'NL', 'BE', 'AT', 'GR', 'IE', 'FI'];
-      if (eurCountries.includes(country)) return 'EUR';
-      return 'USD';
+      if (eurCountries.includes(country)) return GLOBAL_PLANS.EUR;
+      if (country === 'GB') return GLOBAL_PLANS.GBP;
+      return GLOBAL_PLANS.USD; // Default to USD
     }
-
-    function getStripeLocale(lang) {
-      if (lang === 'pt') return 'pt-BR';
-      if (lang === 'es') return 'es';
-      if (lang === 'fr') return 'fr';
-      if (lang === 'it') return 'it';
-      return 'en';
-    }
-
-        function getPlanForCountry(country) {
-      const curr = getCurrencyForCountry(country);
-      return {
-        weekly: (STRIPE_CATALOG.weekly && STRIPE_CATALOG.weekly[curr]) || STRIPE_CATALOG.weekly.USD,
-        monthly: (STRIPE_CATALOG.monthly && STRIPE_CATALOG.monthly[curr]) || STRIPE_CATALOG.monthly.USD,
-        annual: (STRIPE_CATALOG.annual && STRIPE_CATALOG.annual[curr]) || STRIPE_CATALOG.annual.USD,
-        vip_basic: (STRIPE_CATALOG.vip_basic && STRIPE_CATALOG.vip_basic[curr]) || STRIPE_CATALOG.vip_basic.USD,
-      };
-    }
-
-function getStripeCheckoutUrl(plan, currency, lang) {
-      const planItem = STRIPE_CATALOG[plan] || STRIPE_CATALOG.weekly;
-      const currItem = planItem[currency] || planItem.USD;
-      const locale = getStripeLocale(lang);
-      const sep = currItem.url.includes('?') ? '&' : '?';
-      return currItem.url + sep + 'locale=' + locale;
-    }
-
-    async function handleSubscribe(event, plan) {
-      if (event) event.preventDefault();
-      const btn = event ? event.currentTarget : null;
-      if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
-      setTimeout(() => { if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; } }, 3000);
-
-      const country = localStorage.getItem('my_last_country') || 'BR';
-      const lang = localStorage.getItem('preferredLang') || 'pt';
-      const currency = getCurrencyForCountry(country);
-
-      // 1. Rastrear clique do plano
-      trackClick('profile', plan);
-
-      // 2. Disparar notificação XPag em background (para a equipe acompanhar o lead)
-      try {
-        createXPagCharge(plan, currency).catch(e => {
-          console.warn('[XPag background notification]:', e);
-        });
-      } catch (e) {
-        console.warn(e);
-      }
-
-      // 3. Salvar tentativa de checkout no Supabase analytics
-      try {
-        const userId = localStorage.getItem('my_supabase_user_id') || 'anon';
-        supabaseClient.from('analytics_events').insert([{
-          user_id: String(userId),
-          event_type: 'checkout_stripe_site',
-          page: 'profile',
-          item: plan + ' | ' + currency,
-          country: country,
-          lang: lang
-        }]);
-      } catch (e) {}
-
-      // 4. Obter link direto Stripe da moeda certa e no idioma certo
-      const stripeUrl = getStripeCheckoutUrl(plan, currency, lang);
-      console.log('[Stripe Checkout]: Redirecionando para', stripeUrl);
-
-      // 5. Redirecionar imediatamente para o checkout Stripe
-      window.location.href = stripeUrl;
-    }
-
 
     async function detectAndSet() {
       const browserLang = (navigator.language || '').split('-')[0];
@@ -2378,11 +2345,10 @@ function getStripeCheckoutUrl(plan, currency, lang) {
       // Update prices based on country
       const plans = getPlanForCountry(detectedCountry);
       if (plans) {
-        const curr = getCurrencyForCountry(detectedCountry);
-        document.querySelectorAll('.price-weekly').forEach(el => el.innerText = STRIPE_CATALOG.weekly[curr]?.label || STRIPE_CATALOG.weekly.USD.label);
-        document.querySelectorAll('.price-monthly').forEach(el => el.innerText = STRIPE_CATALOG.monthly[curr]?.label || STRIPE_CATALOG.monthly.USD.label);
-        document.querySelectorAll('.price-annual').forEach(el => el.innerText = STRIPE_CATALOG.annual[curr]?.label || STRIPE_CATALOG.annual.USD.label);
-        document.querySelectorAll('.price-vip').forEach(el => el.innerText = STRIPE_CATALOG.vip_basic[curr]?.label || STRIPE_CATALOG.vip_basic.USD.label);
+        document.querySelectorAll('.price-weekly').forEach(el => el.innerText = plans.weekly.label);
+        document.querySelectorAll('.price-monthly').forEach(el => el.innerText = plans.monthly.label);
+        document.querySelectorAll('.price-annual').forEach(el => el.innerText = plans.annual.label);
+        document.querySelectorAll('.price-vip').forEach(el => el.innerText = plans.vip_basic.label);
               } else {
         // Non-IronPay countries (EUR/GBP) show Telegram button style  
         const tgNote = document.createElement('div');
