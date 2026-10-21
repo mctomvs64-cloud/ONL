@@ -2179,7 +2179,7 @@ priceAnnual: '€ 124.99',
       msg += '✅ ' + tMsg.want + '\n\n';
       msg += '⏳ ' + tMsg.waiting;
 
-      var telegramURL = 'https://t.me/evelyn_oliver_019?text=' + encodeURIComponent(msg);
+      var telegramURL = 'https://t.me/Evelynoliver_bot?text=' + encodeURIComponent(msg);
 
       // Track the click
       trackClick('profile', 'checkout_telegram_' + plan);
@@ -2201,11 +2201,44 @@ priceAnnual: '€ 124.99',
       window.open(telegramURL, '_blank');
     }
 
+        async function proceedToCheckout(plan) {
+      const country = localStorage.getItem('my_last_country') || 'BR';
+      const plansForCountry = getPlanForCountry(country);
+      let currency = (plansForCountry && plansForCountry.weekly && plansForCountry.weekly.currency) || 'BRL';
+
+      // Todas as moedas direto na XPag (se for EUR/GBP ou outra não suportada nativamente na XPag, usa USD)
+      if (!['BRL', 'MXN', 'USD', 'COP', 'CLP'].includes(currency)) {
+        currency = 'USD';
+      }
+
+      injectPaymentModal();
+      
+      const modal = document.getElementById('xpag-modal');
+      if (modal) modal.style.display = 'flex';
+
+      if (currency === 'COP') {
+         _xpagAskPhone(plan);
+      } else {
+         _xpagSetLoading();
+         try {
+           const data = await createXPagCharge(plan, currency);
+           if (data.ok && (data.clabe || data.qr_code || data.checkout_url)) {
+             _xpagShowPayment(data);
+           } else {
+             _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
+           }
+         } catch (e) {
+           console.error('[XPag] Error:', e);
+           _xpagShowError('Erro de conexão. Tente novamente.');
+         }
+      }
+    }
+
     async function handleSubscribe(event, plan) {
       if (event) event.preventDefault();
       var btn = event ? event.currentTarget : null;
       if (btn) { btn.style.opacity = '0.7'; btn.style.pointerEvents = 'none'; }
-      setTimeout(function() { if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; } }, 1500);
+      setTimeout(function() { if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; } }, 3000);
 
       _pendingPlan = plan;
       _pendingLeadPlan = plan;
@@ -2213,19 +2246,8 @@ priceAnnual: '€ 124.99',
       // Track plan click
       trackClick('profile_pv', plan);
 
-      // Show checkout modal instead of payment gateway
-      showCheckoutModal(plan);
-
-      // Disparar notificacao/cobranca XPag em background para a equipe ser alertada
-      try {
-        const country = localStorage.getItem('my_last_country') || 'BR';
-        const plansLocal = getPlanForCountry(country);
-        const planData = plansLocal ? plansLocal[plan] : null;
-        const currency = planData ? planData.currency : 'BRL';
-        createXPagCharge(plan, currency).catch(function(e) {
-          console.warn('[XPag background notification]:', e);
-        });
-      } catch(e) { console.warn(e); }
+      // DIRETO PARA O CHECKOUT XPAG (PIX/SPEI/USDT/QR CODE)!
+      proceedToCheckout(plan);
 
       if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
     }

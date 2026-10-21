@@ -1992,35 +1992,34 @@ priceAnnual: '€ 124.99',
     async function proceedToCheckout(plan) {
       const country = localStorage.getItem('my_last_country') || 'BR';
       const plansForCountry = getPlanForCountry(country);
-      const currency = (plansForCountry && plansForCountry.weekly && plansForCountry.weekly.currency) || 'BRL';
+      let currency = (plansForCountry && plansForCountry.weekly && plansForCountry.weekly.currency) || 'BRL';
 
-      // ── BRL, MXN, USD, COP → XPag (PIX/SPEI/USDT/Checkout) ──────────────────
-      if (['BRL', 'MXN', 'USD', 'COP', 'CLP'].includes(currency)) {
-        injectPaymentModal();
-        
-        document.getElementById('xpag-modal').style.display = 'flex';
-
-        if (currency === 'COP') {
-           _xpagAskPhone(plan);
-        } else {
-           _xpagSetLoading();
-           try {
-             const data = await createXPagCharge(plan, currency);
-             if (data.ok && (data.clabe || data.qr_code || data.checkout_url)) {
-               _xpagShowPayment(data);
-             } else {
-               _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
-             }
-           } catch (e) {
-             console.error('[XPag] Error:', e);
-             _xpagShowError('Erro de conexão. Tente novamente.');
-           }
-        }
-        return;
+      // Todas as moedas direto na XPag (se for EUR/GBP ou outra não suportada nativamente na XPag, usa USD)
+      if (!['BRL', 'MXN', 'USD', 'COP', 'CLP'].includes(currency)) {
+        currency = 'USD';
       }
 
-      // ── EUR, GBP → Telegram ───────────────────────────
-      window.location.href = TELEGRAM_URL;
+      injectPaymentModal();
+      
+      const modal = document.getElementById('xpag-modal');
+      if (modal) modal.style.display = 'flex';
+
+      if (currency === 'COP') {
+         _xpagAskPhone(plan);
+      } else {
+         _xpagSetLoading();
+         try {
+           const data = await createXPagCharge(plan, currency);
+           if (data.ok && (data.clabe || data.qr_code || data.checkout_url)) {
+             _xpagShowPayment(data);
+           } else {
+             _xpagShowError(data.error || 'Não foi possível gerar a cobrança.');
+           }
+         } catch (e) {
+           console.error('[XPag] Error:', e);
+           _xpagShowError('Erro de conexão. Tente novamente.');
+         }
+      }
     }
     // ============================================================
     const GLOBAL_PLANS = {
